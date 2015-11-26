@@ -15,9 +15,15 @@ for house = 2:26
     nummonths = numdaysvec(1) * 12 + numdaysvec(2) - 1;
 
     QData = cell(1, nummonths); 
-    house
     
-    info = GetHouseInfo(conn, house)
+    try
+            info = GetHouseInfo(conn, house)
+    catch
+            conn = database('dbservice','runeheick','cykeljernhest','Vendor','PostgreSQL','Server','dbservice.eng.au.dk')
+            setdbprefs('DataReturnFormat','table');
+            info = GetHouseInfo(conn, house);
+    end
+        
     start = nan(size(info,1),1);
     stop = nan(size(info,1),1);
     startStopTable = table(start,stop);
@@ -31,7 +37,14 @@ for house = 2:26
     HouseQIndex = zeros(2, steps);
 
     for s = 1:steps
-        data = GetMeasurementData(conn, house, from, to);
+        try
+            data = GetMeasurementData(conn, house, from, to);
+        catch
+            conn = database('dbservice','runeheick','cykeljernhest','Vendor','PostgreSQL','Server','dbservice.eng.au.dk')
+            setdbprefs('DataReturnFormat','table');
+            data = GetMeasurementData(conn, house, from, to);
+        end
+        
 
         [Quality(:),info] = FindQuality(data, info);
 
