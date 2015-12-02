@@ -17,8 +17,11 @@
 % Author: Ivan Magrin-Chagnolleau  <ivan@ieee.org>
 % 
 
-function imf = Modemd(left, rigth)
+function imf = Modemd(x, gapStart, gapSize)
 
+n = (1:length(x))'; 
+left = [x(1:gapStart-1) , n(1:gapStart-1)]; 
+rigth = [ x(gapStart+gapSize:end) , n(gapStart+gapSize:end)];
 c =  [left ; rigth]'; % copy of the input signal (as a row vector) to collum vector. 
 N = length(c);
 
@@ -26,46 +29,47 @@ N = length(c);
 % loop to decompose the input signal into successive IMF
 
 imf = []; % Matrix which will contain the successive IMF, and the residue
-
+I = 1;
 while (1) % the stop criterion is tested at the end of the loop
    
    %-------------------------------------------------------------------------
    % inner loop to find each imf
    
    h = c(1, :); % at the beginning of the sifting process, h is the signal
-   
+   k=1;
    SD = 1; % Standard deviation which will be used to stop the sifting process
+
    
-   while SD > 0.3
+   while SD > 0.3 && k <= 100/I
       % while the standard deviation is higher than 0.3 (typical value)
+      mins = []; 
+      maxes = [];
       
-      % find local max/min points
-      d = diff(h); % approximate derivative
-      maxmin = []; % to store the optima (min and max without distinction so far)
-      for i=1:N-2
-         if d(i)==0                        % we are on a zero
-            maxmin = [maxmin, [i ; h(i)] ];
-         elseif sign(d(i))~=sign(d(i+1))   % we are straddling a zero so
-            maxmin = [maxmin, [i+1 ; h(i+1)]];        % define zero as at i+1 (not i)
-         end
+      
+      [mins(2,:), mins(1,:)] = findpeaks(h*-1); 
+       mins(2,:) = mins(2,:)*-1; 
+      [maxes(2,:), maxes(1,:)] = findpeaks(h); 
+      
+      
+      
+      try
+      % stop criterion of the algo.
+      if (abs(max(maxes(2,:)))>10^6 && abs(min(mins(2,:)))>10^6)
+          h = [ c(1,1:length(left)) zeros(1,gapSize) c(1,length(left)+1:end) ];
+          ipoint = [ gapStart-2 gapStart-1 gapStart+gapSize gapStart+gapSize+1]; 
+          vpoint = h(ipoint);
+          h(gapStart:gapStart+gapSize) = spline(ipoint,vpoint,gapStart:gapStart+gapSize);
+          imf = [imf;  h];
+          return
       end
-      
-      if size(maxmin,2) < 2 % then it is the residue
-         break
+      catch
+          h = [ c(1,1:length(left)) zeros(1,gapSize) c(1,length(left)+1:end) ];
+          ipoint = [ gapStart-2 gapStart-1 gapStart+gapSize gapStart+gapSize+1]; 
+          vpoint = h(ipoint);
+          h(gapStart:gapStart+gapSize) = spline(ipoint,vpoint,gapStart:gapStart+gapSize);
+          imf = [imf;  h];
+        return
       end
-      
-      % divide maxmin into maxes and mins
-      if maxmin(1,1)>maxmin(1,2)              % first one is a max not a min
-         mins = maxmin(:,1:2:length(maxmin));
-         maxes  = maxmin(:,2:2:length(maxmin));
-      else                                % is the other way around
-         mins = maxmin(:,2:2:length(maxmin));
-         maxes  = maxmin(:,1:2:length(maxmin));
-      end
-          
-      
-      
-      % make endpoints both maxes and mins
       
       %Max
       Lindex = find(maxes(1,:)<length(left)); 
@@ -92,38 +96,49 @@ while (1) % the stop criterion is tested at the end of the loop
            
       %-------------------------------------------------------------------------
       % spline interpolate to get max and min envelopes; form imf
-      maxenv = spline(c(2,maxes(1,:)),maxes(2,:),c(2,1:N));
-      minenv = spline(c(2,mins(1,:)), mins(2,:),c(2,1:N));
+      maxenv = spline(c(2,maxes(1,:)),maxes(2,:),n);
+      minenv = spline(c(2,mins(1,:)), mins(2,:),n);
           
-%       figure(3)
-%       scatter(c(2,maxes(1,:)),maxes(2,:))
-%       hold on
-%       scatter(c(2,mins(1,:)),mins(2,:))
-%       plot(c(2,:),h)
-%       plot(c(2,:),maxenv)
-%       plot(c(2,:),minenv)
-%       hold off
       
-      
-      m = (maxenv + minenv)/2; % mean of max and min enveloppes
+      m = ([maxenv(1:gapStart-1) ; maxenv(gapStart+gapSize:end)] + [minenv(1:gapStart-1) ; minenv(gapStart+gapSize:end)])'/2; % mean of max and min enveloppes
       prevh = h; % copy of the previous value of h before modifying it
       h = h - m; % substract mean to h
       
       % calculate standard deviation
       eps = 0.0000001; % to avoid zero values
       SD = sum ( ((prevh - h).^2) ./ (prevh.^2 + eps) );
-      
+      k =k+1;
    end
    
-   imf = [imf; h]; % store the extracted IMF in the matrix imf
+   h_rep = [ h(1:length(left)) zeros(1,gapSize) h(length(left)+1:end) ];
+   figure(8)
+   scatter(c(2,maxes(1,:)),maxes(2,:))
+   hold on
+   scatter(c(2,mins(1,:)),mins(2,:))
+   plot(h_rep)
+   plot(maxenv)
+   plot(minenv)
+   hold off
+   
+   
+   
+   h_rep = imfRec2( h_rep, gapStart, gapSize, minenv, maxenv);
+   
+   imf = [imf; h_rep]; % store the extracted IMF in the matrix imf
    % if size(maxmin,2)<2, then h is the residue
+   I = I+1;
+      
+   c(1,:) = c(1,:) - h; % substract the extracted IMF from the signal
    
    % stop criterion of the algo.
-   if size(maxmin,2) < 2
+   if (size(maxes,2)+size(mins,2)) < 2 || size(imf,1)>10
+      h = [ c(1,1:length(left)) zeros(1,gapSize) c(1,length(left)+1:end) ];
+      ipoint = [ gapStart-2 gapStart-1 gapStart+gapSize gapStart+gapSize+1]; 
+      vpoint = h(ipoint);
+      h(gapStart:gapStart+gapSize) = spline(ipoint,vpoint,gapStart:gapStart+gapSize);
+      imf = [imf;  h];
       break
    end
-   
-   c(1,:) = c(1,:) - h; % substract the extracted IMF from the signal
    
 end
 
