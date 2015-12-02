@@ -111,16 +111,6 @@ while (1) % the stop criterion is tested at the end of the loop
    end
    
    h_rep = [ h(1:length(left)) zeros(1,gapSize) h(length(left)+1:end) ];
-   figure(8)
-   scatter(c(2,maxes(1,:)),maxes(2,:))
-   hold on
-   scatter(c(2,mins(1,:)),mins(2,:))
-   plot(h_rep)
-   plot(maxenv)
-   plot(minenv)
-   hold off
-   
-   
    
    h_rep = imfRec2( h_rep, gapStart, gapSize, minenv, maxenv);
    

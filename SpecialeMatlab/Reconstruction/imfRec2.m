@@ -34,21 +34,8 @@ function [ imf ] = imfRec2( imf, gapStart, gapLength, envlower, envUpper )
         %Do other reconstruction 
         ipoint = [ gapStart-2 gapStart-1 gapStart+gapLength gapStart+gapLength+1]; 
         vpoint = imf(ipoint);
-        
-        
-            figure(10)
-            plot(imf)
-            hold on
 
-            imf(gapStart:gapStart+gapLength) = spline(ipoint,vpoint,gapStart:gapStart+gapLength);
-
-            plot(imf)
-            plot(envlower)
-            plot(envUpper)
-            hold off
-        
-        
-        
+        imf(gapStart:gapStart+gapLength) = spline(ipoint,vpoint,gapStart:gapStart+gapLength);
         return; 
     end
 
@@ -97,17 +84,8 @@ function [ imf ] = imfRec2( imf, gapStart, gapLength, envlower, envUpper )
     end
     
     vpoint = imf(ipoint);
-    
-    figure(10)
-    plot(imf)
-    hold on
-    
+
     imf(gapStart:gapStart+gapLength) = spline(ipoint,vpoint,gapStart:gapStart+gapLength);
-    
-    plot(imf)
-    plot(envlower)
-    plot(envUpper)
-    hold off
-    
+   
 end
 

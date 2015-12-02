@@ -72,14 +72,6 @@ while (1) % the stop criterion is tested at the end of the loop
       maxenv = spline(maxes,h(maxes),1:N);
       minenv = spline(mins, h(mins),1:N);
       
-      figure(2)
-      plot(maxenv)
-      hold on
-      plot(minenv)
-      plot(h)
-      hold off
-      
-      
       m = (maxenv + minenv)/2; % mean of max and min enveloppes
       prevh = h; % copy of the previous value of h before modifying it
       h = h - m; % substract mean to h

@@ -5,14 +5,14 @@ dt = 1/Fs;                   % seconds per sample
 StopTime = 0.05;             % seconds
 n = (-(StopTime-dt)/2:dt:(StopTime-dt)/2)';     % seconds
 
-Fc = 200;                     % hertz
-x = (sin(2*pi*Fc*n))./n; %+sin(2*pi*4*Fc*n);%+sin(2*pi*8*Fc*n)%
+Fc = 300;                     % hertz
+x = (sin(2*pi*linspace(100,Fc,size(n,1))'.*n))./n;
 % x = (testdata(1431:1642))';
 % x = x - mean(x);
 n = (1:length(x))';
 
-gapStart = 105;
-gapSize = 30; 
+gapStart = 100;
+gapSize = 20; 
 
  plot(n,x)
  hold on
@@ -26,14 +26,21 @@ Rigth = [ x(gapStart+gapSize:end) , n(gapStart+gapSize:end)];
 signal = [Left ; Rigth];
 
 infs = Modemd(x, gapStart, gapSize);
-%infs = emd(signal);
+imfs2 = emd(x);
 
 figure
-for i = 1:size(infs,1)
-    
-   subplot(size(infs,1),1,i);
-   plot(n, infs(i,:));
-
+index = 0; 
+for i = 1:2:size(infs,1)*2
+   index = index+1; 
+   subplot(size(infs,1),2,i);
+   plot(n, infs(index,:));
+   hold on 
+   plot(n(gapStart:gapStart+gapSize-1), infs(index,gapStart:gapStart+gapSize-1));
+   
+   if(size(imfs2,1)>= i)
+       subplot(size(infs,1),2,i+1);
+       plot(n, imfs2(index,:));
+   end
 end
 
 figure
