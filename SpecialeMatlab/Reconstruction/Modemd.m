@@ -121,7 +121,7 @@ while (1) % the stop criterion is tested at the end of the loop
    c(1,:) = c(1,:) - h; % substract the extracted IMF from the signal
    
    % stop criterion of the algo.
-   if (size(maxes,2)+size(mins,2)) < 2 || size(imf,1)>10
+   if (size(maxes,2)+size(mins,2)) < 2 || size(imf,1) >= 10
       h = [ c(1,1:length(left)) zeros(1,gapSize) c(1,length(left)+1:end) ];
       ipoint = [ gapStart-2 gapStart-1 gapStart+gapSize gapStart+gapSize+1]; 
       vpoint = h(ipoint);

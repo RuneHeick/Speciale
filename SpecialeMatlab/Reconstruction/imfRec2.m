@@ -8,29 +8,29 @@ function [ imf ] = imfRec2( imf, gapStart, gapLength, envlower, envUpper )
      
     t_left = mins(find(mins<(gapStart-1)));
     if(imf(gapStart-1)<envlower(gapStart-1) )
-        t_left = [ t_left gapStart-1]
+        t_left = [ t_left gapStart-1];
     end
     t_left(2,:) = zeros(1,size(t_left,2));
     
     T_left = maxs(find(maxs<(gapStart-1)));
     if(imf(gapStart-1)>envUpper(gapStart-1))
-        T_left = [ T_left gapStart-1]
+        T_left = [ T_left gapStart-1];
     end
     T_left(2,:) = ones(1,size(T_left,2));
     
     t_rigth = mins(find(mins>gapStart+gapLength)); 
     if(imf(gapStart+gapLength)<envlower(gapStart+gapLength) )
-        t_rigth = [ gapStart+gapLength t_rigth]
+        t_rigth = [ gapStart+gapLength t_rigth];
     end
     t_rigth(2,:) = zeros(1,size(t_rigth,2));
     
     T_rigth = maxs(find(maxs>gapStart+gapLength));
     if(imf(gapStart+gapLength)>envUpper(gapStart+gapLength) )
-        T_rigth = [gapStart+gapLength T_rigth]
+        T_rigth = [gapStart+gapLength T_rigth];
     end
     T_rigth(2,:) = ones(1,size(T_rigth,2));
     
-    if( size(t_left,2)+size(t_left,2) < 2 || size(t_rigth,2)+size(T_rigth,2) < 2 )
+    if( size(t_left,2)+size(T_left,2) < 2 || size(t_rigth,2)+size(T_rigth,2) < 2 )
         %Do other reconstruction 
         ipoint = [ gapStart-2 gapStart-1 gapStart+gapLength gapStart+gapLength+1]; 
         vpoint = imf(ipoint);
@@ -47,11 +47,11 @@ function [ imf ] = imfRec2( imf, gapStart, gapLength, envlower, envUpper )
                 leftPeaks(2,1:end-1) rigthPeaks(2,1:end-1)
                 ];
         
-    p = polyfit(peakmap(2,:),peakmap(1,:),5);
+    p = polyfit(peakmap(2,:),peakmap(1,:),ceil(size(peakmap,2)/2));
     y1 = polyval(p,peakmap(2,:));
     error = abs(peakmap(1,:)-y1);
-    div = std(error)
-    
+    div = std(error);
+       
     peak = leftPeaks(1,end);
     rconp = [];
     while(peak < gapStart+gapLength)
@@ -62,7 +62,11 @@ function [ imf ] = imfRec2( imf, gapStart, gapLength, envlower, envUpper )
                 rconp = [rconp [peak ; ~rconp(2,end)]];
             end            
         end
-        peak = floor((peak + polyval(p,peak)) + div.*randn(1,1));
+        
+        prediction = polyval(p,peak);
+        
+        prediction = (prediction>=1)*prediction + (prediction<1);
+        peak = floor((peak + prediction) + div.*randn(1,1));
     end
     
     if(isempty(rconp))
@@ -85,7 +89,16 @@ function [ imf ] = imfRec2( imf, gapStart, gapLength, envlower, envUpper )
     
     vpoint = imf(ipoint);
 
+%     figure(2)
+%     plot(imf)
+%     hold on
+%     plot(envlower)
+%     plot(envUpper)
+    
     imf(gapStart:gapStart+gapLength) = spline(ipoint,vpoint,gapStart:gapStart+gapLength);
-   
+    
+%     plot(imf)
+%     hold off;
+    
 end
 

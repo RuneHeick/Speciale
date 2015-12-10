@@ -1,9 +1,8 @@
-function [ x ] = WienerGapFixer(x_gap, i_gapStart, gapLength)
+function [ x ] = WienerGapFixer(x_gap, i_gapStart, gapLength, traindelta)
 %WINERGAPFIXER Summary of this function goes here
 %   Detailed explanation goes here
 
-traindelta = 50; 
-trainL = 50; 
+trainL = ceil(traindelta/2); 
 
 i_trainLeft = (i_gapStart>traindelta)*(i_gapStart-traindelta) + (i_gapStart<=traindelta);
 i_trainRigth = (length(x_gap)- (i_gapStart+gapLength) > traindelta)*(i_gapStart+gapLength+traindelta) + (length(x_gap)- (i_gapStart+gapLength) <= traindelta)*length(x_gap);
@@ -26,21 +25,23 @@ for n = 1:2
     
     [a,g] = lpc(trainData, trainL);
 
+    a(find(isnan(a))) = 0;
+    
     predict = filter([0 -a(2:end)],1,[trainData(1:end-1); 0]);
     errorCor = max(predict(end)/trainData(end),1.022);
     
     for index = 1:gapLength;
         predict = filter([0 -a(2:end)],1,[trainData; 0]);
-        trainData = [trainData; predict(end)*errorCor]
+        trainData = [trainData; predict(end)*errorCor];
         constructed(way(n)*index+(((way(n)-1)/2)*(-end-1)), n) = predict(end)*errorCor;        
     end
     
-    constructed(:, n) = constructed(:, n) + mu
+    constructed(:, n) = constructed(:, n) + mu;
 end
 
-prop = linspace(1,0, gapLength)' 
+prop = linspace(1,0, gapLength)' ;
 
-constructed(isnan(constructed)) = 0
+constructed(isnan(constructed)) = 0;
 
 G = [ prop  flipud(prop)];
 V = sum(constructed.*G,2);

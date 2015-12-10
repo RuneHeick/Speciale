@@ -1,0 +1,46 @@
+\chapter{Data Quality}
+Various projects today is focused on gathering data and analysing it. The gathered data is used for obtaining behaviours, habits and properties of the observed objects. This is done by using powerful statistical leaning algorithms, that are able to deduce these properties from the data. This approach is called data driven development, since the success is mainly determined by the data and not the algorithm. 
+
+When data is the central role of the system, the quality of the data are very important. Poor data can let to wrong assumptions, and have a negative effect on the application. Choosing the correct dataset is therefore a key factor \cite{RefWorks:3}. Looking at the quality of the data can help you chose what dataset to use. Data quality can be described many ways, one of the more formal is from the ISO 8402 standard that describes quality as: 
+
+\begin{adjustwidth}{2.5em}{2.5em}
+\emph{"The totality of characteristics of an entity that bear upon its ability of satisfy stated and implied needs"} \cite{RefWorks:5}.
+\end{adjustwidth}
+
+This indicate that data quality is something that is very depended on the intended use and is therefore hard to generalize. 
+
+Quality of data is a subject that is gaining more and more attention due to the fact that we are moving data gathering from controlled labs, to the public. Many of these projects is the citizen science project, where it is the citizen who collect the data, and not interested parties \cite{RefWorks:2}. This enables researchers to gather enormous amount of data, but they are no longer in control of the conditions the data is collected in, which introduces errors and other quality decreasing factors. 
+
+
+\section{Quality Parameters}
+It is not uncommon that deficient areas of of research has its own quality criteria. This is due to the fact that quality is a very domain specific subject.
+
+One of the areas that have been dealing with citizen data for many years is the Geographic information area, that are used for maps, weather prediction and climate research. They have come up whit several ways of describing quality in spatial data \cite{RefWorks:7}. Method for defining quality in time series data have also been developed  \cite{RefWorks:6}. 
+
+One of the things all the methods have in common is trying to look at the completeness of the data. Some of the most low level criteria is the sample availability. Here we asses if there is gaps in the data, that is caused of unknown interference, and look at how the samples is distributed in the measurement period.  
+
+
+\section{Appliance Citizen Data}
+As a part of the SmartHG project 25 households have been equipped with meters on selected appliances and the main meter. The data collected from this experiment are are prone with errors due to malfunctioning test equipment or unexpected interference from the resident there have been unintentionally turning off the measurement equipment for a period of time. 
+
+The sample availability quality of the data in the SmartHG dataset have been measured on a hour basis.  The quality for each meter is assessed by looking at the available samples over the maximum expected samples in the period.  
+\begin{gather}
+		N_{max}^{(m,T)} = \floor{ (\phi_{start}^{(m,T)} - T_{P})\times T_s^{(m)} } \label{EQ:NMAX} \\
+		q^{(m,T)} = \frac{N_{observed}^{(m,T)}}{ N_{max}^{(m,T)} } \label{EQ:QMT}
+\end{gather}
+As shown on equation \ref{EQ:NMAX} is the maximum number of samples for a meter $m$ in the period $T$ calculated by taking the period time $T_P$, corrected with the sample phase $(\phi_{start}$ for the given period, and dividing it with the sample time $T_s$. The quality of the meter is calculated as the ratio of observed samples in the timeslot $T$ to the maximum samples, shown in equation \ref{EQ:QMT}. 
+
+To find the quality of a house in a given period $T$, that have a set of meters $M$, we take the mean value of all the meter quality's, as shown in equitation \ref{EQ:HQT}.  
+\begin{equation}
+	\mu_{q^{(M,T)}} = \frac{1}{\mathbf{card}(M)} \sum_{m \in M} q^{(m,T)}
+	\label{EQ:HQT}
+\end{equation}
+Each house has a quality vector $Q$, with the house quality found whit a period $T_P$ on one hour. This have been done from April $t_{start}$ to October $t_{end}$. 
+\begin{equation}
+	Q^{(M,t_{start},t_{end} )} = \{ \mu_{q^{(M,T)}} | T \in \{t_{start}, t_{start}+T_p,t_{start}+2 \times T_p, ... , t_{end}  \} \}
+	\label{EQ:HQV}
+\end{equation}
+This is shown in equation \ref{EQ:HQV} where M is a set of the meters in a given house. This can be graphically shown on the figure \fxnote{show the figure of quality} where the color is a gradient running from light green for the best quality to red for bad quality.   
+
+
+\section{Related Work}

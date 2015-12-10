@@ -2,9 +2,9 @@
 conn = database('dbservice','runeheick','cykeljernhest','Vendor','PostgreSQL','Server','dbservice.eng.au.dk')
 setdbprefs('DataReturnFormat','table');
 
-house = 24
-from = datetime(2015,5,1); % start
-EndTime = datetime(2015,6,1);
+house = 5
+from = datetime(2015,6,1); % start
+EndTime = datetime(2015,7,1);
 
 numdaysvec = datevec(datenum(EndTime)-datenum(from));
 info = GetHouseInfo(conn, house)
@@ -25,8 +25,8 @@ close(conn)
 
 %% 
 figure(2)
-mainMeterNr = 2 % 2 10
-subMeterNr = 10 % 2 10
+mainMeterNr = 1 % 2 10
+subMeterNr = 7 % 2 10
 
 subplot(2,1,1)
 mData = Data{mainMeterNr,2};
@@ -36,55 +36,35 @@ subplot(2,1,2)
 sData = Data{subMeterNr,2};
 plot(sData{:,1},sData{:,2})
 
-%% interpolation Linear
+[ vqSub error] = CleanDataSet(sData);
+[vqMain error2] = CleanDataSet(mData);
 
-%Main meter data
-[x, i] = unique(mData{:,1});
-y = mData{i,2};
-n = min(x):30:max(x);
-vqMain = interp1(x,y,n);
 
-%supmeter
-[x, i] = unique(sData{:,1});
-y = sData{i,2};
-vqSub = interp1(x,y,n);
-
-% plot 
+%% plot
 figure
 subplot(2,1,1)
-plot(n,vqMain);
+plot(vqMain);
+hold on 
+scatter(error2, zeros(size(error2)), 'r');
 subplot(2,1,2)
-plot(n,vqSub);
+plot(vqSub);
+hold on 
+scatter(error, zeros(size(error)), 'r');
 
-%% Find error area 
+%% 
+size1 = error(2:end) - error(1:end-1);
+size2 = error2(2:end) - error2(1:end-1);
 
-Sdelay = sData{2:end,1}-sData{1:end-1,1}; 
-maxAllowedDelay = mean(Sdelay)*1.2; 
+[~, max1 ] = max(size1);
+[~, max2 ] = max(size2);
 
-ErrorI = find(Sdelay>maxAllowedDelay);
-ErrorTimes = [sData{ErrorI,1} sData{ErrorI+1,1}, Sdelay(ErrorI)];
+data = []; 
+load('DataSnips');
 
+data{size(data,2)+1} =  vqSub(error(max1):error(max1+1));
 
-%% Remove errors 
-index = 1;
-for i = 1: size(n,2)
+data{size(data,2)+1} =  vqMain(error2(max2):error2(max2+1));
 
-   if( n(i) > ErrorTimes(index,1) && n(i) < ErrorTimes(index,2))
-       vqSub(i) = nan; 
-   end
-   
-   if(n(i) > ErrorTimes(index,2))
-      index = index +1 ;
-      if index > size(ErrorTimes,1)
-         break; 
-      end
-   end
-    
-end
-
-%% reconstruction
-
-
-
+save('DataSnips', 'data');
 
 

@@ -13,9 +13,9 @@ x = x - mean(x);
 n = (1:length(x))';
 
 gapStart = 100;
-gapSize = 30; 
+gapSize = 15; 
 
-s = [ x(1:gapStart-1) ; zeros(gapSize,1) ; x(gapStart+gapSize:end) ]
+s = [ x(1:gapStart-1) ; zeros(gapSize,1) ; x(gapStart+gapSize:end) ];
 
 
 %%

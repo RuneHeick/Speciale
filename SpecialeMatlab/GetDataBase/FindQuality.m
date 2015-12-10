@@ -1,26 +1,8 @@
-function [ Quality, MeterInfo ] = FindQuality( dataSet, MeterInfo )
+function [ Quality, MeterInfo ] = FindQuality( dataSet, MeterInfo, T_start, T_end )
 %FINDQU Summary of this function goes here
 %   Detailed explanation goes here
-    QualityParamters = @(x, unit)[
-            %Time
-            0 %max(x(2:end,1)-x(1:end-1,1))
-            0 %min(x(2:end,1)-x(1:end-1,1))
-            mean(x(2:end,1)-x(1:end-1,1))
-            0 %var(x(2:end,1)-x(1:end-1,1))
-            %Value
-            0 %DoWithoutTimeDependency(@max , x(:,2), unit)
-            0 %DoWithoutTimeDependency(@min, x(:,2), unit)
-            0 %DoWithoutTimeDependency(@mean, x(:,2), unit)
-            0 %DoWithoutTimeDependency(@var, x(:,2), unit)
-            %NoSamples
-            size(x,1)
-            DoWithoutTimeDependency(@ActivityAnalyses, x, unit)
-        ]; 
-
-    
-    parmetersTest = QualityParamters([1 1 1;1,1,1], 'dummy')'; 
-    
-    Quality = num2cell(NaN(size(MeterInfo,1),size(parmetersTest,2)),2); 
+        
+    Quality = num2cell(NaN(size(MeterInfo,1),3),2); 
     
     if(isempty(dataSet))
         return;
@@ -45,7 +27,23 @@ function [ Quality, MeterInfo ] = FindQuality( dataSet, MeterInfo )
         if id(i)+1<id(i+1) % if more than one sample
             %Calculate Quality
             unit = MeterInfo{Ii(i),2};
-            Quality(Ii(i)) = num2cell(QualityParamters(dataSet{id(i):id(i+1)-1,:}, unit{1})',2);
+            x = dataSet{id(i):id(i+1)-1,:};
+            T_s = mean(x(2:end,1)-x(1:end-1,1));
+            
+                      
+            startTime = (datenum(T_start)-datenum(datetime(1970,1,1)))*24*60*60 - (60*60*2);
+            endTime = (datenum(T_end)-datenum(datetime(1970,1,1)))*24*60*60 - (60*60*2);
+            
+            T_p = (endTime - startTime);
+            
+            phi = (x(1,1)-startTime);        
+            
+            
+            N_max = floor(((floor(T_p-phi))/T_s))+1; 
+            N_observed = size(x,1);
+                        
+
+            Quality{Ii(i)} = [N_max, N_observed ,DoWithoutTimeDependency(@ActivityAnalyses, x, unit{1}) ];%num2cell(QualityParamters(dataSet{id(i):id(i+1)-1,:}, unit{1})',2);
         end;
     end; 
 

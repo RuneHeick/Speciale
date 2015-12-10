@@ -3,7 +3,7 @@ function [ activity ] = ActivityAnalyses( data )
 %   Detailed explanation goes here
     
     Y = std(data(:,2));
-    activity  = Y > 10;
+    activity  = Y;
     
 end
 

@@ -1,75 +1,60 @@
-%%%% Guide til bibtex og litteratur.bib %%%%
 
-% Alle kilder angives efter Harvard-metoden og vil i rapporten fremstaa med [FORFATTER, AAR] eller mere praecist [EFTERNAVN, AAR].
 
-% Nederst findes eksempler paa kildeangivelser af typerne manual, book, article, techreport og misc.
-	% - Manual bruges ved henvisninger fra internettet, idet \url-funktionen findes her
-	% - Book bruges ved helt almindelige boeger
-	% - Article bruges ved artikler og udgivelser
-	% - Techreport kan bruges ved mindre udgivelser, hvor kun titel, forfatter og AAR er noedvendig eller tilgaengelig
-	% - Misc kan bruges ved det, der falder udenfor de andre kategorier - interview, forelaesninger, foredrag osv. 
 
-% Hvis der er flere forfattere paa en kilde, SKAL de listes med 'and' imellem dem - ogsaa ved 3 og derover (f.eks. FORFATTER 1 and FORFATTER 2 and FORFATTER 3). NAAR kildelisten bygges i rapporten, vil der ved 2 forfattere komme til at staa [EFTERNAVN 1 og EFTERNAVN 2, AAR] og ved 3 forfattere og derover komme til at staa [EFTERNAVN 1 et. al, AAR]. 
-
-% Ved almindelige forfatternavne skal der vaere ét saet tuborg-parenteser ved Author (f.eks. author = {H. C. Andersen}). Ved andre navne (f.eks. virksomheder, hjemmesider, grupper, raad, naevn osv.) skal der vaere 2 saet tuborg-parenteser ved Author (f.eks. author = {{Dansk Standard}}). Begrundelse: med 2 saet tuborg-parenteser skrives hele parentesen ud som forfatter, [Dansk Standard, AAR]. Alternativt ville der i eksemplet bare komme til at staa [Standard, AAR].
-
-%-----------------------------------------------------%
-
-%%%% EKSEMPLER (manual, book, article, techreport og misc) %%%%
-
-@book{latex,
-	title = {The latex companion},
-	author = {Frank Mittelbach and Michel Gossens},
-	year = {2004},
-	number = {ISBN: 0-201-36299-6},
-	publisher = {Addision-Wesley},
-	series = {Handbook}
+@book{RefWorks:7,
+	author={ISO 19157:2013},
+	year={2013-12-15},
+	title={Geographic information -- Data quality},
+	publisher={ISO},
+	edition={1}
 }
 
-@Book{thrun2005probabilistic,
- author = {Thrun, Sebastian},
- title = {Probabilistic robotics},
- publisher = {MIT Press},
- year = {2005},
- address = {Cambridge, Mass},
- isbn = {978-0262201629}
- }
-
-@misc{AIROK,
-	author = {Sebastian Thrun},
-	title = {Artificial Intelligence for Robotics},
-	howpublished = {\url{https://www.udacity.com/course/progress#!/c-cs373}},
-	note = {Accessed: 2015-10-24}
+@book{RefWorks:5,
+	author={ISO 8402:1994},
+	year={1994-03-24},
+	title={Quality management and quality assurance -- Vocabulary},
+	publisher={ISO},
+	edition={2}
 }
 
-@misc{ArduinoRobot,
-	title = {Arduino - Robot},
-	howpublished = {\url{https://www.arduino.cc/en/Main/Robot}},
-	note = {Accessed: 2015-10-24}
+@misc{RefWorks:2,
+  author = 	 {Steve Kelling and Daniel Fink and Frank A. La Sorte and Alison Johnston and Nicholas E. Bruns and Wesley M. Hochachka},
+  month = 	 {2015-10-27; 2015-11},
+  title = 	 {Taking a ?Big Data? approach to data quality in a citizen science project},
+  note = 	 {Type: Text; © The Author(s) 2015; Open AccessThis article is distributed under the terms of the Creative Commons Attribution 4.0 International License (http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons license, and indicate if changes were made.},
+  abstract = 	 {Data from well-designed experiments provide the strongest evidence of causation in biodiversity studies. However, for many species the collection of these data is not scalable to the spatial and temporal extents required to understand patterns at the population level. Only data collected from citizen science projects can gather sufficient quantities of data, but data collected from volunteers are inherently noisy and heterogeneous. Here we describe a ?Big Data? approach to improve the data quality in eBird, a global citizen science project that gathers bird observations. First, eBird?s data submission design ensures that all data meet high standards of completeness and accuracy. Second, we take a ?sensor calibration? approach to measure individual variation in eBird participant?s ability to detect and identify birds. Third, we use species distribution models to fill in data gaps. Finally, we provide examples of novel analyses exploring population-level patterns in bird distributions.},
+  keywords = 	 {Article},
+  language = 	 {en}
 }
 
-@misc{BTshield,
-	title = {BT Shield},
-	howpublished = {\url{http://wiki.iteadstudio.com/BT_Shield_%28Master_Slave%29}},
-	note = {Accessed: 2015-10-24}
-}
-@misc{BTshield2,
-	title = {ITEAD Wireless Bluetooth Shield Module Starter Kit For Arduino},
-	howpublished = {\url{http://www.itead.cc/itead-bt-shield-master-slave.html#}},
-	note = {Accessed: 2015-10-24}
-}
+@misc{RefWorks:4,
+  author = 	 {M. Meijer and L. A. E. Vullings and J. D. Bulens and F. I. Rip and M. Boss and G. Hazeu and M. Storm},
+  month = 	 {2015-08-01T00:00:00Z},
+  title = 	 {SPATIAL DATA QUALITY AND A WORKFLOW TOOL},
+  note = 	 {Type: article; CC BY},
+  abstract = 	 {Although by many perceived as important, spatial data quality has hardly ever been taken centre stage unless something went wrong due to bad quality. However, we think this is going to change soon. We are more and more relying on data driven processes and due to the increased availability of data, there is a choice in what data to use. How to make that choice? We think spatial data quality has potential as a selection criterion.
 
-
-@misc{ArduinoUno,
-	title = {Arduino - ArduinoBoardUno},
-	howpublished = {\url{https://www.arduino.cc/en/Main/ArduinoBoardUno}},
-	note = {Accessed: 2015-10-24}
+In this paper we focus on how a workflow tool can help the consumer as well as the producer to get a better understanding about which product characteristics are important. For this purpose, we have developed a framework in which we define different roles (consumer, producer and intermediary) and differentiate between product specifications and quality specifications. A number of requirements is stated that can be translated into quality elements. We used case studies to validate our framework. This framework is designed following the fitness for use principle. Also part of this framework is software that in some cases can help ascertain the quality of datasets.},
+  keywords = 	 {Technology; T; Engineering (General); Civil engineering (General); TA1-2040; Applied optics; Photonics; TA1501-1820},
+  language = 	 {EN}
 }
 
-@misc{LIDAR,
-	title = {LIDAR Sensor},
-	howpublished = {\url{https://xv11hacking.wikispaces.com/LIDAR+Sensor}},
-	note = {Accessed: 2015-10-24}
+@misc{RefWorks:3,
+  author = 	 {N. Regnauld},
+  month = 	 {2015-08-01T00:00:00Z},
+  title = 	 {GENERALISATION AND DATA QUALITY},
+  note = 	 {Type: article; CC BY},
+  abstract = 	 {The quality of spatial data has a massive impact on its usability. It is therefore critical to both the producer of the data and its users.In this paper we discuss the close links between data quality and the generalisation process. The quality of the source data has aneffect on how it can be generalised, and the generalisation process has an effect on the quality of the output data. Data qualitytherefore needs to be kept under control. We explain how this can be done before, during and after the generalisation process, usingthree of 1Spatial?s software products: 1Validate for assessing the conformance of a dataset against a set of rules, 1Integrate forautomatically fixing the data when non-conformances have been detected and 1Generalise for controlling the quality during thegeneralisation process. These tools are very effective at managing data that need to conform to a set of quality rules, the mainremaining challenge is to be able to define a set of quality rules that reflects the fitness of a dataset for a particular purpose.},
+  keywords = 	 {Technology; T; Engineering (General); Civil engineering (General); TA1-2040; Applied optics; Photonics; TA1501-1820},
+  language = 	 {EN}
 }
 
-
+@inproceedings{RefWorks:6,
+	author={G. Pastorello and D. Agarwal and T. Samak and C. Poindexter and B. Faybishenko and D. Gunter and R. Hollowgrass and D. Papale and C. Trotta and A. Ribeca and E. Canfora},
+	year={2014},
+	title={Observational Data Patterns for Time Series Data Quality Assessment},
+	booktitle={e-Science (e-Science), 2014 IEEE 10th International Conference on},
+	volume={1},
+	pages={271-278},
+	note={ID: 1}
+}

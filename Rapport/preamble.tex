@@ -10,6 +10,12 @@
 \usepackage{fixltx2e}						% Retter forskellige fejl i LaTeX-kernen
 																			
 % ¤¤ Figurer og tabeller (floats) ¤¤ %
+\usepackage{changepage}						% http://ctan.org/pkg/changepage
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\addtolength{\jot}{2ex}
 
 \usepackage{graphicx}						% Haandtering af eksterne billeder (JPG, PNG, EPS, PDF)
 \usepackage{caption}
@@ -47,6 +53,26 @@
 % Kommentarer og rettelser med \fxnote. Med 'final' i stedet for 'draft' udloeser hver note en error i den faerdige rapport.
 \usepackage[footnote,final,english,silent,nomargin]{fixme}		
 \usepackage[bottom]{footmisc}
+
+\fxsetup{
+    status=draft,
+    author=,
+    layout=inline,
+    theme=color
+}
+
+\definecolor{fxnote}{rgb}{0.8000,0.0000,0.0000}
+% define the background colour:
+\colorlet{fxnotebg}{yellow}
+
+% refedine the layout macro:
+\makeatletter
+\renewcommand*\FXLayoutInline[3]{%
+  \@fxdocolon {#3}{%
+    \@fxuseface {inline}%
+    \colorbox{fx#1bg}{\color {fx#1}\ignorespaces #3\@fxcolon #2}}}
+\makeatother
+
 
 %%%% CUSTOM SETTINGS %%%%
 
