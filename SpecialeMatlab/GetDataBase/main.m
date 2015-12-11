@@ -6,7 +6,7 @@ for house = 2:26
 
     from = datetime(2015,4,1); % start
     EndTime = datetime(2015,11,1);
-    interval = 1; % i timer 
+    interval = 12; % i timer 
 
 
     to  = from+hours(interval);
@@ -32,7 +32,7 @@ for house = 2:26
     
     while(to<EndTime)
 
-    steps = ((eomdate(from)-datenum(from))+1)*24; 
+    steps = (((eomdate(from)-datenum(from))+1)*24)/interval; 
     HouseQIndex = cell(1, steps);
 
     for s = 1:steps
@@ -44,7 +44,8 @@ for house = 2:26
             data = GetMeasurementData(conn, house, from, to);
         end
         
-        HouseQIndex(1,s) = {FindQuality(data, info, from, to )};
+        [res, info] = FindQuality(data, info, from, to );
+        HouseQIndex(1,s) = {res};
          
 
         from = to; 

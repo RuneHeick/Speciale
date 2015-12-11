@@ -1,49 +1,85 @@
-
+close all; 
 
 houseData = zeros(25,11);
 
+from = datetime(2015,4,1); % start
+EndTime = datetime(2015,11,1);
+interval = 12; % i timer 
+
+gapHis = zeros(20000,1); 
 
 for house = 2:26
     
     load(strcat('Quality',num2str(house)),'QData','info');
     figure
     for mcount = 1: size(QData,2)
-        
+        Q = [];
         HouseQIndex = QData{mcount}; 
         for i = 1: size(HouseQIndex,2)
+                        
+            startTime = (datenum(datetime(2015,3+mcount,1,(i-1)*interval,0,0))-datenum(datetime(1970,1,1)))*24*60*60 - (60*60*2);
+            EndTime = (datenum(datetime(2015,3+mcount,1,i*interval,0,0))-datenum(datetime(1970,1,1)))*24*60*60 - (60*60*2);
+            ActiveMeters = ( EndTime >= info{:,5} ) .* (info{:,6} >= startTime)
             
-            from = datetime(2015,3+mcount,1,i-1,0,0);
-            startTime = (datenum(datetime(2015,3+mcount,1,i-1,0,0))-datenum(datetime(1970,1,1)))*24*60*60 - (60*60*2);
-            EndTime = (datenum(datetime(2015,3+mcount,1,i,0,0))-datenum(datetime(1970,1,1)))*24*60*60 - (60*60*2);
-            ActiveMeters = (((info{:,5} <= startTime) .* (info{:,6} >= EndTime)) + ((info{:,5} >= startTime) .* (info{:,6} <= EndTime)))>0;
+            %dummy 
+            %ActiveMeters  = [ 0 0 1 1 1 zeros(1,size(ActiveMeters,1)-5) ]';
             
-            HouseQIndex(3,i) = sum(ActiveMeters);
             
-            if(HouseQIndex(3,i)>0)
-                good = HouseQIndex(1,i)/HouseQIndex(3,i) ;
-                index = floor(good*10)+1; 
-                if(index<=11)
-                    houseData(house-1,index) = houseData(house-1,index)+1;
+            Meterdata = []; 
+            for z = 1:size(HouseQIndex{i},1)
+                Mdata = HouseQIndex{i}{z,1};
+                GapData = HouseQIndex{i}{z,2};
+                if(isempty(Mdata))
+                    Meterdata(z,:) = [0 0 0];
+                else
+                    Meterdata(z,:) = Mdata;
                 end
+                
+                for g = 1:length(GapData)
+                    gapHis(ceil(GapData(g))) = gapHis(ceil(GapData(g)))+1;
+                end
+                
             end
+            
+            Mquality = Meterdata(:,2)./Meterdata(:,1);
+            Mquality(find(isnan(Mquality))) = 0; 
+            
+            Hquality = sum((Mquality.*ActiveMeters))/sum(ActiveMeters);
+            
+            Mactivity = Meterdata(:,3);
+            Mactivity(find(isnan(Mactivity))) = 0; 
+            
+            MetersWithActivity = Mactivity>100;
+            Hactivity = sum((MetersWithActivity.*ActiveMeters))/sum(ActiveMeters);
+            
+            if(sum(ActiveMeters)>0)
+                index = floor(Hquality*10)+1; 
+                if(index>11)
+                    index = 11; 
+                end
+                houseData(house-1,index) = houseData(house-1,index)+1;
+            end
+            
+            Q = [Q ; [Hquality, Hactivity , sum(ActiveMeters) ]];
+            
         end
               
         
-        informationDensity = HouseQIndex(3,:)./20;
-        Valid =  (HouseQIndex(1,:) ./ HouseQIndex(3,:));
-        Active =  (HouseQIndex(2,:) ./ HouseQIndex(3,:));
+        informationDensity = Q(:,3)./20;
+        Valid =  Q(:,1);
+        Active =  Q(:,2);
         
         
         subplot(size(QData,2),1,mcount)
         hold on
-        c = [1-informationDensity', informationDensity' , zeros(size(informationDensity,2),1)];
-        scatter(1/24:1/24:length(HouseQIndex)/24,ones(length(HouseQIndex),1),2,c,'s')
+        c = [1-informationDensity, informationDensity , zeros(size(informationDensity,1),1)];
+        scatter((1/24*interval):(1/24*interval):(length(Q)*interval/24),ones(length(Q),1),5,c,'filled')
 
-        c = [1-Valid', Valid' , zeros(size(Valid,2),1)];
-        scatter(1/24:1/24:length(HouseQIndex)/24,ones(length(HouseQIndex),1)*2,2,c,'s')
+        c = [1-Valid, Valid , zeros(size(Valid,1),1)];
+        scatter((1/24*interval):(1/24*interval):length(Q)*interval/24,ones(length(Q),1)*2,5,c,'filled')
         
-        c = [1-Active', Active' , zeros(size(Active,2),1)];
-        scatter(1/24:1/24:length(HouseQIndex)/24,ones(length(HouseQIndex),1)*3,3,c,'s')
+        c = [1-Active, Active , zeros(size(Active,1),1)];
+        scatter((1/24*interval):(1/24*interval):length(Q)*interval/24,ones(length(Q),1)*3,5,c,'filled')
         
         title( month(from-hours(29),'name'))
         ylim([0 4]);
@@ -57,9 +93,13 @@ for house = 2:26
         
     end
     
-   
     
 end
+
+His = [(1:length(gapHis))'  gapHis];
+His = His(find(His(:,2)~=0),:);
+figure
+bar(His(:,1),His(:,2))
 
 figure
 sumpcr = sum(houseData,1)
