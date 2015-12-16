@@ -1,41 +1,54 @@
 \chapter{Gap Reconstruction}
 One of the more common problems in citizen science projects is gaps in data. This can happen either if the network connection is unstable or the test equipment gets prematurely turn off. This can greatly degrade the data quality, and lead to errors in the application. One way to deal with this problem is do use mathematical gap filling techniques to come with a qualified guess on how the data would look like in the gap. 
 
-In order to use this methods we must assume that the missing data in the gap follows the same behaviour as the data on each side off the gap. Is the signal so stochastic that this is not the case gap filling is not recommended\citep{RefWorks:10}. 
+In order to use this methods we must assume that the missing data in the gap follows the same behaviour as the data on each side off the gap. If the signal so stochastic that this is not the case then gap filling is not recommended\citep{RefWorks:10}. 
 
-In the case of the SmartHG project the data can be seen to have a part that is dependency on the previous and future data plus a stochastic part that are determined by the user and the appliance. Due to the stochastic part a perfect reconstruction is not possible, but it is the hypotheses that the non stochastic part is still so dominant that a decent reconstruction is possible. 
+In the case of the SmartHG project the data can be seen to have a part that is depended on the previous and future data plus a stochastic part that are determined by the user and the appliance. Due to the stochastic part a perfect reconstruction is not possible, but it is the hypotheses that the non stochastic part is still so dominant that a decent reconstruction is possible. 
 \section{Gaps In SmartHG Dataset}
 The gaps in the SmartHG project dataset is caused by a lot of different sources. This makes the type of gaps different from case to case. Three aspects of a gap is important for the gap filling: The size of the gap, the data known before the gap, and the data known after the gap. 
 \subsection{Gap Size}
-Looking at the different gaps in the dataset we see that the normal gap is relatively small. This can be seen on figure \ref{fig:GapSize}
+Looking at the different gaps in the dataset we see that the normal gap is relatively small. Most of the gaps is between 1-5 samples as seen figure \ref{fig:GapSize}.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{billeder/CorrectionCapability.png}
-\caption{Gap size}
-\label{fig:GapSize}
+\begin{minipage}{.3\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{billeder/GapInfo1.png}
+  \captionof{figure}{Gap quantity}
+  \label{fig:GapSize}
+\end{minipage}%
+\begin{minipage}{.8\textwidth}
+  \centering
+  \includegraphics[width=0.8\linewidth]{billeder/CorrectionCapability.png}
+  \captionof{figure}{Error recovery capability}
+  \label{fig:GapCorrect}
+\end{minipage}
 \end{figure}
-This is good since the signal part stochastic. The grater the gap, the greater influence does the stochastic part have on the signal. Smaller gaps can therefore be fixed with greater success. 
+
+This is good since the signal is partly stochastic. The grater the gap, the greater influence does the stochastic part have on the signal. Smaller gaps can therefore be fixed with greater success. Further investigating of the gap quantity shows that approximately 30\% of the missing data can be recovered with a gap size correction capability on 20 samples. This is illustrated on figure \ref{fig:GapCorrect}.  
+
 \subsection{Past And Future Availability}
-It is also important how many samples are available on the left and right side of the gap. If there is a lot of gaps in the signal it can create a scenario where there only is a small amount of good data between the gaps. This makes it hard to reconstruct the data, since there is very few points to extract information about the region. 
+It is also important how many samples there are available post and prior to the the gap. If there is a lot of gaps in the signal it can create a scenario where there only is a small amount of good data between the gaps. This makes it hard to reconstruct the data, since there is very few points to extract information about the region. 
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{billeder/GapInfo.png}
-\caption{Past and future availability}
+\includegraphics[width=0.7\linewidth]{billeder/GapInfo2.png}\caption{Available samples for recovery}
 \label{fig:PAF}
 \end{figure}
-As seen on figure \ref{fig:PAF} \fxnote{Write something more when you know the result}
+
+In the case of the SmartHG project data the data available prior and post to a gap varies greatly but is around the same max and min values for every gap size. The median samples available to fix a gap is around 6 samples as shown in figure \ref{fig:PAF}. 
 
 \section{Gap Filling Methods}
 Various methods exists for gap filling. Five popular algorithms have been implemented and validated on the SmartHG project data.
 
 \subsection{Papoulis-Gerchberg Algorithm}
 \label{T:PGA}
-The Papoulis-Gerchberg algorithm is a multi gap filling algorithm, meaning it is capable of correcting more than one gap at the time. This makes the algorithm preform good in conditions with many gaps and few available data points between the gaps, since it can collect information about the signal from multiple fragments signal \citep{RefWorks:11}. The Papoulis-Gerchberg algorithm works under the assumption that the signal is a periodic stationary signal whit a known bandwidth. The signal will therefore consist of $M$ frequency components, and everything outside the band is assumed to be noise. The signals in the SmartHG is not stationary, but for small snippets can approximately stationariness be assumed. 
+The Papoulis-Gerchberg algorithm is a multi gap filling algorithm, meaning it is capable of correcting more than one gap at the time. This makes the algorithm preform good in conditions with many gaps and few available data points between gaps. This is due to its ability to collect information about the signal across multiple gaps\citep{RefWorks:11}. The Papoulis-Gerchberg algorithm works under the assumption that the signal is a periodic stationary signal whit a known bandwidth. The signal will therefore consist of $M$ frequency components, and everything outside the band is assumed to be noise. The signals in the SmartHG is not stationary, but for small snippets can approximately stationariness be assumed. 
 
-The true bandwidth is also unknown in the signal. The Papoulis-Gerchberg algorithm is very depended on the bandwidth for a correct reconstruction. A modified version of the algorithm that estimates the bandwidth, by varying the frequency components $M$ and analysing the mean square error on the known signal is therefore used \cite{RefWorks:13}. This approach has fairly good at estimating the true value of $M$, but it is time-consuming.
+The true bandwidth is also unknown in the signal. The Papoulis-Gerchberg algorithm is very depended on the bandwidth for a correct reconstruction. A modified version of the algorithm that estimates the bandwidth, by varying the frequency components $M$ and analysing the mean square error on the known signal is therefore used \cite{RefWorks:13}. This approach is fairly good at estimating the true value of $M$, but it is time-consuming.
 
 \subsection{Wiener Filling Algorithm}
-The Wiener filling algorithm is a extension of a Wiener predictor. Like the Wiener predictor it assumes that there exist a linear relationship between the next sample and the previous samples. By trying to predict the missing samples from both sides of the gap, and combining the knowledge it estimates the missing samples \citep{RefWorks:14}. For larger gaps does this methods rely on earlier predictions to close the gaps. This result in errors being accumulated over the gaps. The method is fast, and is therefore suited for large data with small gaps. 
+The Wiener filling algorithm is a extension of a Wiener predictor. Like the Wiener predictor it assumes that there exist a linear relationship between the next sample and the previous samples. By trying to predict the missing samples from both sides of the gap, and combining the knowledge, it estimates the missing samples \citep{RefWorks:14}. For larger gaps does this methods rely on earlier predictions to close the gaps. This result in errors being accumulated over the gaps. The method is fast, and is therefore suited for large data with small gaps. 
 
 \subsection{Spatio-Temporal Filling Algorithm}
 The Spatio-Temporal filling algorithm uses singular spectrum analysis to split the signal into a series of sub-signals. The sum of the sub-signals are the original signal, and the sub-signals is ordered so the most dominant is first, and the least dominant is last. 
@@ -51,10 +64,12 @@ Unlike the previous described methods does the Envelope filling algorithm not de
 The methods does not make any assumptions about the signals stationariness or bandwidth. The method can also be used on none equally spaced time series. 
 
 \subsection{Empirical Mode Decomposition Filling Algorithm}
-The empirical mode decomposition filling algorithm uses empirical mode decomposition, to break the signal in to intrinsic mode functions (IMF). The sum of all IMF's is the original signal. The IMF's is all more low frequent ans simpler in structure than the original signal. The hypothesis is that it is easier fixing a gap in a simple signal than a complex one. 
+The empirical mode decomposition filling algorithm uses empirical mode decomposition, to break the signal in to intrinsic mode functions (IMF). The sum of all IMF's is the original signal. The IMF's is all more low frequent and simpler in structure than the original signal. The hypothesis is that it is easier fixing a gap in a simple signal than a complex one. 
 
 The envelope filling algorithm in section \ref{T:EGA} is used to fix the gaps in the IMF's. The IMF's can now be accumulated to get the original fixed signal. Like the envelope filling algorithm does it not make any assumptions about the signals stationariness, bandwidth and can be used on none equally spaced time series. But making a empirical mode decomposition on a signal with a gap in is a non trivial process and can introduce errors \citep{RefWorks:16}. 
 
 \section{SmartHG Dataset Reconstruction}
+
+\fxnote{ Gap fixing på SmartHG dataen. }
 
 \section{Related Work}

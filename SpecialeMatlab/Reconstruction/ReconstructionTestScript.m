@@ -12,12 +12,12 @@ Reconstructors = @(x,gapStart,gapSize, known)[
 
 CollectedResult = {}; 
 index1 = 1; 
-for gapSize = 1:5:50
+for gapSize = 1:5:100
     
     gapSizeResult = {}; 
     
     index2 = 1; 
-    for known = 20:10:120
+    for known = 3:5:100
         
         index3 = 1; 
         knownResult = {}; 
@@ -31,6 +31,7 @@ for gapSize = 1:5:50
           rest = length(x) - 2*known;
           if(rest > gapSize)
             gapStart = 135;
+            disp(['chekking Gap: ' num2str(gapSize) ' Known:' num2str(known) ' Senario: ' num2str(gapIndex)]);
             
             reconstructed = Reconstructors(x,gapStart,gapSize, known);
             
@@ -42,12 +43,12 @@ for gapSize = 1:5:50
             Porg = ffttransformorginal .* conj(ffttransformorginal); 
             
             Result{1} =  STDVAR;
-            figure(4)
-            subplot(size(reconstructed,1)+1,1,1)
-            plot(n,x)
-            hold on
-            plot(n(gapStart:gapStart+gapSize-1),x(gapStart:gapStart+gapSize-1));
-            hold off
+%             figure(4)
+%             subplot(size(reconstructed,1)+1,1,1)
+%             plot(n,x)
+%             hold on
+%             plot(n(gapStart:gapStart+gapSize-1),x(gapStart:gapStart+gapSize-1));
+%             hold off
             
             for i = 1: size(reconstructed,1)
                     
@@ -60,23 +61,23 @@ for gapSize = 1:5:50
                 Result{1+i} = [mse msePower];
                 
                 
-                subplot(size(reconstructed,1)+1,1,i+1)
-                plot(n,reconstructed(i,:))
-                hold on
-                plot(n(gapStart:gapStart+gapSize-1),reconstructed(i,gapStart:gapStart+gapSize-1));
-                hold off
+%                 subplot(size(reconstructed,1)+1,1,i+1)
+%                 plot(n,reconstructed(i,:))
+%                 hold on
+%                 plot(n(gapStart:gapStart+gapSize-1),reconstructed(i,gapStart:gapStart+gapSize-1));
+%                 hold off
             end
             
             knownResult{index3} = Result;
             
-            index3 = index3+1
+            index3 = index3+1;
           end
         end
         gapSizeResult{index2,1} = known;
         gapSizeResult{index2,2} = knownResult;
-        index2 = index2+1 
+        index2 = index2+1 ;
     end
     CollectedResult{index1,1} = gapSize;
     CollectedResult{index1,2} = gapSizeResult;
-    index1 = index1+1
+    index1 = index1+1;
 end

@@ -2,7 +2,7 @@ clear all
 close all
 load('GapData');
 
-levels = 15; 
+levels = 6; 
 
 muSig = zeros(levels,3);
 hisD = zeros(levels,3);
@@ -28,14 +28,15 @@ xlabel('Gap size [samples]');
 ylabel('prior+post knowledge');
 xlim([0, 16]);
 
-subplot(1,2,1)
+%subplot(1,2,1)
+fig = figure
 bar(hisD)
 xlabel('Gap size');
 ylabel('Quantity');
-xlim([0, 16]);
+xlim([0, 6]);
 
 fig.PaperUnits = 'inches';
-fig.PaperPosition = [0 0 15 3];
+fig.PaperPosition = [0 0 2 2];
 fig.PaperPositionMode = 'manual';
 
 print(fig,'-dpng','GapInfo')

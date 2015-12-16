@@ -8,13 +8,14 @@ interval = 12; % i timer
 
 gapHis       = zeros(20000,1); 
 gapPriorPost = cell(20000,1); 
-
+TOTALHOUSEDATA = cell(1,26); 
 for house = 2:26
     
     disp(strcat('House Start',num2str(house)));
     
     load(strcat('Quality',num2str(house)),'QData','info');
-    figure
+%     figure
+    TOTALMDATA = []; 
     for mcount = 1: size(QData,2)
         Q = [];
         HouseQIndex = QData{mcount}; 
@@ -39,21 +40,21 @@ for house = 2:26
                     Meterdata(z,:) = Mdata;
                 end
                 
-                if(size(GapData,1)>2)
-                    for s = 2:size(GapData,1)-1
-                        
-                        gapsize = ceil(GapData(s,1));
-                        
-                        prior = GapData(s,2) - (GapData(s-1,2)+floor(GapData(s-1,1)));
-                        post = GapData(s+1,2) - (GapData(s,2)+floor(GapData(s,1)));
-                        
-                        priorpostset = gapPriorPost{gapsize};
-                        priorpostset = [ priorpostset ; [ prior post ] ]; 
-                        
-                        gapPriorPost{gapsize} = priorpostset;
-                    end
-                end
-                
+%                 if(size(GapData,1)>2)
+%                     for s = 2:size(GapData,1)-1
+%                         
+%                         gapsize = ceil(GapData(s,1));
+%                         
+%                         prior = GapData(s,2) - (GapData(s-1,2)+floor(GapData(s-1,1)));
+%                         post = GapData(s+1,2) - (GapData(s,2)+floor(GapData(s,1)));
+%                         
+%                         priorpostset = gapPriorPost{gapsize};
+%                         priorpostset = [ priorpostset ; [ prior post ] ]; 
+%                         
+%                         gapPriorPost{gapsize} = priorpostset;
+%                     end
+%                 end
+%                 
                 for g = 1:length(GapData)
                     gapHis(ceil(GapData(g))) = gapHis(ceil(GapData(g)))+1;
                 end
@@ -82,38 +83,96 @@ for house = 2:26
             Q = [Q ; [Hquality, Hactivity , sum(ActiveMeters) ]];
             
         end
-              
         
         informationDensity = Q(:,3)./20;
         Valid =  Q(:,1);
         Active =  Q(:,2);
         
+        TOTALMDATA = [TOTALMDATA ; [Valid Active]]; 
         
-        subplot(size(QData,2),1,mcount)
-        hold on
-        c = [1-informationDensity, informationDensity , zeros(size(informationDensity,1),1)];
-        scatter((1/24*interval):(1/24*interval):(length(Q)*interval/24),ones(length(Q),1),5,c,'filled')
-
-        c = [1-Valid, Valid , zeros(size(Valid,1),1)];
-        scatter((1/24*interval):(1/24*interval):length(Q)*interval/24,ones(length(Q),1)*2,5,c,'filled')
-        
-        c = [1-Active, Active , zeros(size(Active,1),1)];
-        scatter((1/24*interval):(1/24*interval):length(Q)*interval/24,ones(length(Q),1)*3,5,c,'filled')
-        
-        title( month(from-hours(29),'name'))
-        ylim([0 4]);
-        xlim([0 31]);
-        set(gca,'YTick', [1 2 3]);
-        set(gca,'YTickLabel',{'Density'; 'Valid'; 'Active'} );
-        
-        
-        hold off
+%         
+%         
+%         subplot(size(QData,2),1,mcount)
+%         hold on
+%         c = [1-informationDensity, informationDensity , zeros(size(informationDensity,1),1)];
+%         scatter((1/24*interval):(1/24*interval):(length(Q)*interval/24),ones(length(Q),1),5,c,'filled')
+% 
+%         c = [1-Valid, Valid , zeros(size(Valid,1),1)];
+%         scatter((1/24*interval):(1/24*interval):length(Q)*interval/24,ones(length(Q),1)*2,5,c,'filled')
+%         
+%         c = [1-Active, Active , zeros(size(Active,1),1)];
+%         scatter((1/24*interval):(1/24*interval):length(Q)*interval/24,ones(length(Q),1)*3,5,c,'filled')
+%         
+%         title( month(from-hours(29),'name'))
+%         ylim([0 4]);
+%         xlim([0 31]);
+%         set(gca,'YTick', [1 2 3]);
+%         set(gca,'YTickLabel',{'Density'; 'Valid'; 'Active'} );
+%         
+%         
+%         hold off
         
        
     end
     
+     TOTALHOUSEDATA{house} = TOTALMDATA;
+    
      disp('House done');
 end
+%%
+index = 2; 
+fig = figure
+for house = 2:26
+
+    houseData = TOTALHOUSEDATA{house};
+    valid = houseData(:,index);
+    valid(:,2) = (1/24*interval):(1/24*interval):(length(valid)*interval/24);
+    
+    valid(isnan(valid(:,1)) ,:) = [];
+    valid(valid(:,1)==0 ,:) = [];
+    
+    c = [1-valid(:,1), valid(:,1) , zeros(size(valid,1),1)];
+    scatter(valid(:,2),ones(size(valid,1),1)*house,5,c,'filled')
+    hold on; 
+
+end
+
+set(gca,'ytick',2:26);
+
+temp = [30 31 30 31 31 30 31];
+temp = cumsum([1 temp]);
+Firsts(:,1) = temp(2:end);
+
+for i = 1: length(Firsts)
+    x = [Firsts(i,1) Firsts(i,1)]
+    y = [0 27]
+    plot(x,y,'--k')
+end
+
+tick = (Firsts(:,1)-12);
+lableval = {'Apr','May','Jun','Jul','Aug' 'Sep','Oct'};
+
+set(gca,'xtick',tick);
+set(gca,'xticklabel',lableval);
+
+newmap = jet(); 
+mapColId = (1/length(newmap):1/length(newmap):1)'; 
+c = [1-mapColId mapColId zeros(size(mapColId,1),1)];
+colormap(c);
+colorbar();
+
+xlim([0  215])
+ylim([0 27])
+
+xlabel('Time'); 
+ylabel('House Id');
+
+fig.PaperUnits = 'inches';
+fig.PaperPosition = [0 0 10 5];
+fig.PaperPositionMode = 'manual';
+
+print(fig,'-dpng','QualityBig')
+%%
 
 His = [(1:length(gapHis))'  gapHis];
 His = His(find(His(:,2)~=0),:);
@@ -126,11 +185,11 @@ His(:,4) = cumsum(His(:,3))./HisTotal;
 fig = figure('units','normalized','position',[.1 .1 .35 .2])
 
 fig.PaperUnits = 'inches';
-fig.PaperPosition = [0 0 6 2];
+fig.PaperPosition = [0 0 6*(3/4) 2];
 fig.PaperPositionMode = 'manual';
 
 plot([0 ; His(:,4)]);
-xlim([0 400]);
+xlim([0 250]);
 xlabel('Gap size correction capability')
 ylabel('Recovered samples')
 % Convert y-axis values to percentage values by multiplication
@@ -142,7 +201,7 @@ ylabel('Recovered samples')
 % 'Reflect the changes on the plot
      set(gca,'yticklabel',new_yticks);
 print(fig,'-dpng','CorrectionCapability')
-
+%%
 figure
 sumpcr = sum(houseData,1)
 explode = [1 1 1 1 1 1 1 1 1 1 1]

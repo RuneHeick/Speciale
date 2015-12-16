@@ -14,7 +14,15 @@ s = [ x_gap(i_trainLeft:i_gapStart-2)-signalMean ; zeros(gapLength,1) ; x_gap(i_
 i_gapstartS = i_gapStart-i_trainLeft;
 
 %%
+
 AerrorLen = min(20, floor(traindelta/4));
+
+if(AerrorLen == 0)
+   fix = interp1q([1 2+gapLength]',[x_gap(i_gapStart-1) x_gap(i_gapStart+gapLength)]',[2:1+gapLength]');
+   x_gap = [ x_gap(1:i_gapStart-1); fix ; x_gap(i_gapStart+gapLength:end) ];
+   return;
+end
+
 Aerror = s(1:AerrorLen); 
 s = [ zeros(AerrorLen,1); s(AerrorLen+1:end) ];
 
