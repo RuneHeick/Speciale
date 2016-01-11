@@ -1,0 +1,28 @@
+residential_home_id;id;name;unit;id;name
+4;3;0015BC00260003C7-RevActiveWh;milliwatt*hour;1295;Main Meter
+4;3;0015BC00260003C7-DevelcoEMeterVoltageRMS;millivolt;1288;Main Meter
+4;13;CurrentSummationDelivered;milliwatt*hour;32;Wii, DVD player, Xbox, speakers, 32” LCD TV
+4;119;MeasuredValue_Temperature;millidegrees_celsius;289;Temperature sensor 1
+4;3;0015BC00260003C7-PowerFactor;parts_per_thousand;1291;Main Meter
+4;3;0015BC00260003C7-DevelcoEMeterVoltageRMS;millivolt;1286;Main Meter
+4;12;CurrentSummationDelivered;milliwatt*hour;30;Playstation + 32” LED TV
+4;12;InstantaneousDemand;milliwatt;31;Playstation + 32” LED TV
+4;10;InstantaneousDemand;milliwatt;27;22” LED TV
+4;3;0015BC00260003C7-DevelcoEMeterCurrentRMS;milliampere;1284;Main Meter
+4;3;0015BC00260003C7-ExportReactiveVArh;milliwatt*hour;1297;Main Meter
+4;3;CurrentSummationDelivered;milliwatt*hour;24;Main Meter
+4;3;0015BC00260003C7-DevelcoEMeterCurrentRMS;milliampere;1285;Main Meter
+4;10;CurrentSummationDelivered;milliwatt*hour;26;22” LED TV
+4;3;0015BC00260003C7-ImportReactiveVArh;milliwatt*hour;1296;Main Meter
+4;3;0015BC00260003C7-PowerFactor;parts_per_thousand;1289;Main Meter
+4;3;0015BC00260003C7-PowerFactor;parts_per_thousand;1290;Main Meter
+4;3;0015BC00260003C7-DevelcoEMeterVoltageRMS;millivolt;1287;Main Meter
+4;3;InstantaneousDemand;milliwatt;25;Main Meter
+4;3;0015BC00260003C7-DevelcoEMeterCurrentRMS;milliampere;1283;Main Meter
+4;11;CurrentSummationDelivered;milliwatt*hour;28;Stereo, blu-ray, Chromecast, 40” LED TV
+4;3;0015BC00260003C7-VAPower;milliwatt;1293;Main Meter
+4;118;MeasuredValue_Temperature;millidegrees_celsius;288;Temperature sensor 2
+4;11;InstantaneousDemand;milliwatt;29;Stereo, blu-ray, Chromecast, 40” LED TV
+4;13;InstantaneousDemand;milliwatt;33;Wii, DVD player, Xbox, speakers, 32” LCD TV
+4;3;0015BC00260003C7-FwdActiveWh;milliwatt*hour;1294;Main Meter
+4;3;0015BC00260003C7-DevelcoEMeterLineFrequency;millihertz;1292;Main Meter

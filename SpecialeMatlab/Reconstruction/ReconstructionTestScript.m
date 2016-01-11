@@ -2,6 +2,13 @@ close all;
 clear all; 
 load('DataSnips');
 
+gapSizes = [1:20 25:5:50];
+knowns = [3 20 80];
+
+
+MaxGap = 100; 
+GapStepSize = 5;
+
 Reconstructors = @(x,gapStart,gapSize, known)[
             PGGapFixer(x,gapStart,gapSize, known)'
             WienerGapFixer(x,gapStart,gapSize, known)'
@@ -10,19 +17,21 @@ Reconstructors = @(x,gapStart,gapSize, known)[
             SSAGapFixer(x,gapStart,gapSize, known)'
         ]; 
 
-CollectedResult = {}; 
+CollectedResult = cell(length(gapSizes),1); 
 index1 = 1; 
-for gapSize = 1:5:100
+for gapSize = gapSizes
     
-    gapSizeResult = {}; 
+    gapSizeResult = cell(length(knowns),1); 
     
     index2 = 1; 
-    for known = 3:5:100
+    for known = knowns
         
         index3 = 1; 
-        knownResult = {}; 
         
-        for gapIndex = 1:size(data,2)
+        senarios = 1:size(data,2);
+        
+        knownResult = cell(length(senarios),1); 
+        for gapIndex = senarios
    
           setId = gapIndex;  
           x = (data{setId}(1:end))';
@@ -35,14 +44,11 @@ for gapSize = 1:5:100
             
             reconstructed = Reconstructors(x,gapStart,gapSize, known);
             
-            orginal = x(gapStart:gapStart+gapSize-1)';
+            orginal = x';
             
-            STDVAR = std(orginal); 
-            
-            ffttransformorginal = fft(x(gapStart-known:gapStart+gapSize-1+known))';
+            ffttransformorginal = fft(x');
             Porg = ffttransformorginal .* conj(ffttransformorginal); 
-            
-            Result{1} =  STDVAR;
+
 %             figure(4)
 %             subplot(size(reconstructed,1)+1,1,1)
 %             plot(n,x)
@@ -50,15 +56,40 @@ for gapSize = 1:5:100
 %             plot(n(gapStart:gapStart+gapSize-1),x(gapStart:gapStart+gapSize-1));
 %             hold off
             
+            mins = [];
+            maxes = []; 
+            [mins(2,:), mins(1,:)] = findpeaks(orginal*-1); 
+             mins(2,:) = mins(2,:)*-1; 
+            [maxes(2,:), maxes(1,:)] = findpeaks(orginal); 
+
+            maxenv = interp1(maxes(1,:),maxes(2,:),1:size(orginal,2));
+            maxenv(find(isnan(maxenv))) = 0; 
+            minenv = interp1(mins(1,:), mins(2,:), 1:size(orginal,2));
+            minenv(find(isnan(minenv))) = 0; 
+            meanLine = minenv + (maxenv - minenv)/2;
+            
+%             figure(5)
+%             plot(orginal)
+%             hold on 
+%             plot(meanLine)
+%             hold off
+            
+            OrginalgitterPower = (orginal-meanLine).^2;
+
+            Result = zeros(size(reconstructed,1),3);
             for i = 1: size(reconstructed,1)
-                    
-                mse = immse(reconstructed(i,gapStart:gapStart+gapSize-1),orginal);
+
+                mse = immse(reconstructed(i,gapStart:gapStart+gapSize-1),orginal(gapStart:gapStart+gapSize-1));
                 
-                ffttransform = fft(reconstructed(i,gapStart-known:gapStart+gapSize-1+known));
+                ffttransform = fft(reconstructed(i,:));
                 Prec = ffttransform .* conj(ffttransform); 
                 msePower = immse(Porg,Prec );
                 
-                Result{1+i} = [mse msePower];
+                gitterPower = (reconstructed(i,:)-meanLine).^2;
+                mseGitterPower = immse(gitterPower(gapStart:gapStart+gapSize-1), OrginalgitterPower(gapStart:gapStart+gapSize-1));
+                
+                
+                Result(i,:) = [mse msePower mseGitterPower];
                 
                 
 %                 subplot(size(reconstructed,1)+1,1,i+1)
@@ -81,3 +112,5 @@ for gapSize = 1:5:100
     CollectedResult{index1,2} = gapSizeResult;
     index1 = index1+1;
 end
+
+save('ColRes','CollectedResult');

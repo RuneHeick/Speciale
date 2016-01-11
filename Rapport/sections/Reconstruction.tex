@@ -1,49 +1,16 @@
 \chapter{Gap Reconstruction}
-One of the more common problems in citizen science projects is gaps in data. This can happen either if the network connection is unstable or the test equipment gets prematurely turn off. This can greatly degrade the data quality, and lead to errors in the application. One way to deal with this problem is do use mathematical gap filling techniques to come with a qualified guess on how the data would look like in the gap. 
+One of the more common problems in citizen science projects is gaps in data. This can happen either if the network connection is unstable or the test equipment gets prematurely turn off, as discussed in chapter \ref{Sec:DataQuality}. This can greatly degrade the data quality, and lead to errors in the application. One way to deal with this problem is do use mathematical gap filling techniques to come with a qualified guess on how the data would look like in the gap. 
 
-In order to use this methods we must assume that the missing data in the gap follows the same behaviour as the data on each side off the gap. If the signal so stochastic that this is not the case then gap filling is not recommended\citep{RefWorks:10}. 
+In order to use this methods we must assume that the missing data in the gap follows the same behaviour as the data on each side off the gap. If the signal is so stochastic that this is not the case then gap filling is not recommended\citep{RefWorks:10}. 
 
 In the case of the SmartHG project the data can be seen to have a part that is depended on the previous and future data plus a stochastic part that are determined by the user and the appliance. Due to the stochastic part a perfect reconstruction is not possible, but it is the hypotheses that the non stochastic part is still so dominant that a decent reconstruction is possible. 
-\section{Gaps In SmartHG Dataset}
-The gaps in the SmartHG project dataset is caused by a lot of different sources. This makes the type of gaps different from case to case. Three aspects of a gap is important for the gap filling: The size of the gap, the data known before the gap, and the data known after the gap. 
-\subsection{Gap Size}
-Looking at the different gaps in the dataset we see that the normal gap is relatively small. Most of the gaps is between 1-5 samples as seen figure \ref{fig:GapSize}.
-
-\begin{figure}[H]
-\centering
-\begin{minipage}{.3\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{billeder/GapInfo1.png}
-  \captionof{figure}{Gap quantity}
-  \label{fig:GapSize}
-\end{minipage}%
-\begin{minipage}{.8\textwidth}
-  \centering
-  \includegraphics[width=0.8\linewidth]{billeder/CorrectionCapability.png}
-  \captionof{figure}{Error recovery capability}
-  \label{fig:GapCorrect}
-\end{minipage}
-\end{figure}
-
-This is good since the signal is partly stochastic. The grater the gap, the greater influence does the stochastic part have on the signal. Smaller gaps can therefore be fixed with greater success. Further investigating of the gap quantity shows that approximately 30\% of the missing data can be recovered with a gap size correction capability on 20 samples. This is illustrated on figure \ref{fig:GapCorrect}.  
-
-\subsection{Past And Future Availability}
-It is also important how many samples there are available post and prior to the the gap. If there is a lot of gaps in the signal it can create a scenario where there only is a small amount of good data between the gaps. This makes it hard to reconstruct the data, since there is very few points to extract information about the region. 
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\linewidth]{billeder/GapInfo2.png}\caption{Available samples for recovery}
-\label{fig:PAF}
-\end{figure}
-
-In the case of the SmartHG project data the data available prior and post to a gap varies greatly but is around the same max and min values for every gap size. The median samples available to fix a gap is around 6 samples as shown in figure \ref{fig:PAF}. 
 
 \section{Gap Filling Methods}
 Various methods exists for gap filling. Five popular algorithms have been implemented and validated on the SmartHG project data.
 
 \subsection{Papoulis-Gerchberg Algorithm}
 \label{T:PGA}
-The Papoulis-Gerchberg algorithm is a multi gap filling algorithm, meaning it is capable of correcting more than one gap at the time. This makes the algorithm preform good in conditions with many gaps and few available data points between gaps. This is due to its ability to collect information about the signal across multiple gaps\citep{RefWorks:11}. The Papoulis-Gerchberg algorithm works under the assumption that the signal is a periodic stationary signal whit a known bandwidth. The signal will therefore consist of $M$ frequency components, and everything outside the band is assumed to be noise. The signals in the SmartHG is not stationary, but for small snippets can approximately stationariness be assumed. 
+The Papoulis-Gerchberg algorithm is a multi gap filling algorithm, meaning it is capable of correcting more than one gap at the time. This makes the algorithm preform good in conditions with many gaps and few available data points between gaps. This is due to its ability to collect information about the signal across multiple gaps\citep{RefWorks:11}. The Papoulis-Gerchberg algorithm works under the assumption that the signal is a periodic stationary signal with a known bandwidth. The signal will therefore consist of $M$ frequency components, and everything outside the band is assumed to be noise. The signals in the SmartHG is not stationary, but for small snippets can approximately stationariness be assumed. 
 
 The true bandwidth is also unknown in the signal. The Papoulis-Gerchberg algorithm is very depended on the bandwidth for a correct reconstruction. A modified version of the algorithm that estimates the bandwidth, by varying the frequency components $M$ and analysing the mean square error on the known signal is therefore used \cite{RefWorks:13}. This approach is fairly good at estimating the true value of $M$, but it is time-consuming.
 
@@ -68,8 +35,72 @@ The empirical mode decomposition filling algorithm uses empirical mode decomposi
 
 The envelope filling algorithm in section \ref{T:EGA} is used to fix the gaps in the IMF's. The IMF's can now be accumulated to get the original fixed signal. Like the envelope filling algorithm does it not make any assumptions about the signals stationariness, bandwidth and can be used on none equally spaced time series. But making a empirical mode decomposition on a signal with a gap in is a non trivial process and can introduce errors \citep{RefWorks:16}. 
 
+\fxnote{write a subsection about why these methods have been chosen for gap fixing in the SmartHG data. }
+
+\section{Gaps In SmartHG Dataset}
+The gaps in the SmartHG project dataset is caused by a lot of different sources. This makes the type of gaps different from case to case. Three aspects of a gap is important for the gap filling: The size of the gap, the data known before the gap, and the data known after the gap. \fxnote{give examples of what can cause the gaps. }
+
+\subsection{Gap Size}
+Looking at the different gaps in the dataset we see that the normal gap is relatively small. Most of the gaps is between 1-5 samples as seen figure \ref{fig:GapSize}.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.3\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{billeder/GapInfo1.png}
+  \captionof{figure}{Gap quantity}
+  \label{fig:GapSize}
+\end{minipage}%
+\begin{minipage}{.8\textwidth}
+  \centering
+  \includegraphics[width=0.8\linewidth]{billeder/CorrectionCapability.png}
+  \captionof{figure}{Error recovery capability}
+  \label{fig:GapCorrect}
+\end{minipage}
+\end{figure}
+
+\fxnote{Units is missing the the graphs, and how is this plots created. Give a more detailed explanation and discussion. }
+
+This is good since the signal is partly stochastic. The grater the gap, the greater influence does the stochastic part have on the signal. Smaller gaps can therefore be fixed with greater success. Further investigating of the gap quantity shows that approximately 30\% of the missing data can be recovered with a gap size correction capability on 20 samples. This is illustrated on figure \ref{fig:GapCorrect}.  
+
+\subsection{Past And Future Availability}
+It is also important how many samples there are available post and prior to the the gap. If there is a lot of gaps in the signal it can create a scenario where there only is a small amount of good data between the gaps. This makes it hard to reconstruct the data, since there is very few points to extract information about the region. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\linewidth]{billeder/GapInfo2.png}\caption{Available samples for recovery}
+\label{fig:PAF}
+\end{figure}
+
+\fxnote{The units is not understandable and needs explained.}
+
+\fxnote{ A bit more discussion about what the purpose of this information is.}
+
+In the case of the SmartHG project data the data available prior and post to a gap varies greatly but is around the same max and min values for every gap size. The median samples available to fix a gap is around 6 samples as shown in figure \ref{fig:PAF}. 
+
 \section{SmartHG Dataset Reconstruction}
 
 \fxnote{ Gap fixing på SmartHG dataen. }
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/RecFeq.png}
+\caption{}
+\label{fig:RecFeq}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/RecNorm.png}
+\caption{}
+\label{fig:RecFeq}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/RecGitter.png}
+\caption{}
+\label{fig:RecFeq}
+\end{figure}
 
 \section{Related Work}

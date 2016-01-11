@@ -47,8 +47,15 @@ function [ imf ] = imfRec2( imf, gapStart, gapLength, envlower, envUpper )
                 leftPeaks(2,1:end-1) rigthPeaks(2,1:end-1)
                 ];
         
-    p = polyfit(peakmap(2,:),peakmap(1,:),ceil(size(peakmap,2)/2));
+    p = polyfit(peakmap(2,:),peakmap(1,:),max(ceil(size(peakmap,2)-2),1));
     y1 = polyval(p,peakmap(2,:));
+    
+%     figure(4)
+%     plot(peakmap(2,:),y1);
+%     hold on 
+%     plot(peakmap(2,:),peakmap(1,:));
+%     hold off
+    
     error = abs(peakmap(1,:)-y1);
     div = std(error);
        

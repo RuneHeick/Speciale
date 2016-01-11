@@ -2,61 +2,64 @@
 conn = database('dbservice','runeheick','cykeljernhest','Vendor','PostgreSQL','Server','dbservice.eng.au.dk')
 setdbprefs('DataReturnFormat','table');
 
-for house = 2:26
 
-    from = datetime(2015,4,1); % start
-    EndTime = datetime(2015,11,1);
-    interval = 12; % i timer 
+house = 4; 
+
+from = datetime(2015,6,15,12,0,0); % start
+EndTime = datetime(2015,6,16,12,0,0);
+interval = 1/60; % i timer 
 
 
-    to  = from+hours(interval);
-    mCount = 1; 
-    numdaysvec = datevec(datenum(EndTime)-datenum(from));
-    nummonths = numdaysvec(1) * 12 + numdaysvec(2) - 1;
+to  = from+hours(interval);
+mCount = 1; 
+numdaysvec = datevec(datenum(EndTime)-datenum(from));
+nummonths = numdaysvec(1) * 12 + numdaysvec(2) - 1;
 
-    QData = cell(1, nummonths); 
-    
+QData = cell(1, min(1,nummonths)); 
+
+try
+        info = GetHouseInfo(conn, house)
+catch
+        conn = database('dbservice','runeheick','cykeljernhest','Vendor','PostgreSQL','Server','dbservice.eng.au.dk')
+        setdbprefs('DataReturnFormat','table');
+        info = GetHouseInfo(conn, house);
+end
+
+start = nan(size(info,1),1);
+stop = nan(size(info,1),1);
+startStopTable = table(start,stop);
+
+info = [info startStopTable];
+
+while(to<EndTime)
+
+steps = round((((datenum(to)-datenum(from))+1)*24)/interval); 
+HouseQIndex = cell(1, steps);
+
+for s = 1:steps
     try
-            info = GetHouseInfo(conn, house)
+        data = GetMeasurementData(conn, house, from, to);
     catch
-            conn = database('dbservice','runeheick','cykeljernhest','Vendor','PostgreSQL','Server','dbservice.eng.au.dk')
-            setdbprefs('DataReturnFormat','table');
-            info = GetHouseInfo(conn, house);
-    end
-        
-    start = nan(size(info,1),1);
-    stop = nan(size(info,1),1);
-    startStopTable = table(start,stop);
-    
-    info = [info startStopTable];
-    
-    while(to<EndTime)
-
-    steps = (((eomdate(from)-datenum(from))+1)*24)/interval; 
-    HouseQIndex = cell(1, steps);
-
-    for s = 1:steps
-        try
-            data = GetMeasurementData(conn, house, from, to);
-        catch
-            conn = database('dbservice','runeheick','cykeljernhest','Vendor','PostgreSQL','Server','dbservice.eng.au.dk')
-            setdbprefs('DataReturnFormat','table');
-            data = GetMeasurementData(conn, house, from, to);
-        end
-        
-        [res, info] = FindQuality(data, info, from, to );
-        HouseQIndex(1,s) = {res};
-         
-
-        from = to; 
-        to  = from+hours(interval);
+        conn = database('dbservice','runeheick','cykeljernhest','Vendor','PostgreSQL','Server','dbservice.eng.au.dk')
+        setdbprefs('DataReturnFormat','table');
+        data = GetMeasurementData(conn, house, from, to);
     end
 
+    [res, info] = FindQuality(data, info, from, to );
+    HouseQIndex(1,s) = {res};
 
-        QData{mCount} = HouseQIndex;
 
-        disp(['House: ' num2str(house) ' M: ' num2str(mCount)]);
-        
+    from = to; 
+    to  = from+hours(interval);
+    
+    disp('Got 2 min more');
+end
+
+
+    QData{mCount} = HouseQIndex;
+
+    disp(['House: ' num2str(house) ' M: ' num2str(mCount)]);
+
 %         subplot(nummonths,1,mCount)
 %         alpha = (HouseQIndex(1,:) ./ (size(info,1)/2));
 %         c = [1-alpha', alpha' , zeros(size(alpha,2),1)];
@@ -76,10 +79,10 @@ for house = 2:26
 % 
 %         pause(0.1);
 
-          mCount = mCount+1; 
-        
-        
-    end
-    save(strcat('Quality',num2str(house)),'QData','info');
+      mCount = mCount+1; 
+
+
 end
+    
+save(strcat('Quality5Min',num2str(house)),'QData','info');
 close(conn)

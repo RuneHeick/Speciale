@@ -1,0 +1,13 @@
+residential_home_id;id;name;unit;id;name
+2;5;InstantaneousDemand;milliwatt;13;TV
+2;1;CurrentSummationDelivered;milliwatt*hour;4;Main Meter
+2;2;InstantaneousDemand;milliwatt;7;TV
+2;4;InstantaneousDemand;milliwatt;11;DVD
+2;1;InstantaneousDemand;milliwatt;5;Main Meter
+2;3;CurrentSummationDelivered;milliwatt*hour;8;Radio
+2;2;CurrentSummationDelivered;milliwatt*hour;6;TV
+2;5;CurrentSummationDelivered;milliwatt*hour;12;TV
+2;4;CurrentSummationDelivered;milliwatt*hour;10;DVD
+2;106;MeasuredValue_Temperature;millidegrees_celsius;264;Temperature sensor 2
+2;107;MeasuredValue_Temperature;millidegrees_celsius;265;Temperature sensor 1
+2;3;InstantaneousDemand;milliwatt;9;Radio

@@ -1,0 +1,28 @@
+10;36;CurrentSummationDelivered;milliwatt*hour;90;TV
+10;9;0015BC00260003D1-FwdActiveWh;milliwatt*hour;1329;Main Meter
+10;9;0015BC00260003D1-DevelcoEMeterVoltageRMS;millivolt;1211;Main Meter
+10;9;0015BC00260003D1-DevelcoEMeterCurrentRMS;milliampere;1208;Main Meter
+10;34;InstantaneousDemand;milliwatt;87;PC, printer
+10;155;MeasuredValue_Temperature;millidegrees_celsius;361;Temperature sensor 2
+10;9;0015BC00260003D1-PowerFactor;parts_per_thousand;1214;Main Meter
+10;9;CurrentSummationDelivered;milliwatt*hour;84;Main Meter
+10;36;InstantaneousDemand;milliwatt;91;TV
+10;154;MeasuredValue_Temperature;millidegrees_celsius;360;Temperature sensor 1
+10;35;CurrentSummationDelivered;milliwatt*hour;88;DVD player
+10;9;0015BC00260003D1-ExportReactiveVArh;milliwatt*hour;1332;Main Meter
+10;9;0015BC00260003D1-VAPower;milliwatt;1328;Main Meter
+10;37;CurrentSummationDelivered;milliwatt*hour;92;Radio
+10;9;0015BC00260003D1-PowerFactor;parts_per_thousand;1212;Main Meter
+10;9;0015BC00260003D1-DevelcoEMeterVoltageRMS;millivolt;1210;Main Meter
+10;9;0015BC00260003D1-DevelcoEMeterVoltageRMS;millivolt;1209;Main Meter
+10;9;0015BC00260003D1-DevelcoEMeterLineFrequency;millihertz;1215;Main Meter
+10;9;0015BC00260003D1-PowerFactor;parts_per_thousand;1213;Main Meter
+10;9;InstantaneousDemand;milliwatt;85;Main Meter
+10;9;0015BC00260003D1-DevelcoEMeterCurrentRMS;milliampere;1206;Main Meter
+10;34;CurrentSummationDelivered;milliwatt*hour;86;PC, printer
+10;35;InstantaneousDemand;milliwatt;89;DVD player
+10;9;0015BC00260003D1-DevelcoEMeterCurrentRMS;milliampere;1207;Main Meter
+10;37;InstantaneousDemand;milliwatt;93;Radio
+10;9;0015BC00260003D1-VAPower;milliwatt;1216;Main Meter
+10;9;0015BC00260003D1-RevActiveWh;milliwatt*hour;1330;Main Meter
+10;9;0015BC00260003D1-ImportReactiveVArh;milliwatt*hour;1331;Main Meter

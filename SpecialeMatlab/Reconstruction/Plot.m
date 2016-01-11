@@ -1,7 +1,8 @@
 clear all
 load('ColRes');
-
-for  known = 1:14
+plotindex = 1; 
+figure
+for  known = 1:size(CollectedResult{1,2},1)
     
    GapFixes = zeros(6,size(CollectedResult,1));
     
@@ -13,26 +14,44 @@ for  known = 1:14
        knownsizeHalf = gapInfo{known,1}
        recinfo = gapInfo{known,2}
        
-       methodData = zeros(1,5); 
-       for senario = 1:size(recinfo,2)
+       methodData = zeros(size(recinfo,1),5); 
+       for senario = 1:size(recinfo,1)
            
-           for method = 2:6
-                methodData(method-1) = methodData(method-1)+ recinfo{1,senario}{1,method}(2);
-               
-           end
+                senarioData = recinfo{senario,1};
+                methodData(senario, :) = senarioData(:,3)';
        end
-       methodData = methodData ./ size(recinfo,2);
+             
        
        GapFixes(1,GapIndex) = gapSize;
-       GapFixes(2:6,GapIndex) = methodData;
+       GapFixes(2:6,GapIndex) = mean(methodData,1);
        
    end
    
-   GapFixes(2:6,1:4)
-   semilogy(GapFixes(1,:), GapFixes([2 4 5 6],:))
-   names = {'PGGapFixer', 'EnvGapFixer', 'EMDGapFixer', 'SSAGapFixer'};
-   legend(names, 'Location','best');
-   %ylim([1e4 1e11]);
+   subplot(1,size(CollectedResult{1,2},1),plotindex)
+   
+   GapFixes(find(GapFixes(:,1)<0.1),1) = 0.1;
+   
+   GapFixes(find(GapFixes(:,:)==inf)) = 1e100;
+  
+   
+   semilogy(GapFixes(1,:), GapFixes([2 3 4 5 6],:))
+   
+   ylim([1e5 1e25]); %1
+   %ylim([1e18 1e28]); %2
+   %ylim([1e4 1e12]); %1
+   xlim([1 50]);
    title(['Known: ' num2str(knownsizeHalf)]);
-   pause()
+   
+   if(known == 1)
+       xlabel('Gap size [missing samples]'); 
+       ylabel('Meen square error');
+   
+       names = {'PGGapFixer', 'WienerGapFixer' ,'EnvGapFixer', 'EMDGapFixer', 'SSAGapFixer'};
+       legend(names, 'Location','best');
+   end
+   
+   plotindex = plotindex+1; 
+   
 end
+
+   
