@@ -2,7 +2,7 @@ close all;
 clear all; 
 load('DataSnips');
 
-gapSizes = [1:20 25:5:50];
+gapSizes = [1:25 30:5:50];
 knowns = [3 20 80];
 
 
@@ -15,6 +15,7 @@ Reconstructors = @(x,gapStart,gapSize, known)[
             EnvGapFixer(x,gapStart,gapSize, known)'
             EMDGapFixer(x,gapStart,gapSize, known)'
             SSAGapFixer(x,gapStart,gapSize, known)'
+            LinGapFixer(x,gapStart,gapSize, known)'
         ]; 
 
 CollectedResult = cell(length(gapSizes),1); 
@@ -37,6 +38,10 @@ for gapSize = gapSizes
           x = (data{setId}(1:end))';
           n = (1:length(x))'; 
           
+          xmin = min(x); 
+          x = x-xmin; 
+          x = x*(1/max(x));
+          
           rest = length(x) - 2*known;
           if(rest > gapSize)
             gapStart = 135;
@@ -48,7 +53,7 @@ for gapSize = gapSizes
             
             ffttransformorginal = fft(x');
             Porg = ffttransformorginal .* conj(ffttransformorginal); 
-
+% 
 %             figure(4)
 %             subplot(size(reconstructed,1)+1,1,1)
 %             plot(n,x)

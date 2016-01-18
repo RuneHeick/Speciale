@@ -6,7 +6,10 @@ In order to use this methods we must assume that the missing data in the gap fol
 In the case of the SmartHG project the data can be seen to have a part that is depended on the previous and future data plus a stochastic part that are determined by the user and the appliance. Due to the stochastic part a perfect reconstruction is not possible, but it is the hypotheses that the non stochastic part is still so dominant that a decent reconstruction is possible. 
 
 \section{Gap Filling Methods}
-Various methods exists for gap filling. Five popular algorithms have been implemented and validated on the SmartHG project data.
+\label{T:GapFilling}
+Various methods exists for gap filling. Five popular algorithms have been implemented and validated on the SmartHG project data. These methods have been chosen since they all have a different approach on the gap filling process. For some of the algorithms it is important to keep the frequency spectra as intact as possible, for other it is the jitter power or the exact sample value they are trying to estimate. Some algorithms have also been designed for small gaps, while others have been designed for larger. 
+
+In the following sections it will be briefly described what makes the five algorithms unique, and how they work. 
 
 \subsection{Papoulis-Gerchberg Algorithm}
 \label{T:PGA}
@@ -35,13 +38,13 @@ The empirical mode decomposition filling algorithm uses empirical mode decomposi
 
 The envelope filling algorithm in section \ref{T:EGA} is used to fix the gaps in the IMF's. The IMF's can now be accumulated to get the original fixed signal. Like the envelope filling algorithm does it not make any assumptions about the signals stationariness, bandwidth and can be used on none equally spaced time series. But making a empirical mode decomposition on a signal with a gap in is a non trivial process and can introduce errors \citep{RefWorks:16}. 
 
-\fxnote{write a subsection about why these methods have been chosen for gap fixing in the SmartHG data. }
+
 
 \section{Gaps In SmartHG Dataset}
-The gaps in the SmartHG project dataset is caused by a lot of different sources. This makes the type of gaps different from case to case. Three aspects of a gap is important for the gap filling: The size of the gap, the data known before the gap, and the data known after the gap. \fxnote{give examples of what can cause the gaps. }
+The gaps in the SmartHG project dataset is caused by a lot of different sources such as bad network connection, unplugged measurement equipment or server breakdown. This makes the type of gaps different from case to case. Three aspects of a gap is important for the gap filling: The size of the gap, the data known before the gap, and the data known after the gap. 
 
 \subsection{Gap Size}
-Looking at the different gaps in the dataset we see that the normal gap is relatively small. Most of the gaps is between 1-5 samples as seen figure \ref{fig:GapSize}.
+On figure \ref{fig:GapSize} is the quantity of different gaps shown. The different gap size is measured as gaps missing, e.g. a gap size on 3 means that there is 3 samples missing in a row, between two received samples. Looking at the different gaps in the dataset we see that the normal gap is relatively small. Most of the gaps is between 1-5 samples as seen figure \ref{fig:GapSize}.
 
 \begin{figure}[H]
 \centering
@@ -59,12 +62,14 @@ Looking at the different gaps in the dataset we see that the normal gap is relat
 \end{minipage}
 \end{figure}
 
-\fxnote{Units is missing the the graphs, and how is this plots created. Give a more detailed explanation and discussion. }
+The aim of data reconstruction is to recover the missing samples. The gap size correction capability is a metric telling how big gaps it is possible to correct. If a application has a gap size correction capability on 5 it means that is is capable of correcting gaps that have the gap size of 5 samples or smaller. 
 
-This is good since the signal is partly stochastic. The grater the gap, the greater influence does the stochastic part have on the signal. Smaller gaps can therefore be fixed with greater success. Further investigating of the gap quantity shows that approximately 30\% of the missing data can be recovered with a gap size correction capability on 20 samples. This is illustrated on figure \ref{fig:GapCorrect}.  
+On figure \ref{fig:GapCorrect} is shown how much of the missing signal that can be reconstructed with different gap size correction capability. It is shown that a if a gap size correction capability of approximately 20 samples can be achieved, it is possible to recover $30\%$ of the missing data in the SmartHG dataset. Since the signal is partly stochastic, and it is not possible to recover the stochastic part, the complete signal can newer be reconstructed. The greater the gap, the greater influence does the stochastic part have on the signal. Smaller gaps can therefore be fixed with greater success. It is therefore unlikely that big gaps can be reconstructed. It is therefore unlikely that recovery of more than $30\%$ will be possible. 
 
-\subsection{Past And Future Availability}
-It is also important how many samples there are available post and prior to the the gap. If there is a lot of gaps in the signal it can create a scenario where there only is a small amount of good data between the gaps. This makes it hard to reconstruct the data, since there is very few points to extract information about the region. 
+\subsection{Post And Prior Knowledge}
+The reconstruction process works by looking at the samples available prior and post of the gap. Common for all reconstruction methods is that they assume that the signal in the gap must have behaved in relation to the samples prior and post for the gap. Therefore is the samples prior and post for the gap called knowledges, since it grants the knowledges used for reconstructing the gap. 
+
+But in a signal with lots of gaps it can be interesting to see how much knowledge is available for reconstructing a gap. This is done by seeing how many samples that are available prior and post to the gap. This is important since much data allows for detailed models, that can improve gap reconstruction and little knowledge gives the stochastic part dominance which will lead to error prone reconstruction. 
 
 \begin{figure}[H]
 \centering
@@ -72,35 +77,84 @@ It is also important how many samples there are available post and prior to the 
 \label{fig:PAF}
 \end{figure}
 
-\fxnote{The units is not understandable and needs explained.}
-
-\fxnote{ A bit more discussion about what the purpose of this information is.}
-
-In the case of the SmartHG project data the data available prior and post to a gap varies greatly but is around the same max and min values for every gap size. The median samples available to fix a gap is around 6 samples as shown in figure \ref{fig:PAF}. 
+In the case of the SmartHG project data the data available prior and post to a gap varies greatly but is around the same max and min values for every gap size. The median samples available to fix a gap is around 6 samples as shown in figure \ref{fig:PAF}. On the figure is shown that no matter the gap size is the expected knowledge about the same. This can be problematic since lager gaps offend needs more knowledge than smaller gaps. This further indicates that complete recovery of all gaps is impossible. 
 
 \section{SmartHG Dataset Reconstruction}
+The data reconstruction algorithms mentioned on section \ref{T:GapFilling} have been tied on the SmartHG dataset. First have 6 unique error free areas in the data been found, and a artificial gap have been introduced in the 6 scenarios. 
+The gaps have now been reconstructed, and a comparison to the true value is made. 
 
-\fxnote{ Gap fixing på SmartHG dataen. }
+The 6 scenarios have been randomly chosen under the constraints that there where no missing data in them, and they all are different in activity level from the other chosen scenarios. Both accumulative scenarios and non accumulative scenarios have been chosen. 
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=1\textwidth]{billeder/RecFeq.png}
-\caption{}
-\label{fig:RecFeq}
-\end{figure}
+There are several ways of comparing the different algorithms, in this report 3 have been selected based on the likelihood of the importance in a learning algorithm, which is the target application for the data. The first is a simple sample by sample comparison, where it is seen how much each sample differs from the true value. The other is the frequency, where it is analysed how much the frequency response is different. The last is a method called jitter compression, where we see that the power of the jitter is the same, more on this in section \ref{T:jitterCom}.
+
+\subsection{Sample Comparison}
+The sample by sample comparison is created by finding the mean square error of the samples compared to there true values.  
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/RecNorm.png}
-\caption{}
-\label{fig:RecFeq}
+\caption{Sample comparison of the reconstruction methods}
+\label{fig:RecNorm}
 \end{figure}
+
+On figure \ref{fig:RecNorm} is the result shown for 3 different cases. The Known attribute indicates how much prior and post knowledge in samples is used to reconstruct the gap. On the x axis is shown the gap size, as expected does the prediction grow worse the greater the gap size. As a baseline is a linear predictor also added. The linear predictor makes a simple line between the two samples at each edge of the gap, and places all missing samples on the line. 
+
+As seen on the figure the best reconstruction is made by the Papoulis-Gerchberg algorithm, with relatively few samples as knowledge. The wiener algorithm is also close to the linear base line. The logical statement is the more information or knowledge we have the better should the prediction become. This does not seems to be the case, since a lot of the algorithms amperes to preform better at lower knowledge rate. This can be explained by the stochastic part of a signal, when the knowledge is small it is more likely that the information around the gap is relevant, the more knowledge grows the more likely is it the a stochastic event will bring false information to the model. This can be illustrated as on figure \ref{fig:StocIls}.
+
+\begin{figure}[H]
+	\begin{picture}(300,200)
+	\put(0,0){\includegraphics[width=1\textwidth]{billeder/StocIlustation.png}}
+
+	\put(315,65){Stochastic event}
+	\put(365,65){\color{black}\vector(1,-1){10}}
+	
+	\put(315,210){Stochastic event}
+	\put(365,210){\color{black}\vector(1,-1){10}}
+
+	\end{picture}
+\caption{Stochastic effect on prediction.}
+\label{fig:StocIls}
+\end{figure}
+
+On the figure is shown a original signal with a gap, indicated by the red area. The true value is illustrated by the full red line in the original signal. The two subsequent graphs is the reconstruction, the blue area is the known area and the dotted red line is the predicted values. When the known area is small there is not enough frequency information to make any grant changes, so the prediction will look more or less like a linear interpolation. This is compared to the true value not a bad guess. When there is more samples known we are able to make more complex estimates of the signal. On the figure it is shown how when we have a knowledge of 15 we also see the stochastic event. Taking this in to the model, changes the prediction to a less correct value, due to the frequency's added by the stochastic event. 
+
+Since the results shown in figure \ref{fig:RecNorm} at higher knowledge shows that the reconstruction methods for the most part preforms worse than the linear basecase, we can conclude that the signal is quite stochastic and not as periodic as one would hope. 
+
+\newpage
+
+\subsection{Frequency Comparison}
+An other metric to compare is how well the frequency response is preserved in the reconstruction, since this is offend more important that the true value itself for smaller devices whit many states like computers. Such devices is often recognised by there usage pattern and not the true power draw amount. By looking at the Fourier transform of the original signal and the reconstructed power of the different frequencies was compared. 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{billeder/RecGitter.png}
-\caption{}
+\includegraphics[width=1\textwidth]{billeder/RecFeq.png}
+\caption{Frequency comparison of the reconstruction methods}
 \label{fig:RecFeq}
 \end{figure}
 
-\section{Related Work}
+As shown on figure \ref{fig:RecFeq} both the Wiener and the Papoulis-Gerchberg Algorithm seems to preform well. Like for the sample comparison the most successful reconstruction seems to be at low knowledge. 
+
+\subsection{Jitter Comparison }
+\label{T:jitterCom}
+
+The jitter is a different metric as it tells how well we have modelled the "noise" of the signal. In a jitter analysis the signal is thought of as a slowly changing signal with a faster noise signal embedded in it.
+
+The slow signal is assumed to be found by taking a low pass filter over the signal to filter out the noise. The jitter analysis measures the power in the jitter from this signal as illustrated on figure \ref{fig:JitPow}. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{billeder/JitterPower.png}
+\caption{Jitter Power Illustration}
+\label{fig:JitPow}
+\end{figure}
+
+It the estimated jitter power have been compared with the real jitter power for all the reconstruction methods. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/RecJitter.png}
+\caption{Jitter Power comparison of the reconstruction methods}
+\label{fig:RecJit}
+\end{figure}
+
+As seen on figure \ref{fig:RecJit} does non of the methods model the noise very well, as is to be expected due to the nature of the selected methods. This is will probably not be a problem for the SmartHG data, since it is sampled at a very low sample rate, and noise therefore is not likely to be used as a parameter. For data there have been sampled with high frequency it have shown that the noise created by the different appliances can be used to detect them \citep{RefWorks:17}. 
