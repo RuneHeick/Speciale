@@ -12,11 +12,11 @@ This indicate that data quality is something that is very depended on the intend
 
 Quality of data is a subject that is gaining more and more attention due to the fact that the quantity of data available is larger than ever before. This forces researchers to choose between datasets, and a notion of quality in the dataset can help them choose. The heavy growth in available data is a result of projects that are moving data gathering from controlled labs, to the public. Many of these projects is citizen science projects, where it is the citizens who collect the data, and not the researchers \cite{RefWorks:2}. This enables researchers to gather enormous amount of data, but they are no longer in control of the conditions the data is collected in, which introduces errors and other quality decreasing factors. 
 
-In non intrusive load monitoring is a topic that have been focused on a lot in the past years. This have been possible due to the rise of the smart meters, that makes it possible to measure at faster intervals, and collect the data on online services. But the smart meters architecture is designed after billing and regulation purposes, and not load monitoring. The network architecture is therefore often based on the unreliable UDP protocol, since it is more important to get the current information fast, than get all information. This courses a lot of packets to be lost in transition, which can degrade the completeness quality of the signal. The missing data can be a problem for load monitoring. Since many methods of load disaggregation is based on learning techniques the quality of the signal can also help identify if the collected data is suitable as a training set. 
+Non intrusive load monitoring is a topic that have been in focus in the past years. This is due to the rise of the smart meters, that makes it possible to measure at faster intervals, and collect the data on online services form real environments. But the smart meters architecture is designed after billing and regulation purposes, and not load monitoring. The network architecture is therefore often based on the unreliable UDP protocol, since it is more important to get the current information fast, than get all information. This courses a lot of packets to be lost in transition, which can degrade the completeness quality of the signal. The missing data can be a problem for load monitoring, since many methods of load disaggregation is based on learning techniques. The quality of the signal can also help identify if the collected data is suitable as a training set. 
 
 
 \section{Quality Criteria}
-It is not uncommon that different areas of research has its own quality criteria. This is due to the fact that quality is a very domain specific subject. One of the areas that have been dealing with citizen data for many years is the Geographic information area, that are used for maps, weather prediction and climate research. They have come up with several ways of describing quality in spatial data \cite{RefWorks:7}. Method for defining quality in time series data have also been developed  \cite{RefWorks:6}. To better define quality in the meter data inspiration from related work was used.
+It is not uncommon that different areas of research has its own quality criteria. This is due to the fact that quality is a very domain specific subject. One of the areas that have been dealing with citizen data for many years is the Geographic information area, that are used for maps, weather prediction and climate research. They have come up with several ways of describing quality in spatial data \cite{RefWorks:7}. Method for defining quality in time series data have also been developed  \cite{RefWorks:6}. To better define quality criteria in the smart meter data inspiration from related work is used.
 
 \subsection{Related Work}
 Data Quality is an area that recently have become a hot topic, due to the wast quantity of data. Many researchers strive to make tools that better can analyse data quality in different areas. In the area of spatial data is a \emph{"Quality and Workflow tool"} being developed by the University of Wageningen \citep{RefWorks:8}. The objective is to help researchers select the best suited data for a given data driven project. It does this by looking at different quality criteria, given by the user or found in standards for spatial data. 
@@ -24,12 +24,12 @@ Data Quality is an area that recently have become a hot topic, due to the wast q
 In bioinformatics is a tool named QCScreen developed to help create better dataset to metabolomics studies. In metabolomics studies is dataset often created by joining information from several different experiments of various quality. By using tools that can check the data quality and consistency to determine if a dataset is suitable for further processing, they are able to greatly improve the test results \citep{RefWorks:9}.
  
 In the article \emph{Taking a big Data approach to data quality in a citizen science project}\citep{RefWorks:2} they talk about how quality assessment can be used to rate the 
-believe on your data, and how to improve data collected in citizen science. The project focuses on bird observations, done by users on their smartphones. They improve the quality by disallowing the user to send incomplete datasets to the database, and in this way forcing the user to only deliver high quality information. They then cross check the information whit information from people in the same area, to see if it varies greatly. 
+believe on your data, and how to improve data collected in citizen science. The project focuses on bird observations, done by users on their smartphones. They improve the quality by disallowing the user to send incomplete datasets to the database, and in this way forcing the user to only deliver high quality information. They then cross check the information with information from people in the same area, to see if it varies greatly. 
 
-One of the things all the methods have in common is trying to look at the completeness of the data. Some of the most low level criteria is the sample availability. The sample availability describes how many samples there is collected in relation to the expected collection amount, and look at how the samples is distributed in the measurement period. It is also seen that the activity is a good quality metric since a good data set must contain both areas with activity and areas without. 
+One of the things all the methods have in common is trying to look at the completeness of the data. Some of the most low level criteria is the sample availability. The sample availability describes how many samples there is collected in relation to the expected collection amount, and look at how the samples are distributed in the measurement period. It is also seen that the activity is a good quality metric since a good data set must contain both areas with activity and areas without. 
 
 \section{Quality In SmartHG Citizen Data}
-As a part of the SmartHG project 25 households have been equipped with meters on selected appliances and the main meter. The data collected from this experiment are prone with errors due to malfunctioning test equipment or unexpected interference from the resident which have resulted in offline measurement equipment for periods of time. Such as unplugging the measurable equipment, or turning off the power socket that supply's it. Unstable network does further degrade the signal, since the measurement equipment uses a lossy network. 
+As a part of the SmartHG project 25 households have been equipped with meters on selected appliances and the main meter. The data collected from this experiment are prone with errors due to malfunctioning test equipment or unexpected interference from the resident which have resulted in offline measurement equipment for periods of time. Examples on unexpected interference could be if the resident is unplugging the measurable equipment, or turning off the power socket that supply's it. Unstable network does further degrade the signal, since the measurement equipment uses a lossy network. 
 
 The SmartHG data is intended for appliance recognition, and the quality must be assessed with this in mind. The completeness and the activity in the data is therefore important. 
 
@@ -65,7 +65,7 @@ To calculate the amount of samples expected to be in a specific period of time $
 
 \begin{gather}
 		N_{max}^{(m,T_n)} = \floor{ \frac{(T_{P}-\phi_{start}^{(m,T_n)})}{T_s^{(m)}}} + 1 \label{EQ:NMAX} \\
-		q^{(m,T)} = \frac{N_{observed}^{(m,T_n)}}{ N_{max}^{(m,T_n)} } \label{EQ:QMT}
+		q^{(m,T_n)} = \frac{N_{observed}^{(m,T_n)}}{ N_{max}^{(m,T_n)} } \label{EQ:QMT}
 \end{gather}
 
 As shown on equation \ref{EQ:NMAX} is the maximum number of samples for a meter $m$ in the period $T_n$ calculated by taking the period time $T_P$, corrected with the sample phase $\phi_{start}^{(m,T_n)}$ for the given period, and dividing it with the sample time $T_s$. The quality of the meter is calculated as the ratio of observed samples in the timeslot $T_n$ to the maximum samples, shown in equation \ref{EQ:QMT}. 
@@ -78,13 +78,13 @@ To find the quality of a house in a given period $T_n$, that have a set of meter
 
 
 
-A quality vector $Q$ is constructed for each house. The quality vector contains the house quality found whit a period $T_P$ on one hour. This have been done from March $T_1$ to October $T_N$. 
+A quality vector $Q$ is constructed for each house. The quality vector contains the house quality found with a period $T_P$ on one hour. This have been done from March $T_1$ to October $T_N$. 
 
 \begin{equation}
 	Q^{(\mathbf{M})} = \{ \mu_{q^{(M,T)}} | T \in \{T_1, T_2, ... ,T_n,..., T_N  \} \}
 	\label{EQ:HQV}
 \end{equation}
-This is shown in equation \ref{EQ:HQV} where $\mathbf{M}$ is a set of the meters in a given house. This can be graphically shown on the figure \ref{fig:SmartHGQuality} where all the houses $Q$ vectors is shown. The color is a gradient running from light green for the best quality to red for bad quality.
+This is shown in equation \ref{EQ:HQV} where $\mathbf{M}$ is a set of meters in a given house. This can be graphically shown in figure \ref{fig:SmartHGQuality} where all the houses $Q$ vectors is shown. The color is a gradient running from light green for the best quality to red for bad quality.
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/QualityBig.png}
@@ -92,13 +92,13 @@ This is shown in equation \ref{EQ:HQV} where $\mathbf{M}$ is a set of the meters
 \label{fig:SmartHGQuality}
 \end{figure} 
 
-On figure \ref{fig:SmartHGQuality} is the availability quality shown for the 25 houses in the SmartHG project. When seen on this scale with a analysis resolution on one hour it is hard to see degradation coursed by single sample missing here and there, but meters that have malfunctioned over a longer times shows itself. Since the quality of a house is the mean of several meter quality, will this most likely appear as darker green spots, since not all meters are malfunctioning at the same time. But there still are some red areas indicating that all the meters in a house is not working. 
+On figure \ref{fig:SmartHGQuality} is the availability quality shown for the 25 houses in the SmartHG project. When seen on this scale with a analysis resolution on one hour it is hard to see degradation coursed by single sample missing here and there, but meters that have malfunctioned over a longer times shows itself. Since the quality of a house is the mean of several meter quality's, will this most likely appear as darker green spots, since not all meters are malfunctioning at the same time. But there still are some red areas indicating that all the meters in a house is not working. 
 
-There are the red spots that goes through all houses on the exact same time. This indicates that the server reviving the data for all the houses have been down, since it is unlikely that all meters in every house is down at the same time. The conclusion being that red dots most commonly are coursed by the network being unavailable so the client can not sent to the server, or the server is down. 
+There are the red spots that goes through all houses on the exact same time. This indicates that the server receiving the data for all the houses have been down, since it is unlikely that all meters in every house is down at the same time. The conclusion being that red dots most commonly are coursed by the network being unavailable so the client can not sent to the server, or the server is unable to receive. 
 
 It is assumed that the first sample received from a meter happen at the time of meter installation, and the last sample received is the time of meter removal. The meter is assumed to be operating in between these two points in time. On the figure does the coloured $Q$ vector starts at installation time, and ends at removal time. This illustrates how some houses have been operational longer than others. 
 
-Since the data is intended for appliance recognition it is of interest where in the data there is activity, and where there is not happening anything. Both areas are impotent for the NILM application in training scenarios. We define activity as area in the data where there is change as described in equation \ref{EQ:CHANGE}.
+Since the data is intended for appliance recognition it is of interest where in the data there is activity, and where there is nothing happening. Both areas are impotent for the NILM application in training scenarios. We define activity as area in the data where there is change as described in equation \ref{EQ:CHANGE}.
 
 \begin{equation}
 f(x) + \epsilon < f(x+1) \vee f(x) - \epsilon > f(x+1)
