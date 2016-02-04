@@ -229,3 +229,9 @@
 \makeatletter % For spaces in paths
 \patchcmd\Gread@eps{\@inputcheck#1 }{\@inputcheck"#1"\relax}{}{}
 \makeatother
+
+\usepackage{tabularx}
+
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newcommand{\powerset}[1]{\mathbb{P}(#1)}
