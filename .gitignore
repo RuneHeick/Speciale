@@ -129,3 +129,15 @@ sympy-plots-for-*.tex/
 *-blx.bib
 *.brf
 *.run.xml
+
+nilm-eval/Matlab/data/eco/
+nilm-eval/Matlab/data/redd/
+nilm-eval/Matlab/results/details/
+nilm-eval/Matlab/results/summary/
+nilm-eval/Matlab/results/plots/
+nilm-eval/Matlab/input/autogen/evaluation_days/
+nilm-eval/Matlab/input/autogen/experiments/
+nilm-eval/Matlab/cache_plugs.mat
+nilm-eval/Matlab/cache_power.mat
+nilm-eval/Matlab/cache_sigdat.mat
+.DS_Store
