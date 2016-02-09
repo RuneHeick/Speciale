@@ -1,0 +1,13 @@
+configuration_name: 'kolter_initial'
+experiment_name: []
+algorithm: 'kolter'
+dataset: 'eco'
+household: 
+evalDays: 'first_7'
+numOfResults: 1
+trainingDays: 0
+granularity: 1
+filtering: 'noFiltering'
+fWindowLength: 5
+filtLRatio: 0.0002
+

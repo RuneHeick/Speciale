@@ -60,33 +60,106 @@ There also exists a series of non-traditional features, that is used in special 
 Many of the above features requires a high sample rate in kHz or Mhz span in order to be effective. This is often not the case, since it is normal smart meters that are providing the data. For a smart meter a sample rate at 1 Hz would be considered fast, and for many applications this is down to $0.03$ Hz or slower. It is therefore common only to use the steady state features, and most of the time only the power change feature, which looks at changes in power, reactive power, current or voltage. 
 
 \subsection{Learning Strategy} 
-When you have extracted features from the signal there are several algorithms there can be selected for the training. They can roughly be split up in two categories, optimization algorithms and machine learning algorithms. The optimization algorithms relies on a database of appliance info, and tries to find the subset of the database that are most likely to be in use. 
+When you have extracted features from the signal there are several algorithms there can be selected for the training. They can roughly be split up in two categories optimization algorithms and machine learning algorithms. The optimization algorithms relies on a database of appliance info, and tries to find the subset of the database that are most likely to be in use. 
+
 \begin{equation}
 	M = \argmin_{x \in \powerset{D} } \left( \mid {\sum_{i = 0}^{I} x_i - \hat{y}  \mid} \right)
 	\label{EQ:OMP}
 \end{equation}
 
-This is illustrated in equation \ref{EQ:OMP} were a set of appliances $M$ that correspond to the measured signal $\hat{y}$. This is done by searching the known database of all appliances $D$. This is done by taking the power set of the database and find the subset that fits best. 
+This is illustrated in equation \ref{EQ:OMP} were a set of appliances $M$ that correspond to the measured signal $\hat{y}$ needed to be found. This is achieved by searching the known database of all appliances $D$. This is done by taking the powerset of the database and finding the subset that minimises the error. This approach is fine for a small amounts of appliances, but for large databases and many appliances in use at the same time, does this take far to long to be practical. 
 
-This approach is fine for a small amounts of appliances, but for large databases and many appliances in use at the same time, does this take far to long to be practical. 
+Due to this, most researchers use pattern recognition techniques instead. These have the benefits of being more scalable, and be usable even if only parts of the device database is known. There are generality two approaches to pattern recognition: supervised and non-supervised. In supervised training it is assumed that the ground truth of your system is known. For a NILM application this means that the true consumption of the appliance need to be available for the training process. This means that a sub meter must be placed to measure the appliances individually, which often is costly and time consuming. In non-supervised methods, is only the main meter readings available, and no information about the appliances are known. This type of algorithms will usually try to cluster the readings in distinct groups cosponsoring to a guess of what appliances that correspond to the reading. Fore this kind of training it is easy to collect a big training set, but it requires the groups to be manually labelled afterwards.  
+  
+Most algorithms are based on clustering techniques and hidden Markov models. Hidden Markov models have proven very effective when classifying Type-I and Type-II appliances. This is due to its ability to model state changes as a imported part of the classification. It is shown that using clustering techniques can greatly improve the classification, and reduce the training time. Artificial neural networks is also showing great promise, and is a topic that is currently in focus by many NILM researchers. More on this in section \ref{sec:RecRelatedwork}. 
 
-Many uses therefore the machine learning techniques, to get results that are faster and scale better. There are two main categories of machine learning: supervised and unsupervised. 
+\subsection{NILM Challenges} 
+There are many challenges in NILM. One is the Type-III appliances. Due to there varying, and at time random, energy consumption it is hard to fit them to a behavioural model. This is made further harder by the low sample rate. Many great features of the appliances is hidden due to the low sample rate most data is collected with\citep{RefWorks:17}.
 
-
-
-%	-- Learning metoder
-
-% 	-- Signaler der drukner i andre
+A other problem is the "heavy consumer problem". In a house there are some appliances that require a lot of energy when they are on, such as stoves, air conditioners and refrigerators. These is often refereed to as the heavy consumers. Then there is the appliances that consumes very little energy like laptops, DVD players and routers. The heavy consumer problem is that the heavy consumers is so dominant that they make it hard to track the power signature of little consumers. This is why many researchers only focus on the top 10 heavy consumers when during NILM applications \fxnote{ref fra NILMTK artiklen}. 
 
 \section{Related Work} 
+\label{sec:RecRelatedwork}
 
-%	-- NILMTK 
-%	- Neural net 
+There are several interesting problems and approaches being researched in the NILM community in the moment. One is the lag of a good bases of comparison, both to compare the performance and the training time of a solution. It was a common practise that each researcher uses his own dataset, or an artificial lab setting to validate the results. This made it hard to compare the algorithm to others, and raised questions about the correctness of the findings. \\
+To accommodate this problem the NILM-Toolkit was created. This is a collection of python library's, that create a framework to evaluate NILM solutions. It supports a wide range of known datasets that can be used to train or validate an algorithm. It also comes with two benchmark algorithms to be used to compare a new algorithm against. The NILM-Toolkit will help researchers to easer share and compare algorithms in the future. \fxnote{ref NILMTK}
+
+Another framework to accomplish better comparison and sharing is the NILM-eval framework. This is based on Matlab and supports algorithms to be written in either Matlab or in python. The NILM-eval and the NILM-Toolkit is created to solve the same problem, and is compatible with each other in the sense that the interface for algorithms are the same. \fxnote{ref NILM-eval}
+
+Deep neural networks have last yeas improved the are of computer vision and speech recognition remarkably. NILM researchers are starting to look in to if similar techniques can be used to improve data disaggregation. Neural nets have like hidden Markov models the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural net can out preform the classic hidden Markov model approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on heavy consumers.\fxnote{ref ANN} Current research is looking that its potential in solving the heavy consumer problem, but no definite conclusions is yet to be reached. 
+
+Many approaches is supervised, since this kind of approach is better at separating the appliances. But this require that you first build a database with information about all the appliances. To have this prior knowledge of the system seems unrealistic in a application setting, where it is most likely you do not know anything about the house. To combat this various unsupervised methods have been developed. The focus in this kind of studies have been load separation for the sake of making power savings, or to inform the electric companies to help them create a more stable electric grid. There are several good algorithms for this today that support this purpose. For event detection and user habits analysis it is still most common to use the supervised approaches \citep{RefWorks:19}. This paper will therefore focus on the supervised approaches. 
+
+\newpage
 			
 
 \section{Recognition Methods} 
+Methods based on Hidden Markov models is currently the most popular method for NILM. Three method is selected to be validated in this paper. The methods are selected since they are often refereed to in literature, and is often used as benchmark algorithms. All of the algorithms is based on hidden Markov models in different configurations. In the following subsections will the algorithm be briefly explained. 
+
+\subsection{Factorial Hidden Markov Models}
+The hidden Markov models has proven to be one of the most used tools to create probabilistic models based on time series data. This is done by seeing the system as a series of observable states $Y_t$, and a series of hidden states $S_t$ \citep{RefWorks:20}. It is assumed that there excites a probabilistic relation between the observations $Y_t$ and a sequence of hidden states $S_t$. This is implemented as a first order model, which implies that the current hidden state $S_t$ is only depended on the previously state $S_{t-1}$ and the current observed state $Y_t$. It is the dependency to previously states that makes it grate for time series.  
+
+\begin{equation}
+	P(\{ S_t, Y_t \} ) = P(S_1)P(Y_1 | S_1) \prod_{t=2}^T P(S_t|S_{t-1})P(Y_t|S_t)
+	\label{EQ:HMM}
+\end{equation}
+
+The joint probability for a specific hidden state $S_t$ have caused the output $Y_t$ can be seen in equation \ref{EQ:HMM}. $P(Y_t|S_t)$ is the observation probability, which shows that conditional probability for $Y_t$ is outputted given the hidden state $S_t$. The probability for a state change is given by the transition property $P(S_t|S_{t-1})$. 
+
+Factorial hidden Markov models is an extension of this classic hidden Markov model where there exists several hidden state chains that all contribute to the observed output. This can be seen as an extension to equation \ref{EQ:HMM} where the hidden states $S_t$ can be seen as a series of states as shown on equation \ref{EQ:FHMM} where $M$ is the number of chains.
+
+\begin{equation}
+	S_t = \{ S_t^{(1)}, ..., S_t^{(m)}, ...., S_t^{(M)} \}
+	\label{EQ:FHMM}
+\end{equation}
+
+This can also be shown graphically on figure \ref{fig:FHMM}. Here we see how three chains all contribute to one output. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{billeder/FHMM.png}
+\caption{Factorial hidden Markov model illustration. Source \citep{RefWorks:20}}
+\label{fig:FHMM}
+\end{figure}
+
+As a extra constrain must each hidden state in in each chain only is depended on the previously state in the chain, and do not depend on the hidden state of other chains. This makes the state transition probability to be defined as in equation \ref{EQ:CTP}. 
+
+\begin{equation}
+	P(S_t|P_{t-1}) = \prod_{m = 1}^M P\left( S_t^{(m)}| S_{t-1}^{(m)} \right)
+	\label{EQ:CTP}
+\end{equation}
+
+The observed stated can therefore be seen as the sum of fractions of the different chains. 
+
+In this implementation there is normally used only two or three states, since most appliances is seen as Type-I or Type-II appliances. There is trained one chain for each of the appliances plus one that is called the other chain. This chain is to allow for the other appliances that are not taken in to the model and noise. The model can therefore be used to validate for a given output what is the probability that a given appliance is contributing to the output. The concrete implementation for this algorithm has been borrowed from the NILM-Toolkit \citep{RefWorks:21}. 
+
+\subsection{Parson}
+The Parson algorithem is a variant of the Kolter and Jaakkola algorithem\citep{RefWorks:22} that uses changes in the signal as the state information. It is based on hidden Markov model. In a normal hidden Markov model there is only emitted one output from the hidden states. In the Parson algorithm the model is changed to output two states from the hidden states $X$ and $Y$. This creates a model structure that can be graphically illustrated as on figure \ref{Fig:ParsonModel}. 
+
+\begin{figure}[H]
+\begin{picture}(0,140)
+\put(90,0){\includegraphics[width=0.6\textwidth]{billeder/ParsonIlu.png}}
+\put(112,115){$S_1$}
+\put(165,115){$S_2$}
+\put(215,115){$S_3$}
+\put(326,115){$S_T$}
+\end{picture}
+\caption{Parson hidden Markov model structure}
+\label{Fig:ParsonModel}
+\end{figure}
+
+\subsection{Weiss}
 
 
-\section{The ECO Dataset} 
+\section{The ECO Dataset}
+
 
 \section{Validation of Methods} 
+
+% Validate 
+
+\subsection{Sample rate experiment}
+% Gradiunality 
+
+\subsection{Gap filling experiment}
+% Gap 

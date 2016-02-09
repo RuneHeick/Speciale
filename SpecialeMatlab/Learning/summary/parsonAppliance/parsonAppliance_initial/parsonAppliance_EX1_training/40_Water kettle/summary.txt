@@ -1,0 +1,59 @@
+result 1:
+
+trained HMM means:
+4.000000	
+1700.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+result 2:
+
+trained HMM means:
+4.000000	
+1700.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+result 3:
+
+trained HMM means:
+4.000000	
+1700.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+result 4:
+
+trained HMM means:
+4.000000	
+1700.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+result 5:
+
+trained HMM means:
+4.000000	
+1700.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+Consumption:
+Water kettle: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.1112       0.0678     0.3083     0.3083     0.0095          5.4768   176.1145     6.8783
+           2     0.1509       0.0980     0.3276     0.3276     0.0109          3.4744   193.4425     4.8099
+           3     0.1293       0.0811     0.3178     0.3178     0.0096          4.4290   178.6243     5.7809
+           4     0.1546       0.1012     0.3279     0.3279     0.0100          3.3811   185.5960     4.7124
+           5     0.1428       0.0921     0.3172     0.3172     0.0100          3.6277   185.4210     4.9850
+

@@ -1,0 +1,36 @@
+result 1:
+
+          appliance:   true power:  reactive power:    phase:
+              Fridge        -75.40            -4.91         1
+              Fridge         79.17             5.48         1
+             Freezer        -52.31            17.39         1
+             Freezer         56.14           -18.58         1
+          Dishwasher      -2107.84             0.37         1
+          Dishwasher      -2092.48           -84.70         1
+          Dishwasher       2105.59            26.70         1
+        Water kettle      -1680.14           -59.61         1
+        Water kettle      -1548.69           -50.29         1
+        Water kettle       1638.07            59.01         1
+               Stove      -1104.91          -600.57         1
+               Stove       1318.17           395.66         1
+                Lamp       -228.65          -120.70         1
+                Lamp        -67.11          -141.54         1
+                Lamp        123.72           111.25         1
+                Lamp        275.31           101.00         1
+              Laptop        -41.76            17.91         1
+              Laptop         61.71             2.79         1
+                  TV       -214.70           -78.84         2
+                  TV        207.58            77.12         2
+              Stereo       -198.96           -75.60         2
+              Stereo        207.23            78.20         2
+
+
+Consumption:
+Laptop: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.2379       0.1893     0.3202     0.3202     0.2261          1.1377    23.9749     2.6123
+
+Events:
+Laptop: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.0779     0.0850     0.0719           Laptop     0.0000
