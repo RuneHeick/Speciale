@@ -110,9 +110,9 @@ clear;
     %% Plot 1 
     close all; 
     
-    algo = 1; %1-3
+    algo = 2; %1-3
     appliance = 1;  %1-5
-    feature = 7; %4-8
+    feature = 4; %4-8
     
     for appliance = 1:4
         Appl = ((algo-1)*35+1:5:(35*algo))+(appliance-1);

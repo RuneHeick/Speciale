@@ -51,11 +51,11 @@ In NILM the features can be sub categorised in steady state, transient state and
 \label{fig:FTR}
 \end{figure}
 
-Steady state features is features that can be extracted when the signal is in the stable state. Features that are often extracted in this state is "Power Change" which is the jump in power or reactive power usage. Time and frequency analysis is often used on the voltage and power signals of the meters. It is shown that analysing the harmonics in signals is a powerful way of making appliance detection \fxnote{ref}.The trajectory between voltage and power usage is a god feature. This can be used to detect the reactive power of a signal, which is a give-away for inductive loads. Some researchers have shown that different appliances makes different noise profiles on the main line. Unfortunately does this kind of recognition require a extremely high sampling rate \fxnote{ref}. 
+Steady state features is features that can be extracted when the signal is in the stable state. Features that are often extracted in this state is "Power Change" which is the jump in power or reactive power usage. Time and frequency analysis is often used on the voltage and power signals of the meters. It is shown that analysing the harmonics in signals is a powerful way of making appliance detection \citep{RefWorks:29}.The trajectory between voltage and power usage is a god feature. This can be used to detect the reactive power of a signal, which is a give-away for inductive loads. Some researchers have shown that different appliances makes different noise profiles on the main line. Unfortunately does this kind of recognition require a extremely high sampling rate \citep{RefWorks:30}. 
 
 The transient state of an appliance is a short state that comes when a appliance switches between steady states. In this state there often is appliance semi-unique waveforms in the current and voltage domain. The noise generated on the mainline in this state is also a good indication of the appliances type. 
 
-There also exists a series of non-traditional features, that is used in special types of algorithms. One of them is based on matching the power usage profile to geometrical figures, and using the series of figures to recognize an appliance \fxnote{ref}.  
+There also exists a series of non-traditional features, that is used in special types of algorithms. One of them is based on matching the power usage profile to geometrical figures, and using the series of figures to recognize an appliance \citep{RefWorks:17}.  
 
 Many of the above features requires a high sample rate in kHz or Mhz span in order to be effective. This is often not the case, since it is normal smart meters that are providing the data. For a smart meter a sample rate at 1 Hz would be considered fast, and for many applications this is down to $0.03$ Hz or slower. It is therefore common only to use the steady state features, and most of the time only the power change feature, which looks at changes in power, reactive power, current or voltage. 
 
@@ -76,17 +76,17 @@ Most algorithms are based on clustering techniques and hidden Markov models. Hid
 \subsection{NILM Challenges} 
 There are many challenges in NILM. One is the Type-III appliances. Due to there varying, and at time random, energy consumption it is hard to fit them to a behavioural model. This is made further harder by the low sample rate. Many great features of the appliances is hidden due to the low sample rate most data is collected with\citep{RefWorks:17}.
 
-A other problem is the "heavy consumer problem". In a house there are some appliances that require a lot of energy when they are on, such as stoves, air conditioners and refrigerators. These is often refereed to as the heavy consumers. Then there is the appliances that consumes very little energy like laptops, DVD players and routers. The heavy consumer problem is that the heavy consumers is so dominant that they make it hard to track the power signature of little consumers. This is why many researchers only focus on the top 10 heavy consumers when during NILM applications \fxnote{ref fra NILMTK artiklen}. 
+A other problem is the "heavy consumer problem". In a house there are some appliances that require a lot of energy when they are on, such as stoves, air conditioners and refrigerators. These is often refereed to as the heavy consumers. Then there is the appliances that consumes very little energy like laptops, DVD players and routers. The heavy consumer problem is that the heavy consumers is so dominant that they make it hard to track the power signature of little consumers. This is why many researchers only focus on the top 10 heavy consumers when during NILM applications \citep{RefWorks:21}. 
 
 \section{Related Work} 
 \label{sec:RecRelatedwork}
 
 There are several interesting problems and approaches being researched in the NILM community in the moment. One is the lag of a good bases of comparison, both to compare the performance and the training time of a solution. It was a common practise that each researcher uses his own dataset, or an artificial lab setting to validate the results. This made it hard to compare the algorithm to others, and raised questions about the correctness of the findings. \\
-To accommodate this problem the NILM-Toolkit was created. This is a collection of python library's, that create a framework to evaluate NILM solutions. It supports a wide range of known datasets that can be used to train or validate an algorithm. It also comes with two benchmark algorithms to be used to compare a new algorithm against. The NILM-Toolkit will help researchers to easer share and compare algorithms in the future. \fxnote{ref NILMTK}
+To accommodate this problem the NILM-Toolkit was created. This is a collection of python library's, that create a framework to evaluate NILM solutions. It supports a wide range of known datasets that can be used to train or validate an algorithm. It also comes with two benchmark algorithms to be used to compare a new algorithm against. The NILM-Toolkit will help researchers to easer share and compare algorithms in the future\citep{RefWorks:21}. 
 
-Another framework to accomplish better comparison and sharing is the NILM-eval framework. This is based on Matlab and supports algorithms to be written in either Matlab or in python. The NILM-eval and the NILM-Toolkit is created to solve the same problem, and is compatible with each other in the sense that the interface for algorithms are the same. \fxnote{ref NILM-eval}
+Another framework to accomplish better comparison and sharing is the NILM-eval framework. This is based on Matlab and supports algorithms to be written in either Matlab or in python. The NILM-eval and the NILM-Toolkit is created to solve the same problem, and is compatible with each other in the sense that the interface for algorithms are the same\citep{RefWorks:26}. 
 
-Deep neural networks have last yeas improved the are of computer vision and speech recognition remarkably. NILM researchers are starting to look in to if similar techniques can be used to improve data disaggregation. Neural nets have like hidden Markov models the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural net can out preform the classic hidden Markov model approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on heavy consumers.\fxnote{ref ANN} Current research is looking that its potential in solving the heavy consumer problem, but no definite conclusions is yet to be reached. 
+Deep neural networks have last yeas improved the are of computer vision and speech recognition remarkably. NILM researchers are starting to look in to if similar techniques can be used to improve data disaggregation. Neural nets have like hidden Markov models the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural net can out preform the classic hidden Markov model approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on heavy consumers\citep{RefWorks:25}. Current research is looking that its potential in solving the heavy consumer problem, but no definite conclusions is yet to be reached. 
 
 Many approaches is supervised, since this kind of approach is better at separating the appliances. But this require that you first build a database with information about all the appliances. To have this prior knowledge of the system seems unrealistic in a application setting, where it is most likely you do not know anything about the house. To combat this various unsupervised methods have been developed. The focus in this kind of studies have been load separation for the sake of making power savings, or to inform the electric companies to help them create a more stable electric grid. There are several good algorithms for this today that support this purpose. For event detection and user habits analysis it is still most common to use the supervised approaches \citep{RefWorks:19}. This paper will therefore focus on the supervised approaches. 
 
@@ -125,7 +125,7 @@ This can also be shown graphically on figure \ref{fig:FHMM}. Here we see how thr
 As a extra constrain must each hidden state in in each chain only is depended on the previously state in the chain, and do not depend on the hidden state of other chains. This makes the state transition probability to be defined as in equation \ref{EQ:CTP}. 
 
 \begin{equation}
-	P(S_t|P_{t-1}) = \prod_{m = 1}^M P\left( S_t^{(m)}| S_{t-1}^{(m)} \right)
+	P(S_t|S_{t-1}) = \prod_{m = 1}^M P\left( S_t^{(m)}| S_{t-1}^{(m)} \right)
 	\label{EQ:CTP}
 \end{equation}
 
@@ -134,7 +134,9 @@ The observed stated can therefore be seen as the sum of fractions of the differe
 In this implementation there is normally used only two or three states, since most appliances is seen as Type-I or Type-II appliances. There is trained one chain for each of the appliances plus one that is called the other chain. This chain is to allow for the other appliances that are not taken in to the model and noise. The model can therefore be used to validate for a given output what is the probability that a given appliance is contributing to the output. The concrete implementation for this algorithm has been borrowed from the NILM-Toolkit \citep{RefWorks:21}. 
 
 \subsection{Parson}
-The Parson algorithem is a variant of the Kolter and Jaakkola algorithem\citep{RefWorks:22} that uses changes in the signal as the state information. It is based on hidden Markov model. In a normal hidden Markov model there is only emitted one output from the hidden states. In the Parson algorithm the model is changed to output two states from the hidden states $X$ and $Y$. This creates a model structure that can be graphically illustrated as on figure \ref{Fig:ParsonModel}. 
+The Parson algorithem is a variant of the Kolter and Jaakkola algorithem\citep{RefWorks:22}. The algorithm is designed to be a semi-supervised learning algorithms. This means that the algorithm does not need to train on the data from the concrete house prior to deployment, but it still requires some prior knowledge. The idea is to have a database of general appliance models, that tells how specific appliances most likely will behave. This model will be able to detect the device, and do some unsupervised special training to better fit the concrete appliance. 
+
+The algorithm is based on a kind of HMM called "difference HMM" since they take the step difference in the aggregated data and use as the observed output $Y_t$. In a normal hidden Markov model there is only emitted one output for each hidden state in a chain. In the Parson algorithm the model is changed to output two states from the hidden states $X_t$ and $Y$. This creates a model structure that can be graphically illustrated as on figure \ref{Fig:ParsonModel}\citep{RefWorks:28}. 
 
 \begin{figure}[H]
 \begin{picture}(0,140)
@@ -144,22 +146,65 @@ The Parson algorithem is a variant of the Kolter and Jaakkola algorithem\citep{R
 \put(215,115){$S_3$}
 \put(326,115){$S_T$}
 \end{picture}
-\caption{Parson hidden Markov model structure}
+\caption{Parson hidden Markov model structure. Source \citep{RefWorks:28}}
 \label{Fig:ParsonModel}
 \end{figure}
 
-\subsection{Weiss}
+The $Y_t$ is corresponding to the step in power that is observed since the last sample. It is assumed that the only thing that can cause a step in power if is an appliance changes states from one to another. The $X_t$ is the mean constant power draw of the state. This is used to filter out the appliance if the power draw observed is smaller than this threshold.
 
+It is assumed that the power consumption of a state in the general model of an appliance can be modelled as a Gaussian. This can be illustrated as in equation \ref{EQ:GPF}. 
+
+\begin{equation}
+	P(X_t|S_t) \rightarrow \mathcal{N}( \mu_{S_t} , \sigma_{S_t}^2 )
+	\label{EQ:GPF}
+\end{equation}
+
+This shows how the power draw of a appliance is modelled as Gaussians. The step change emission probability $Y_t$, can be seen as a Gaussian that is created from the change between two states as shown in equation \ref{EQ:GST}.
+
+\begin{equation}
+	P(Y_t|S_t, S_{t-1}) \rightarrow \mathcal{N}( \mu_{S_t} - \mu_{S_{t-1}} , \sigma_{S_t}^2 + \sigma_{S_{t-1}}^2 )
+	\label{EQ:GST}
+\end{equation}
+
+To model the constraint that the meter only can be on if the mean power draw is present in the signal is a additional constraint added to the emission probability. This constrain is mathematically described in equation \ref{EQ:PCA}.
+
+\begin{equation}
+	P(w_{S_t} \leq x_t | S_t ) = \int_{-\infty}^{x_t}  \mathcal{N}( \mu_{S_t} , \sigma_{S_t}^2 ) dw
+	\label{EQ:PCA}
+\end{equation}
+
+Where $x_t$ is the measured power consumption and $w_{S_t}$ is the appliance power draw constraint. This makes the probobility going towards zero if the total power draw is to little and towards 1 if there is more than enough power. This is a loose constraint since too high power draw also could be created by other appliances. To minimise the impact this have for the algorithm is the mean power draw subtracted from the data before other appliances is searched for. 
+
+In the implementation validated in this paper all appliances is modelled as Type-I. The algorithm is allowed to train on the house data, to better fit the general models to the appliances. 
+
+\subsection{Weiss}
+The algorithm proposed by Weiss called "AppliSense" is a other approach that do not use Markov models\citep{RefWorks:23}. The philosophy is that some appliances like lamps and kettles are purely resistive, where others like washing machines and air conditions is more inductive and some appliances like laptops is more capacitive. Bye measuring not only the power consumption, but also the amount of reactive power it is revealed if there is inductive or capacitive appliances.
+
+The algorithm is supervised since it requires a signature database to be created prior to usage. The signature database consists of how the changes will be in reactive and real power for a specific device when it is turned on and off. In their paper the authors show a method where this database can be created of a user, by using a smart-phone application and turning on and off appliances in the house, and inputting the information in the mobile application\citep{RefWorks:23}. In this paper the database is created by data collected from the sub-meters measuring only the devices.  
+
+The algorithm looks for significant power changes in the data. If a change is found it is assumed to be an on or off event. The change is now compared to all the values in the database. If a close match is found it is assumed to be this device, if not it is a unknown device. This limits the approach to Type-I appliances, and the algorithm requires the reactive power to be measured. 
 
 \section{The ECO Dataset}
+The experiments in this section will be done on the "Electricity Consumption and Occupancy" (ECO) dataset \citep{RefWorks:26}\citep{RefWorks:27}. The dataset consists of six houses that have been equipped with sub-meters on selected meters and the main meter. The data is collected in Switzerland in the period June 2012 to January 2012. 
 
+The data is sampled with a resolution on 1 Hz on both the sub-meters and the main meter. On the main meter is both real and reactive power measured, where on the sub-meter it is only the real power. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/ECOHouses.png}
+\caption{House energy distribution. Source \citep{RefWorks:26}}
+\label{fig:EHD}
+\end{figure}
+
+On figure \ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses, in the ECO dataset. Here we see that for house two is more than $75\%$ of the energy usages accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who is the the heavy consumers and who is the little consumers.  
 
 \section{Validation of Methods} 
-
+\lipsum[3]
 % Validate 
 
 \subsection{Sample rate experiment}
 % Gradiunality 
-
+\lipsum[4]
 \subsection{Gap filling experiment}
 % Gap 
+\lipsum[5]
