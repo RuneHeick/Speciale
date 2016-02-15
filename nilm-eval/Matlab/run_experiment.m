@@ -7,7 +7,7 @@ function run_experiment()
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
     configuration_input = 'input/configurations/parsonAppliance_initial.yaml';
-    experiment_input = 'input/experiments/parson/Ex1/TV_EX1.yaml' %'input/experiments/weiss/app_laptop_r_0.2.yaml';
+    experiment_input = 'input/experiments/parson/EX1/fridge_EX1.yaml' %'input/experiments/weiss/app_laptop_r_0.2.yaml';
     global caching;
     caching = 0;
     

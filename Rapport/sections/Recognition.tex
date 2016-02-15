@@ -1,8 +1,8 @@
 \chapter{Appliance Recognition }
 
-Appliance recognition and load disaggregation is some of the key aspects in non intrusive load monitoring (NILM). The main purpose of the NILM approach is to better understand the power usage in home, and help the different household to more optimal power savings. This is done by informing the residents about the power consumption of individual appliances. It is shown that informing a household about its usages pattern can lead to savings \fxnote{find a ref for this}. This makes the basis for load disaggregation, where appliance specific load is guessed based on the main meter load. This enables the user to know what uses the energy and when.
+Appliance recognition and load disaggregation is some of the key aspects in non intrusive load monitoring (NILM). The main purpose of the NILM approach is to better understand the power usage in the home, and help the different households to more optimal power savings. This is done by informing the residents about the power consumption of individual appliances. It is shown that informing a household about its usages pattern can lead to significant savings \fxnote{find a ref for this}. This makes the basis for load disaggregation, where appliance specific load is guessed based on the main meter load. This enables the user to know what uses the energy and when.
 
-One other aspect of NILM is event detection. Sometime the actual consumption of an appliance is not as important as when it was used, and for how long. This is a simpler task than guessing the true consumption, and is for some applications a better approach. As an example is this kind of information sufficient if we want to track the activity of a elderly person in a assisted living situation \fxnote{find a ref for this}. 
+One other aspect of NILM is event detection. Sometime the actual consumption of an appliance is not as important as when it was used, and for how long. This is a simpler task than guessing the true consumption, and is for some applications a better approach. As an example is this kind of information sufficient if we want to track the activity of a elderly person in a assisted living situation. 
 
 \section{NILM Concepts And Challenges} 
 The aim of NILM is to partition the hole house consumption data in to appliance specific consumption. 
@@ -10,7 +10,7 @@ The aim of NILM is to partition the hole house consumption data in to appliance 
 	P(t) = p_1(t) + p_2(t) + ... + p_n(t)
 	\label{EQ:PAC}
 \end{equation}
-This can be seen as in equation \ref{EQ:PAC} where $P(t)$ is the total consumption at time $t$, and $p_n(t)$ is the consumption of appliance $n$ at time $t$. The aim is to partition $P(t)$ back to the different appliance specific consumptions. In order to structure the problem we categorise the appliances in 3 groups \fxnote{ref her til a}: 
+This can be seen as in equation \ref{EQ:PAC} where $P(t)$ is the total consumption at time $t$, and $p_n(t)$ is the consumption of appliance $n$ at time $t$. The aim is to partition $P(t)$ back to the different appliance specific consumptions. In order to structure the problem we categorise the appliances in 4 groups\citep{RefWorks:17} 
 
 \begin{tabularx}{\linewidth}{ r X }
 Type-I:&Appliances that only have 2 states corresponding to on/off. This could be a lamp or a water boiler. \\
@@ -19,8 +19,8 @@ Type-II:&These are appliances with multiple states, and can be modelled as a fin
 \end{tabularx}
 
 \begin{tabularx}{\linewidth}{ r X }
-Type-III:&These are appliances is referred to as Continuously Variable
-Devices. These devices have a variable power draw and is impossible to model as a finite state machine. This could be appliances like power drills, and dimmer lights. These are by far the hardest for the NILM algorithms to detect. \\
+Type-III:&These appliances is referred to as "Continuously Variable
+Devices". These devices have a variable power draw and is impossible to model as a finite state machine. This could be appliances like power drills, and dimmer lights. These are by far the hardest for the NILM algorithms to detect. \\
 \\
 Type-IV:& These are a special kind of appliances that are always on and consume energy at a constant rate. Such devices could be smoke detectors and TV receivers.  \\
 \end{tabularx}
@@ -57,10 +57,10 @@ The transient state of an appliance is a short state that comes when a appliance
 
 There also exists a series of non-traditional features, that is used in special types of algorithms. One of them is based on matching the power usage profile to geometrical figures, and using the series of figures to recognize an appliance \citep{RefWorks:17}.  
 
-Many of the above features requires a high sample rate in kHz or Mhz span in order to be effective. This is often not the case, since it is normal smart meters that are providing the data. For a smart meter a sample rate at 1 Hz would be considered fast, and for many applications this is down to $0.03$ Hz or slower. It is therefore common only to use the steady state features, and most of the time only the power change feature, which looks at changes in power, reactive power, current or voltage. 
+Many of the above features requires a high sample rate in kHz or Mhz span in order to be effective. This kind of resolution is often not available since it is normal smart meters that are providing the data. For a smart meter a sample rate at 1 Hz would be considered fast, and for many applications this is down to $0.03$ Hz or slower. It is therefore common only to use the steady state features, and most of the time only the power change feature, which looks at changes in power, reactive power, current or voltage. 
 
 \subsection{Learning Strategy} 
-When you have extracted features from the signal there are several algorithms there can be selected for the training. They can roughly be split up in two categories optimization algorithms and machine learning algorithms. The optimization algorithms relies on a database of appliance info, and tries to find the subset of the database that are most likely to be in use. 
+When you have extracted features from the signal there are several algorithms there can be selected for the training. They can roughly be split up in two categories optimization algorithms and pattern recognition algorithms. The optimization algorithms relies on a database of appliance info, and tries to find the subset of the database that are most likely to be in use. 
 
 \begin{equation}
 	M = \argmin_{x \in \powerset{D} } \left( \mid {\sum_{i = 0}^{I} x_i - \hat{y}  \mid} \right)
@@ -86,7 +86,7 @@ To accommodate this problem the NILM-Toolkit was created. This is a collection o
 
 Another framework to accomplish better comparison and sharing is the NILM-eval framework. This is based on Matlab and supports algorithms to be written in either Matlab or in python. The NILM-eval and the NILM-Toolkit is created to solve the same problem, and is compatible with each other in the sense that the interface for algorithms are the same\citep{RefWorks:26}. 
 
-Deep neural networks have last yeas improved the are of computer vision and speech recognition remarkably. NILM researchers are starting to look in to if similar techniques can be used to improve data disaggregation. Neural nets have like hidden Markov models the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural net can out preform the classic hidden Markov model approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on heavy consumers\citep{RefWorks:25}. Current research is looking that its potential in solving the heavy consumer problem, but no definite conclusions is yet to be reached. 
+Deep neural networks have last yeas improved the area of computer vision and speech recognition remarkably. NILM researchers are starting to look in to if similar techniques can be used to improve data disaggregation. Neural nets have like hidden Markov models the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural net can out preform the classic hidden Markov model approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on heavy consumers\citep{RefWorks:25}. Current research is looking that its potential in solving the heavy consumer problem, but no definite conclusions is yet to be reached. 
 
 Many approaches is supervised, since this kind of approach is better at separating the appliances. But this require that you first build a database with information about all the appliances. To have this prior knowledge of the system seems unrealistic in a application setting, where it is most likely you do not know anything about the house. To combat this various unsupervised methods have been developed. The focus in this kind of studies have been load separation for the sake of making power savings, or to inform the electric companies to help them create a more stable electric grid. There are several good algorithms for this today that support this purpose. For event detection and user habits analysis it is still most common to use the supervised approaches \citep{RefWorks:19}. This paper will therefore focus on the supervised approaches. 
 
@@ -94,17 +94,17 @@ Many approaches is supervised, since this kind of approach is better at separati
 			
 
 \section{Recognition Methods} 
-Methods based on Hidden Markov models is currently the most popular method for NILM. Three method is selected to be validated in this paper. The methods are selected since they are often refereed to in literature, and is often used as benchmark algorithms. All of the algorithms is based on hidden Markov models in different configurations. In the following subsections will the algorithm be briefly explained. 
+Methods based on Hidden Markov models is currently the most popular method for NILM. Three method is selected to be validated in this paper. The methods are selected since they are often refereed to in literature, and is often used as benchmark algorithms. All of the algorithms is based on hidden Markov models or clustering in different configurations. In the following subsections will the algorithms be briefly introduced. 
 
 \subsection{Factorial Hidden Markov Models}
-The hidden Markov models has proven to be one of the most used tools to create probabilistic models based on time series data. This is done by seeing the system as a series of observable states $Y_t$, and a series of hidden states $S_t$ \citep{RefWorks:20}. It is assumed that there excites a probabilistic relation between the observations $Y_t$ and a sequence of hidden states $S_t$. This is implemented as a first order model, which implies that the current hidden state $S_t$ is only depended on the previously state $S_{t-1}$ and the current observed state $Y_t$. It is the dependency to previously states that makes it grate for time series.  
+The hidden Markov models has proven to be one of the most used tools to create probabilistic models based on time series data. This is done by seeing the system as a series of observable states $Y_t$, and a series of hidden states $S_t$ \citep{RefWorks:20}. It is assumed that there excites a probabilistic relation between the observations $Y_t$ and a sequence of hidden states $S_t$. This is implemented as a first order model, which implies that the current hidden state $S_t$ is only depended on the previously state $S_{t-1}$ and the current observed state $Y_t$.
 
 \begin{equation}
 	P(\{ S_t, Y_t \} ) = P(S_1)P(Y_1 | S_1) \prod_{t=2}^T P(S_t|S_{t-1})P(Y_t|S_t)
 	\label{EQ:HMM}
 \end{equation}
 
-The joint probability for a specific hidden state $S_t$ have caused the output $Y_t$ can be seen in equation \ref{EQ:HMM}. $P(Y_t|S_t)$ is the observation probability, which shows that conditional probability for $Y_t$ is outputted given the hidden state $S_t$. The probability for a state change is given by the transition property $P(S_t|S_{t-1})$. 
+The joint probability for a specific hidden state $S_t$ have caused the observed output $Y_t$ can be seen in equation \ref{EQ:HMM}. $P(Y_t|S_t)$ is the emission probability, which shows that conditional probability for $Y_t$ is outputted given the hidden state $S_t$. The probability for a state change is given by the transition property $P(S_t|S_{t-1})$. 
 
 Factorial hidden Markov models is an extension of this classic hidden Markov model where there exists several hidden state chains that all contribute to the observed output. This can be seen as an extension to equation \ref{EQ:HMM} where the hidden states $S_t$ can be seen as a series of states as shown on equation \ref{EQ:FHMM} where $M$ is the number of chains.
 
@@ -113,7 +113,7 @@ Factorial hidden Markov models is an extension of this classic hidden Markov mod
 	\label{EQ:FHMM}
 \end{equation}
 
-This can also be shown graphically on figure \ref{fig:FHMM}. Here we see how three chains all contribute to one output. 
+This can also be shown graphically on figure \ref{fig:FHMM}. It is illustrated how several hidden states from different chains contribute to the output. 
 
 \begin{figure}[H]
 \centering
@@ -122,7 +122,7 @@ This can also be shown graphically on figure \ref{fig:FHMM}. Here we see how thr
 \label{fig:FHMM}
 \end{figure}
 
-As a extra constrain must each hidden state in in each chain only is depended on the previously state in the chain, and do not depend on the hidden state of other chains. This makes the state transition probability to be defined as in equation \ref{EQ:CTP}. 
+As a extra constrain must each hidden state, in in each chain, only depended on the previously state in the chain, and not on the hidden state of other chains. This makes the state transition probability to be defined as in equation \ref{EQ:CTP}. 
 
 \begin{equation}
 	P(S_t|S_{t-1}) = \prod_{m = 1}^M P\left( S_t^{(m)}| S_{t-1}^{(m)} \right)
@@ -155,14 +155,14 @@ The $Y_t$ is corresponding to the step in power that is observed since the last 
 It is assumed that the power consumption of a state in the general model of an appliance can be modelled as a Gaussian. This can be illustrated as in equation \ref{EQ:GPF}. 
 
 \begin{equation}
-	P(X_t|S_t) \rightarrow \mathcal{N}( \mu_{S_t} , \sigma_{S_t}^2 )
+	w_t|_{S_t} \rightarrow \mathcal{N}( \mu_{S_t} , \sigma_{S_t}^2 )
 	\label{EQ:GPF}
 \end{equation}
 
-This shows how the power draw of a appliance is modelled as Gaussians. The step change emission probability $Y_t$, can be seen as a Gaussian that is created from the change between two states as shown in equation \ref{EQ:GST}.
+This shows how the power draw of a appliance is modelled as Gaussians. The step Power $Y_t$, can also be modelled as a Gaussian that is created from the change between two states as shown in equation \ref{EQ:GST}.
 
 \begin{equation}
-	P(Y_t|S_t, S_{t-1}) \rightarrow \mathcal{N}( \mu_{S_t} - \mu_{S_{t-1}} , \sigma_{S_t}^2 + \sigma_{S_{t-1}}^2 )
+	Y_t|_{S_t,S_{t-1}} \rightarrow \mathcal{N}( \mu_{S_t} - \mu_{S_{t-1}} , \sigma_{S_t}^2 + \sigma_{S_{t-1}}^2 )
 	\label{EQ:GST}
 \end{equation}
 
@@ -175,7 +175,7 @@ To model the constraint that the meter only can be on if the mean power draw is 
 
 Where $x_t$ is the measured power consumption and $w_{S_t}$ is the appliance power draw constraint. This makes the probobility going towards zero if the total power draw is to little and towards 1 if there is more than enough power. This is a loose constraint since too high power draw also could be created by other appliances. To minimise the impact this have for the algorithm is the mean power draw subtracted from the data before other appliances is searched for. 
 
-In the implementation validated in this paper all appliances is modelled as Type-I. The algorithm is allowed to train on the house data, to better fit the general models to the appliances. 
+In the implementation validated in this paper is all appliances modelled as Type-I. The algorithm is allowed to train on the house data, to better fit the general models to the appliances and create the initial database.  
 
 \subsection{Weiss}
 The algorithm proposed by Weiss called "AppliSense" is a other approach that do not use Markov models\citep{RefWorks:23}. The philosophy is that some appliances like lamps and kettles are purely resistive, where others like washing machines and air conditions is more inductive and some appliances like laptops is more capacitive. Bye measuring not only the power consumption, but also the amount of reactive power it is revealed if there is inductive or capacitive appliances.
@@ -196,15 +196,33 @@ The data is sampled with a resolution on 1 Hz on both the sub-meters and the mai
 \label{fig:EHD}
 \end{figure}
 
-On figure \ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses, in the ECO dataset. Here we see that for house two is more than $75\%$ of the energy usages accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who is the the heavy consumers and who is the little consumers.  
+On figure \ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses, in the ECO dataset. Here we see that for house two is more than $75\%$ of the energy usages accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who the the heavy consumers is and who the little consumers is.  
 
 \section{Validation of Methods} 
-\lipsum[3]
+\lipsum[3]\fxnote{This is lipsum}
 % Validate 
 
 \subsection{Sample rate experiment}
-% Gradiunality 
-\lipsum[4]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/AlgoScoreNilm.png}
+\caption{Algorithm validation at different sample graduality.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{billeder/App-AccuracyScore.png}
+\caption{Appliances accuracy score}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{billeder/App-F1Score.png}
+\caption{Appliances F1 score}
+\end{figure}
+
+
 \subsection{Gap filling experiment}
 % Gap 
 \lipsum[5]

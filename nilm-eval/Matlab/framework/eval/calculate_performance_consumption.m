@@ -23,6 +23,7 @@ function [summary] = calculate_performance_consumption(summary, iteration, setup
     f_score = zeros(length(appliance_names), 1);
     tpr = zeros(length(appliance_names), 1);
     fpr = zeros(length(appliance_names), 1);
+    accuracy = zeros(length(appliance_names), 1);
     
     % load smart meter data
     global caching;
@@ -81,6 +82,7 @@ function [summary] = calculate_performance_consumption(summary, iteration, setup
         fpr_value = fp / (fp + tn);
         precision_value = tp/(tp + fp);
         recall_value = tp/(tp + fn);
+        accuracy(i,1) = (tp+tn)/(tp+tn+fn+fp);
         f_score(i,1) = 2*precision_value*recall_value/(precision_value + recall_value);
         precision(i,1) = precision_value;
         recall(i,1) = recall_value;
@@ -97,6 +99,7 @@ function [summary] = calculate_performance_consumption(summary, iteration, setup
     summary.consumption.tpr(:,iteration) = tpr;
     summary.consumption.fpr(:,iteration) = fpr;
     summary.consumption.npe(:,iteration) = npe;
+    summary.consumption.accuracy(:,iteration) = accuracy;
     
     summary.appliance_names = result.appliance_names;
 end

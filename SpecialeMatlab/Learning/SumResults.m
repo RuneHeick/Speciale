@@ -30,23 +30,36 @@ clear;
             summ.consumption.precision
             summ.consumption.tpr
             summ.consumption.fpr
+            summ.consumption.accuracy
             };
             index = 1 + index; 
         end
     end
 
-    %% 
+    %% parson
     
-    path = 'summary\parsonAppliance\parsonAppliance_initial\parsonAppliance_EX1_training';
+    fpath = 'summary\parsonAppliance\parsonAppliance_initial';
+    % Get a list of all files and folders in this folder.
+    files = dir(fpath);
+    % Get a logical vector that tells which is a directory.
+    dirFlags = [files.isdir];
+    % Extract only those that are directories.
+    fsubFolders = files(dirFlags);
+
+
+    for t = 3:length(fsubFolders)
+    
+    path = [fpath '\' fsubFolders(t).name];
     % Get a list of all files and folders in this folder.
     files = dir(path);
     % Get a logical vector that tells which is a directory.
     dirFlags = [files.isdir];
     % Extract only those that are directories.
     subFolders = files(dirFlags);
-
+    
+    
     for i = 1:length(subFolders)
-     
+      
         folder = subFolders(i);
         tf = isstrprop(folder.name, 'digit');
         
@@ -63,9 +76,12 @@ clear;
             max(summ.consumption.recall)
             max(summ.consumption.precision)
             max(summ.consumption.tpr)
-            max(summ.consumption.fpr)};
+            max(summ.consumption.fpr)
+            max(summ.consumption.accuracy)};
             index = 1 + index; 
         end
+    end
+    
     end
     
     %% fhmm
@@ -99,7 +115,8 @@ clear;
                summ.consumption.recall(n)
                summ.consumption.precision(n)
                summ.consumption.tpr(n)
-               summ.consumption.fpr(n)};
+               summ.consumption.fpr(n)
+               summ.consumption.accuracy(n)};
                index = 1 + index;  
             end
         end
@@ -110,16 +127,70 @@ clear;
     %% Plot 1 
     close all; 
     
-    algo = 2; %1-3
+    algo = 1; %1-3
     appliance = 1;  %1-5
-    feature = 4; %4-8
+    feature = 9; %4-9
     
-    for appliance = 1:4
-        Appl = ((algo-1)*35+1:5:(35*algo))+(appliance-1);
-        appData =  [data{feature,Appl}];
-        appData(find(isnan(appData))) = 0;
-        sampleRate = [data{2,Appl}];
-        
-        plot(sampleRate, appData);
-        hold on;
+    titles = {'F1 score', 'Accuracy'};
+    
+index = 1;     
+for feature = [4 9] 
+    subplot(1,2,index);
+    leg = cell(1,1);
+    for algo = 1:3
+        appdata = []; 
+        for appliance = 1:5
+            Appl = ((algo-1)*35+1:5:(35*algo))+(appliance-1);
+            values =  [data{feature,Appl}];
+            values(find(isnan(values))) = 0;
+            sampleRate = [data{2,Appl}];
+           
+            appdata = [appdata ; values]; 
+        end
+        leg{algo} = data{1,Appl(1)};
+        plot(sampleRate, mean(appdata));
+        xlim([1 60]);
+        ax = gca;
+        ax.XTick = [1 20:20:60];
+        ax.XTickLabel = {'1 Hz', '1/20 Hz', '1/40 Hz', '1/60 Hz'};
+        xlabel('Sample Rate')
+        ylabel('Score')
+        hold on; 
     end
+    title(titles{index});
+    
+    index = index+1; 
+end
+legend(leg)
+
+%% Plot 2 
+
+for feature = [4 9]
+    figure
+    title('title')
+    for appliance = 1:5
+            leg = cell(1,1);
+            for algo = 1:3
+                Appl = ((algo-1)*35+1:5:(35*algo))+(appliance-1);
+                appData =  [data{feature,Appl}];
+                appData(find(isnan(appData))) = 0;
+                sampleRate = [data{2,Appl}];
+
+                subplot(3,2,appliance);
+                plot(sampleRate, appData);
+                %ylim([0.5 1]);
+                hold on;
+                ax = gca;
+                ax.XTick = [1 20:20:60];
+                ax.XTickLabel = {'1 Hz', '1/20 Hz', '1/40 Hz', '1/60 Hz'};
+                xlabel('Sample Rate')
+                ylabel('Score')
+                leg{algo} = data{1,Appl(1)};
+            end
+            title(data{3,Appl(1)})
+    end
+            legend(leg)
+end
+
+
+
