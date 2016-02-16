@@ -71,6 +71,8 @@ function [result] = weiss(evaluation_and_training_days, setup, fid)
     input_params.plevelMinLength = plevelMinLength;
     input_params.eventPowerStepThreshold = eventPowerStepThreshold;
     input_params.maxEventDuration = maxEventDuration;
+    input_params.gapMethod = setup.gapMethod;
+    input_params.errorRate = setup.errorRate;
     
     % Disaggregate all appliances or individual appliance?
     if strcmp(appliance, 'Stove') == 1

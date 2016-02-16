@@ -14,6 +14,9 @@ function [events, times] = get_events_of_single_phase_appliance(phase, input_par
     eventPowerStepThreshold = input_params.eventPowerStepThreshold;
     maxEventDuration = input_params.maxEventDuration;
     
+    gapmethod = input_params.gapMethod;
+    errorrate = input_params.errorRate;
+    
     % get real, apparent and reactive (distortive and translative
     % component) power
     global caching;
@@ -22,10 +25,14 @@ function [events, times] = get_events_of_single_phase_appliance(phase, input_par
             load('cache_power');
         else
             power = getPower(dataset, household, evaluation_days, granularity, phase);
+            power = CreateErrorSignal(power,errorrate); 
+            power = GapFillingSignal(power,gapmethod); 
             save('cache_power', 'power');
         end
     else
         power = getPower(dataset, household, evaluation_days, granularity, phase);
+        power = CreateErrorSignal(power,errorrate); 
+        power = GapFillingSignal(power,gapmethod); 
     end
     % apply filter to normalized apparent power and get edges 
     function_handle = str2func(filteringMethod);

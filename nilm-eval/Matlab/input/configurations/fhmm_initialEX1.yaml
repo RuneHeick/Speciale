@@ -21,3 +21,5 @@ num_states_appliance2: []
 num_states_appliance3: []
 num_states_appliance4: []
 num_states_appliance5: []
+gapMethod: 'Non'
+errorRate: 0.01

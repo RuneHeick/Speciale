@@ -22,3 +22,5 @@ p_filtering: 'meanMedian'
 p_filtLength: 5
 p_filtLRatio: 0.0002
 appliance: 'All'
+gapMethod: 'Non'
+errorRate: 0

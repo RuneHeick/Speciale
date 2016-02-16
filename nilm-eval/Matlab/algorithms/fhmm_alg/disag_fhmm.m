@@ -45,7 +45,8 @@ function [result] = disag_fhmm(evaluation_and_training_days, setup, fid)
     end
     
     smart_meter_data_evaluation = read_smartmeter_data(dataset, household, evaluation_days, granularity, 'powerallphases');
-%     smart_meter_data_evaluation = smart_meter_data_evaluation (1:100);
+    smart_meter_data_evaluation = CreateErrorSignal(smart_meter_data_evaluation, setup.errorRate); 
+    smart_meter_data_evaluation = GapFillingSignal(smart_meter_data_evaluation, setup.gapMethod); 
     
     % perform training
     pyObj = py.fhmm.Fhmm();

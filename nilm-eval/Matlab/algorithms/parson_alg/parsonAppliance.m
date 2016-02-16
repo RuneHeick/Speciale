@@ -54,6 +54,9 @@ function [result] = parsonAppliance(evaluation_and_training_days, setup, fid)
         end
         plug_data  = read_plug_data(dataset, household, applianceID, training_days, granularity);
         
+        test_data = CreateErrorSignal(test_data, setup.errorRate); 
+        test_data = GapFillingSignal(test_data, setup.gapMethod); 
+        
         % apply filtering method to consumption data 
         if ~strcmpi(filtering, 'noFiltering')
             function_handle = str2func(filtering);
