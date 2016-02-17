@@ -41,7 +41,7 @@ clear;
 
     %% parson
     
-    fpath = 'summary\parsonAppliance\parsonAppliance_initial';
+    fpath = 'ErrorTest\summary\parsonAppliance\parsonAppliance_initial';
     % Get a list of all files and folders in this folder.
     files = dir(fpath);
     % Get a logical vector that tells which is a directory.
@@ -68,7 +68,12 @@ clear;
         
         if sum(tf) ~= 0
             name = folder.name; 
-            sampleRate = str2num(name(find(tf)));
+            
+            tf(strfind(folder.name,'-')) = 1; 
+            valname = name;
+            valname(find(name == '-')) = '.';
+            sampleRate = str2num(valname(find(tf)));
+            
             summ = load([path '\' name '\summary.mat' ] , 'summary');
             summ = summ.summary;
             
@@ -174,11 +179,10 @@ legend(leg)
 
 for feature = [4 9]
     figure
-    title('title')
     for appliance = 1:5
             leg = cell(1,1);
             for algo = 1:3
-                Appl = ((algo-1)*35+1:5:(35*algo))+(appliance-1);
+                Appl = ((algo-1)*40+1:5:(40*algo))+(appliance-1);
                 appData =  [data{feature,Appl}];
                 appData(find(isnan(appData))) = 0;
                 sampleRate = [data{2,Appl}];
@@ -187,11 +191,11 @@ for feature = [4 9]
                 plot(sampleRate, appData);
                 %ylim([0.5 1]);
                 hold on;
-                ax = gca;
-                ax.XTick = [1 20:20:60];
-                ax.XTickLabel = {'1 Hz', '1/20 Hz', '1/40 Hz', '1/60 Hz'};
-                xlabel('Sample Rate')
-                ylabel('Score')
+%                 ax = gca;
+%                 ax.XTick = [1 20:20:60];
+%                 ax.XTickLabel = {'1 Hz', '1/20 Hz', '1/40 Hz', '1/60 Hz'};
+%                 xlabel('Sample Rate')
+%                 ylabel('Score')
                 leg{algo} = data{1,Appl(1)};
             end
             title(data{3,Appl(1)})
