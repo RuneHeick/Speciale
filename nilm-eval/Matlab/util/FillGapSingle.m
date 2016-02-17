@@ -14,14 +14,19 @@ function [ input ] = FillGapSingle( input , method )
         
         
         batchCount = (length(input)-2*inputRange)/validRange; 
-        disp(['PG on' num2str(batchCount) 'Batches']);
+        disp(['PG on ' num2str(batchCount) ' Batches']);
         for p = 1:batchCount
             startIndex = (p-1)*validRange + 1;
             endIndex = startIndex+2*inputRange+validRange-1;
             
             fracData = formatinput(startIndex:endIndex)'; 
+            validData = fracData ~= -1;
             
-            D = diag(fracData ~= -1);
+            if(sum(validData == 0) == 0)
+               continue; 
+            end
+            
+            D = diag(validData);
             
             y = D*fracData; 
             bestfit = 0; 
