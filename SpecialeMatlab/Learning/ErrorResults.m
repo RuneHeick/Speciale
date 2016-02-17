@@ -146,6 +146,8 @@ clear;
     titles = {'F1 score', 'Accuracy'};
     
 index = 1;     
+hFig = figure, 
+set(hFig, 'Position', [500 500 800 300])
 for feature = [4 9] 
     subplot(1,2,index);
     leg = cell(1,1);
@@ -163,10 +165,19 @@ for feature = [4 9]
         plot(sampleRate, mean(appdata));
         %xlim([0 0.3]);
         %ax = gca;
-        %ax.XTick = [1 20:20:60];
-        %ax.XTickLabel = {'1 Hz', '1/20 Hz', '1/40 Hz', '1/60 Hz'};
-        %xlabel('Sample Rate')
-        %ylabel('Score')
+        
+        % Convert y-axis values to percentage values by multiplication
+        a=[cellstr(num2str(get(gca,'xtick')'*100))];
+        % Create a vector of '%' signs
+        pct = char(ones(size(a,1),1)*'%');
+        % Append the '%' signs after the percentage values
+        new_yticks = [char(a),pct];
+        % 'Reflect the changes on the plot
+        set(gca,'xticklabel',new_yticks) 
+        
+        
+        xlabel('Error Rate')
+        ylabel('Score')
         hold on; 
     end
     title(titles{index});

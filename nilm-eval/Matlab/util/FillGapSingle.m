@@ -8,7 +8,7 @@ function [ input ] = FillGapSingle( input , method )
         validRange = 50; 
         inputRange = (validRange)/2; 
         
-        fracMean = mean(input(input~= -1)); 
+        fracMean = mean(input(input~= -1  input ~= inf & input ~= -inf)); 
         formatinput = input;
         formatinput(formatinput~= -1) = formatinput(formatinput~= -1) - fracMean;
         
@@ -75,13 +75,16 @@ function [ input ] = FillGapSingle( input , method )
                 end
             end
             
+            try
             filledvalues = (real(besthat)+fracMean);
             needfill = find(input(startIndex+inputRange:endIndex-inputRange)== -1);
             
             sliceindex = needfill+inputRange; 
             
             input(startIndex+inputRange+needfill-1) = filledvalues(sliceindex);
-            
+            catch
+               disp('Error'); 
+            end
             
         end
     end
