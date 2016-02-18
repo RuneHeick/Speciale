@@ -93,7 +93,8 @@ Many approaches is supervised, since this kind of approach is better at separati
 \newpage
 			
 
-\section{Recognition Methods} 
+\section{Recognition Methods}
+\label{RecognitionMethods}
 Methods based on Hidden Markov models is currently the most popular method for NILM. Three method is selected to be validated in this paper. The methods are selected since they are often refereed to in literature, and is often used as benchmark algorithms. All of the algorithms is based on hidden Markov models or clustering in different configurations. In the following subsections will the algorithms be briefly introduced. 
 
 \subsection{Factorial Hidden Markov Models}
@@ -199,8 +200,33 @@ The data is sampled with a resolution on 1 Hz on both the sub-meters and the mai
 On figure \ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses, in the ECO dataset. Here we see that for house two is more than $75\%$ of the energy usages accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who the the heavy consumers is and who the little consumers is.  
 
 \section{Validation of Methods} 
-\lipsum[3]\fxnote{This is lipsum}
-% Validate 
+This section describes the experiments conducted using the three methods mentioned in section \ref{RecognitionMethods}. The experiments is validated using F1 and accuracy sensitivity and specificity metrics's. Since the focus is event detection a sample can fall in one of four categories. 
+
+\begin{tabularx}{\linewidth}{ r X }
+True Positive& This is when the guess says that there is an event, and there really is an event. Corresponding to the appliance is on. \\
+\\
+True Negative&This is when the guess says that there is no event, and there really is no event. Corresponding to when a appliance is turned off. \\
+\\
+False Positive& This is when the guess says that there is an event, but there really is no event. \\
+\\
+False Negative&This is when the guess says that there is no event, but there really is an event. \\\\
+\end{tabularx}
+The F1 and accuracy score is calculated as shown in equation \ref{EQ:F1} and \ref{EQ:ACC}
+
+\begin{gather}
+		TP = \text{number of true positives} \\
+		TN = \text{number of true negatives} \\
+		FP = \text{number of false positives} \\
+		FN = \text{number of false negatives} \\
+		recall = \frac{TP}{TP+FN} \label{EQ:recall}\\
+		precision = \frac{TP}{TP+FP} \label{EQ:prec} \\
+		F1 = 2 \times \frac{precision \times recall}{precision + recall} \label{EQ:F1}\\
+		accuracy = \frac{TP+TN}{TN+TP+FN+FP} \label{EQ:ACC}
+\end{gather}
+
+The F1 score is mainly focused on how well the system guesses the the events, and do not score the true negatives. The accuracy is slightly different in that it looks at how many correct guesses there are in relation to the total amount of guesses. Fore a NILM application the accuracy score on its own is not a very representative metric since some appliances have way more off time than on time. To guess that a appliance is off is just as good at guessing that it is on for the accuracy score. Appliances that are mostly off can therefore get a high accuracy score even though it is hard to determine when they are on. Therefore is it necessary also to look at the F1-score. This score tells how accurate it can be guessed when a appliance is on. This is done by combining the recall, that tells how many true positive was guess correctly in relation to the total amount of positives, as described by equation \ref{EQ:recall}, and the precision that is the ratio of correct guessed positives events in relation to all positive guesses, as shown on equation \ref{EQ:prec}. 
+
+Five appliances have been selected from the ECO dataset house 2. The appliances have been selected so there is some heavy and some small consumers. The appliances selected is: water kettle, fridge, TV, stereo and Laptop. All the methods will be traind using a training period of 15 days and validated on 75 days of data. 
 
 \subsection{Sample rate experiment}
 
@@ -225,4 +251,9 @@ On figure \ref{fig:EHD} is shown how different appliances are responsible for th
 
 \subsection{Gap filling experiment}
 % Gap 
-\lipsum[5]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/AlgoErrorRate.png}
+\caption{Algorithm validation at different error rate}
+\end{figure}
