@@ -4,11 +4,13 @@ function [ input ] = FillGapSingle( input , method )
         okaySamples = input ~= -1; 
         index = find(okaySamples);
         input = interp1(index,input(index),1:length(input));
+    elseif(strcmp(method,'Env'))
+        input = EnvGapFiller(input); 
     elseif( strcmp(method,'PG'))
         validRange = 50; 
         inputRange = (validRange)/2; 
         
-        fracMean = mean(input(input~= -1  input ~= inf & input ~= -inf)); 
+        fracMean = mean(input(input~= -1  & input ~= inf & input ~= -inf)); 
         formatinput = input;
         formatinput(formatinput~= -1) = formatinput(formatinput~= -1) - fracMean;
         
