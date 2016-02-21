@@ -3,10 +3,14 @@ function [ inputsignal ] = GapFillingSignal( inputsignal , method )
 %   Detailed explanation goes here
     
     if(isstruct(inputsignal))
-        fields = fieldnames(inputsignal);      
+        fields = fieldnames(inputsignal);     
+        datasize = size(inputsignal.(fields{1}));
+        
         for i = 1:numel(fields)
             data = inputsignal.(fields{i}); 
-            inputsignal.(fields{i}) = FillGapSingle(data,method); 
+            if(size(data) == datasize)
+                inputsignal.(fields{i}) = FillGapSingle(data,method); 
+            end
         end
     else
         inputsignal = FillGapSingle(inputsignal,method);

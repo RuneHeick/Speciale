@@ -8,11 +8,11 @@ Fc = 60;                     % hertz
 data = cos(2*pi*Fc*t)'+10;
 close all
 
-data = 1:2000; 
+%data = 1:200000; 
 
 error = CreateErrorSignal(data,0.01);
 
-fixed = GapFillingSignal(error,'PG');
+fixed = GapFillingSignal(error','PG');
 
 plot(error); 
 hold on 

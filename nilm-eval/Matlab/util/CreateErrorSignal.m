@@ -12,8 +12,10 @@ function [ inputsignal ] = CreateErrorSignal( inputsignal, errorrate )
        
         for i = 1:numel(fields)
             data = inputsignal.(fields{i}); 
-            data(find(mask)) = -1; 
-            inputsignal.(fields{i}) = data; 
+            if(size(data) == datasize)
+                data(find(mask)) = -1; 
+                inputsignal.(fields{i}) = data; 
+            end
         end
     else
         datasize = size(inputsignal);
