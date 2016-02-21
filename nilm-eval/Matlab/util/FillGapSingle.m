@@ -3,17 +3,14 @@ function [ input ] = FillGapSingle( input , method )
     if( strcmp(method,'Linear'))
         okaySamples = input ~= -1; 
         index = find(okaySamples);
-        if(~isempty(index))
-            input = interp1(index,input(index),1:length(input));
-        end
+        input = interp1(index,input(index),1:length(input));
+    elseif(strcmp(method,'Env'))
+        input = EnvGapFiller(input); 
     elseif( strcmp(method,'PG'))
         validRange = 50; 
         inputRange = (validRange)/2; 
         
-        fracMean = mean(input(input~= -1 & input ~= inf & input ~= -inf));
-        if(isnan(fracMean))
-           return; 
-        end
+        fracMean = mean(input(input~= -1  & input ~= inf & input ~= -inf)); 
         formatinput = input;
         formatinput(formatinput~= -1) = formatinput(formatinput~= -1) - fracMean;
         
@@ -24,7 +21,7 @@ function [ input ] = FillGapSingle( input , method )
             startIndex = (p-1)*validRange + 1;
             endIndex = startIndex+2*inputRange+validRange-1;
             
-            fracData = formatinput(startIndex:endIndex); 
+            fracData = formatinput(startIndex:endIndex)'; 
             validData = fracData ~= -1;
             
             if(sum(validData == 0) == 0)
@@ -39,7 +36,7 @@ function [ input ] = FillGapSingle( input , method )
             bestfitpoint = 0; 
             besthat = []; 
 
-            for M = 1:(length(y)/2)-10
+            for M = 1:length(y)/2
                 gamma = [ones(M,1) ; zeros(size(fracData,1)-2*M,1) ; ones(M,1)];
                 GAMMA = diag(gamma);
                 
@@ -51,13 +48,13 @@ function [ input ] = FillGapSingle( input , method )
                 x_hat = y;
                 x_old = y;
                 
-                delta = 10e-20;
+                delta = 0.00000001;
                 
                 for i = 1:100
                     
                     x_hat = y + (I-D)*B*x_hat;
                     
-%                     if i>5 && (sum(abs(x_old-x_hat))/size(x_hat,1) < delta)
+%                     if i>20 && (sum(abs(x_old-x_hat))/size(x_hat,1) < delta)
 %                         besthat = x_hat;
 %                         break;
 %                     end
@@ -77,14 +74,10 @@ function [ input ] = FillGapSingle( input , method )
                 if(M>2 && g(M-1) < bestfit )
                     bestfit = g(M-1);
                     besthat = x_hat;
-                else if M == 1
-                    %bestfit = g(M);
-                    besthat = x_hat;
                 end
             end
             
             try
-                
             filledvalues = (real(besthat)+fracMean);
             needfill = find(input(startIndex+inputRange:endIndex-inputRange)== -1);
             

@@ -6,10 +6,11 @@
 function run_experiment()
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
-    configuration_input = 'input/configurations/weiss_initial.yaml';
-    experiment_input = 'input/experiments/weiss/WeissErrorEx3.yaml' %'input/experiments/weiss/app_laptop_r_0.2.yaml';
+    configuration_input = 'input/configurations/parsonAppliance_initial.yaml';
+    experiment_input = 'input/experiments/parson/Ex2/fridge_EX1.yaml' %'input/experiments/weiss/app_laptop_r_0.2.yaml';
     global caching;
     caching = 0;
+    
     
     configuration = ReadYaml(configuration_input);
     algorithm = configuration.algorithm;
