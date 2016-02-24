@@ -1,0 +1,104 @@
+result 1:
+
+trained HMM means:
+3.793506	
+52.593359	
+
+trained HMM covs:
+13.003054	
+6.214769	
+
+trained dHMM means:
+-0.154832	3.529207	
+-8.390197	0.028854	
+
+trained dHMM covs:
+5.271981	778.642390	
+532.889706	5.655998	
+
+
+result 2:
+
+trained HMM means:
+5.078795	
+50.800276	
+
+trained HMM covs:
+46.089624	
+18.705219	
+
+trained dHMM means:
+-0.007472	19.727321	
+-13.826474	1.279385	
+
+trained dHMM covs:
+3.066381	120.383044	
+260.878177	423.524295	
+
+
+result 3:
+
+trained HMM means:
+3.102134	
+53.628689	
+
+trained HMM covs:
+9.306358	
+17.019783	
+
+trained dHMM means:
+-0.048326	12.410047	
+-18.180514	4.906780	
+
+trained dHMM covs:
+5.593769	880.779636	
+598.775049	65.866427	
+
+
+result 4:
+
+trained HMM means:
+4.763110	
+54.258454	
+
+trained HMM covs:
+7.596558	
+6.032079	
+
+trained dHMM means:
+-0.052379	40.772028	
+-38.913412	0.107111	
+
+trained dHMM covs:
+10.727334	20.292961	
+116.379903	10.042712	
+
+
+result 5:
+
+trained HMM means:
+5.073433	
+58.363740	
+
+trained HMM covs:
+7.357781	
+15.097380	
+
+trained dHMM means:
+-0.066093	49.360200	
+-42.100181	-0.264635	
+
+trained dHMM covs:
+8.123958	87.459776	
+85.627829	23.854605	
+
+
+Consumption:
+Stereo: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.0122       0.1252     0.0064     0.0064     0.0186          0.6972    27.4963     1.1028
+           2     0.0220       0.5445     0.0112     0.0112     0.0043          0.6677    27.6064     1.0794
+           3     0.0296       0.4007     0.0153     0.0153     0.0084          0.7417    26.5231     1.0678
+           4     0.0226       0.3687     0.0117     0.0117     0.0078          0.6361    25.8229     1.1131
+           5        NaN       0.0000     0.0000     0.0000     0.0012          0.6429    26.2105     1.1162
+

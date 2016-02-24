@@ -144,3 +144,6 @@ nilm-eval/Matlab/projects/buildsys/results/
 SpecialeMatlab/Learning/summaryOld/
 SpecialeMatlab/LoadDartasetToNilm-eval/downloadedDataClean/*.mat
 SpecialeMatlab/LoadDartasetToNilm-eval/downloadedDataClean/**.mat
+SpecialeMatlab/LoadDartasetToNilm-eval/downloadedDataClean/**/*.mat
+SpecialeMatlab/LoadDartasetToNilm-eval/**/*.mat
+nilm-eval/Matlab/data/

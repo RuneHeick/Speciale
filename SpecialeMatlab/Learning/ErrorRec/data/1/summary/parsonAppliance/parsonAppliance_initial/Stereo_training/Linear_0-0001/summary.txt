@@ -1,0 +1,40 @@
+result 1:
+
+trained HMM means:
+3.744444	
+53.240182	
+
+trained HMM covs:
+13.564301	
+6.178920	
+
+trained dHMM means:
+2.257496	-11.868410	
+6.267161	0.021477	
+
+trained dHMM covs:
+14.037151	525.081553	
+626.348417	4.936682	
+
+
+result 2:
+
+trained HMM means:
+4.385212	
+50.420837	
+
+trained HMM covs:
+22.050426	
+19.872983	
+
+trained dHMM means:
+0.004209	22.247178	
+-21.956680	0.099180	
+
+trained dHMM covs:
+2.209821	269.794425	
+351.084531	303.040077	
+
+
+result 3:
+
