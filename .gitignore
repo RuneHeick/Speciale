@@ -143,3 +143,4 @@ nilm-eval/Matlab/cache_sigdat.mat
 nilm-eval/Matlab/projects/buildsys/results/
 SpecialeMatlab/Learning/summaryOld/
 SpecialeMatlab/LoadDartasetToNilm-eval/downloadedDataClean/*.mat
+SpecialeMatlab/LoadDartasetToNilm-eval/downloadedDataClean/**.mat
