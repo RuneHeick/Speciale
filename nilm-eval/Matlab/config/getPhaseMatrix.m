@@ -26,6 +26,25 @@ if strcmpi(dataset, 'eco')
                     0 1 2 3 3 0;    % tablet
                     0 0 0 0 0 3;    % router
                     0 0 0 0 2 0];    % illuminated fountain
+elseif strcmpi(dataset, 'smartHG')
+    phase_matrix = [0 0 0 0 0 0; % fridge
+                    0 0 0 0 0 0;    % freezer
+                    0 0 0 0 0 0;    % microwave
+                    0 0 0 0 0 0;    % dishwasher
+                    1 0 0 0 0 0;    % entertainment
+                    0 0 0 0 0 0;    % water kettle
+                    0 0 0 0 0 0;    % cooker 
+                    0 0 0 0 0 0;    % coffee machine
+                    0 0 0 0 0 0;    % washing machine
+                    0 0 0 0 0 0;    % dryer
+                    0 0 0 0 0 0;    % lamp
+                    1 0 0 0 0 0;    % pc
+                    0 0 0 0 0 0;    % laptop
+                    1 0 0 0 0 0;    % tv
+                    1 0 0 0 0 0;    % stereo
+                    0 0 0 0 0 0;    % tablet
+                    0 0 0 0 0 0;    % router
+                    0 0 0 0 0 0];    % illuminated fountain
 else
 	    error('dataset not available');
 end

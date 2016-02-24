@@ -1,4 +1,5 @@
 \chapter{Gap Reconstruction}
+\label{Sec:GapFill}
 One of the more common problems in citizen science projects is gaps in data. This can happen either if the network connection is unstable or the test equipment gets prematurely turn off, as discussed in chapter \ref{Sec:DataQuality}. This can greatly degrade the data quality, and lead to errors in the application. One way to deal with this problem is to use mathematical gap filling techniques to come with a qualified guess on how the data would look like in the gap. 
 
 In order to use this methods we must assume that the missing data in the gap follows the same behaviour as the data on each side off the gap. If the signal is so stochastic that this is not the case then gap filling is not recommended\citep{RefWorks:10}. 
