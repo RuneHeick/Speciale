@@ -40,7 +40,7 @@ The appliances in Type-IV is not a particular researched area, since it does not
 Type-I and Type-II are very used, and can cover all most any appliance. In the area of event detection are the most common approach to see all appliances as Type-I appliances and detecting on/off events. Most appliances today is Type-II appliances due to growing amount of complicated electronics that are embedded in them. Then there are devices that are Type-II but most of the time act like Type-I appliances. An example of this is the vacuum cleaner. On most vacuum cleaners you are able to change the suction intensity, which makes it type two. But most people don't change this very often, so the energy usage looks more like a Type-I appliance. 
  
 \subsection{NILM Features} 
-For data disaggregation it is common to use method based in machine learning and optimization. The approach is to first extract features from the dataset, and then train or validate by using this features. 
+For data disaggregation it is common to use method based on machine learning and optimization. The approach is to first extract features from the dataset, and then train or validate by using this features. 
 
 In NILM the features can be sub categorised in steady state, transient state and non-Traditional features.  These categories can be further expanded as shown on figure \ref{fig:FTR}. 
 
@@ -67,9 +67,9 @@ When you have extracted features from the signal there are several algorithms th
 	\label{EQ:OMP}
 \end{equation}
 
-This is illustrated in equation \ref{EQ:OMP} were a set of appliances $M$ that correspond to the measured signal $\hat{y}$ needed to be found. This is achieved by searching the known database of all appliances $D$. This is done by taking the powerset of the database and finding the subset that minimises the error. This approach is fine for a small amounts of appliances, but for large databases and many appliances in use at the same time, does this take far to long to be practical. 
+This is illustrated in equation \ref{EQ:OMP} were a set of appliances $M$ that correspond to the measured signal $\hat{y}$ needed to be found. This is achieved by searching the known database of all appliances $D$. This is done by taking the powerset of the database and finding the subset that minimises the error. This approach is fine for a small amounts of appliances, but for large databases and many appliances in use at the same time would this take far to long to be practical. 
 
-Due to this, most researchers use pattern recognition techniques instead. These have the benefits of being more scalable, and be usable even if only parts of the device database is known. There are generality two approaches to pattern recognition: supervised and non-supervised. In supervised training it is assumed that the ground truth of your system is known. For a NILM application this means that the true consumption of the appliance need to be available for the training process. This means that a sub meter must be placed to measure the appliances individually, which often is costly and time consuming. In non-supervised methods, is only the main meter readings available, and no information about the appliances are known. This type of algorithms will usually try to cluster the readings in distinct groups cosponsoring to a guess of what appliances that correspond to the reading. Fore this kind of training it is easy to collect a big training set, but it requires the groups to be manually labelled afterwards.  
+Due to this, most researchers use pattern recognition techniques instead. These have the benefits of being more scalable, and be usable even if only parts of the device database is known. There are generality two approaches to pattern recognition: supervised and non-supervised. In supervised training it is assumed that the ground truth of your system is known. For a NILM application this means that the true consumption of the appliance need to be available for the training process. This means that a sub meter must be placed to measure the appliances individually, which often is costly and time consuming. In non-supervised methods only the main meter readings are available, and no information about the appliances are known. This type of algorithms will usually try to cluster the readings in distinct groups cosponsoring to a guess of what appliances that correspond to the reading. Fore this kind of training it is easy to collect a big training set, but it requires the groups to be manually labelled afterwards.  
   
 Most algorithms are based on clustering techniques and hidden Markov models. Hidden Markov models have proven very effective when classifying Type-I and Type-II appliances. This is due to its ability to model state changes as a imported part of the classification. It is shown that using clustering techniques can greatly improve the classification, and reduce the training time. Artificial neural networks is also showing great promise, and is a topic that is currently in focus by many NILM researchers. More on this in section \ref{sec:RecRelatedwork}. 
 
@@ -88,7 +88,7 @@ Another framework to accomplish better comparison and sharing is the NILM-eval f
 
 Deep neural networks have last yeas improved the area of computer vision and speech recognition remarkably. NILM researchers are starting to look in to if similar techniques can be used to improve data disaggregation. Neural nets have like hidden Markov models the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural net can out preform the classic hidden Markov model approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on heavy consumers\citep{RefWorks:25}. Current research is looking that its potential in solving the heavy consumer problem, but no definite conclusions is yet to be reached. 
 
-Many approaches is supervised, since this kind of approach is better at separating the appliances. But this require that you first build a database with information about all the appliances. To have this prior knowledge of the system seems unrealistic in a application setting, where it is most likely you do not know anything about the house. To combat this various unsupervised methods have been developed. The focus in this kind of studies have been load separation for the sake of making power savings, or to inform the electric companies to help them create a more stable electric grid. There are several good algorithms for this today that support this purpose. For event detection and user habits analysis it is still most common to use the supervised approaches \citep{RefWorks:19}. This paper will therefore focus on the supervised approaches. 
+Many approaches is supervised, since this kind of approach is better at separating the appliances. But this require that you first build a database with information about all the appliances. To have this prior knowledge of the system seems unrealistic in a application setting, where it is most likely you do not know anything about the house. To combat this, various unsupervised methods have been developed. The focus in this kind of studies have been load separation for the sake of making power savings, or to inform the electric companies to help them create a more stable electric grid. There are several good algorithms for this today that support this purpose. For event detection and user habits analysis it is still most common to use the supervised approaches \citep{RefWorks:19}. This paper will therefore focus on the supervised approaches. 
 
 \newpage
 			
@@ -105,7 +105,7 @@ The hidden Markov models has proven to be one of the most used tools to create p
 	\label{EQ:HMM}
 \end{equation}
 
-The joint probability for a specific hidden state $S_t$ have caused the observed output $Y_t$ can be seen in equation \ref{EQ:HMM}. $P(Y_t|S_t)$ is the emission probability, which shows that conditional probability for $Y_t$ is outputted given the hidden state $S_t$. The probability for a state change is given by the transition property $P(S_t|S_{t-1})$. 
+The joint probability for a specific hidden state $S_t$ have caused the observed output $Y_t$ can be seen in equation \ref{EQ:HMM}. $P(Y_t|S_t)$ is the emission probability, which shows the conditional probability for $Y_t$ being outputted by a given hidden state $S_t$. The probability for a state change is given by the transition property $P(S_t|S_{t-1})$. 
 
 Factorial hidden Markov models is an extension of this classic hidden Markov model where there exists several hidden state chains that all contribute to the observed output. This can be seen as an extension to equation \ref{EQ:HMM} where the hidden states $S_t$ can be seen as a series of states as shown on equation \ref{EQ:FHMM} where $M$ is the number of chains.
 
@@ -130,7 +130,7 @@ As a extra constrain must each hidden state, in in each chain, only depended on 
 	\label{EQ:CTP}
 \end{equation}
 
-The observed stated can therefore be seen as the sum of fractions of the different chains. 
+The observed stated is therefore created by the contribution of many different hidden states. 
 
 In this implementation there is normally used only two or three states, since most appliances is seen as Type-I or Type-II appliances. There is trained one chain for each of the appliances plus one that is called the other chain. This chain is to allow for the other appliances that are not taken in to the model and noise. The model can therefore be used to validate for a given output what is the probability that a given appliance is contributing to the output. The concrete implementation for this algorithm has been borrowed from the NILM-Toolkit \citep{RefWorks:21}. 
 
@@ -151,7 +151,7 @@ The algorithm is based on a kind of HMM called "difference HMM" since they take 
 \label{Fig:ParsonModel}
 \end{figure}
 
-The $Y_t$ is corresponding to the step in power that is observed since the last sample. It is assumed that the only thing that can cause a step in power if is an appliance changes states from one to another. The $X_t$ is the mean constant power draw of the state. This is used to filter out the appliance if the power draw observed is smaller than this threshold.
+The $Y_t$ is corresponding to the step in power that is observed since the last sample. It is assumed that the only thing that can cause a step in power is if an appliance changes states from one to another. The $X_t$ is the mean constant power draw of the state. This is used to filter out the appliance if the power draw observed is smaller than this threshold.
 
 It is assumed that the power consumption of a state in the general model of an appliance can be modelled as a Gaussian. This can be illustrated as in equation \ref{EQ:GPF}. 
 
@@ -174,21 +174,21 @@ To model the constraint that the meter only can be on if the mean power draw is 
 	\label{EQ:PCA}
 \end{equation}
 
-Where $x_t$ is the measured power consumption and $w_{S_t}$ is the appliance power draw constraint. This makes the probobility going towards zero if the total power draw is to little and towards 1 if there is more than enough power. This is a loose constraint since too high power draw also could be created by other appliances. To minimise the impact this have for the algorithm is the mean power draw subtracted from the data before other appliances is searched for. 
+Where $x_t$ is the measured power consumption and $w_{S_t}$ is the appliance power draw constraint. This makes the probobility going towards zero if the total power draw is to little and towards 1 if there is more than enough power. This is a loose constraint since too high power draw also could be created by other appliances. To minimise the impact this have for the algorithm is the mean power draw subtracted from the data before searching for other appliances. 
 
-In the implementation validated in this paper is all appliances modelled as Type-I. The algorithm is allowed to train on the house data, to better fit the general models to the appliances and create the initial database.  
+In the implementation validated in this paper are all appliances modelled as Type-I. The algorithm is allowed to train on the house data, to better fit the general models to the appliances and create the initial database.
 
 \subsection{Weiss}
-The algorithm proposed by Weiss called "AppliSense" is a other approach that do not use Markov models\citep{RefWorks:23}. The philosophy is that some appliances like lamps and kettles are purely resistive, where others like washing machines and air conditions is more inductive and some appliances like laptops is more capacitive. Bye measuring not only the power consumption, but also the amount of reactive power it is revealed if there is inductive or capacitive appliances.
+The algorithm proposed by Weiss called "AppliSense" is a other approach that do not use Markov models\citep{RefWorks:23}. The philosophy is that some appliances like lamps and kettles are purely resistive, where others like washing machines and air conditions are more inductive and some appliances like laptops are more capacitive. By measuring not only the power consumption, but also the amount of reactive power it is revealed if there is inductive or capacitive appliances.
 
 The algorithm is supervised since it requires a signature database to be created prior to usage. The signature database consists of how the changes will be in reactive and real power for a specific device when it is turned on and off. In their paper the authors show a method where this database can be created of a user, by using a smart-phone application and turning on and off appliances in the house, and inputting the information in the mobile application\citep{RefWorks:23}. In this paper the database is created by data collected from the sub-meters measuring only the devices.  
 
 The algorithm looks for significant power changes in the data. If a change is found it is assumed to be an on or off event. The change is now compared to all the values in the database. If a close match is found it is assumed to be this device, if not it is a unknown device. This limits the approach to Type-I appliances, and the algorithm requires the reactive power to be measured. 
 
 \section{The ECO Dataset}
-The experiments in this section will be done on the "Electricity Consumption and Occupancy" (ECO) dataset \citep{RefWorks:26}\citep{RefWorks:27}. The dataset consists of six houses that have been equipped with sub-meters on selected meters and the main meter. The data is collected in Switzerland in the period June 2012 to January 2012. 
+The experiments in this chapter will be done on the "Electricity Consumption and Occupancy" (ECO) dataset \citep{RefWorks:26}\citep{RefWorks:27}. The dataset consists of six houses that have been equipped with sub-meters on selected meters and the main meter. The data is collected in Switzerland in the period June 2012 to January 2012. 
 
-The data is sampled with a resolution on 1 Hz on both the sub-meters and the main meter. On the main meter is both real and reactive power measured, where on the sub-meter it is only the real power. 
+The data is sampled with a resolution on 1 Hz on both the sub-meters and the main meter. On the main meter is both real and reactive power measured, where on the sub-meter it is only the real power is measured. 
 
 \begin{figure}[H]
 \centering
@@ -197,7 +197,7 @@ The data is sampled with a resolution on 1 Hz on both the sub-meters and the mai
 \label{fig:EHD}
 \end{figure}
 
-On figure \ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses, in the ECO dataset. Here we see that for house two is more than $75\%$ of the energy usages accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who the the heavy consumers is and who the little consumers is.  
+On figure \ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses in the ECO dataset. For house two more than $75\%$ of the energy usages is accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who the the heavy consumers are and who the little consumers are.  
 
 \section{Validation of Methods} 
 This section describes the experiments conducted using the three methods mentioned in section \ref{RecognitionMethods}. The experiments is validated using F1 and accuracy sensitivity and specificity metrics's. Since the focus is event detection a sample can fall in one of four categories. 
@@ -226,10 +226,10 @@ The F1 and accuracy score is calculated as shown in equation \ref{EQ:F1} and \re
 
 The F1 score is mainly focused on how well the system guesses the the events, and do not score the true negatives. The accuracy is slightly different in that it looks at how many correct guesses there are in relation to the total amount of guesses. Fore a NILM application the accuracy score on its own is not a very representative metric since some appliances have way more off time than on time. To guess that a appliance is off is just as good at guessing that it is on for the accuracy score. Appliances that are mostly off can therefore get a high accuracy score even though it is hard to determine when they are on. Therefore is it necessary also to look at the F1-score. This score tells how accurate it can be guessed when a appliance is on. This is done by combining the recall, that tells how many true positive was guess correctly in relation to the total amount of positives, as described by equation \ref{EQ:recall}, and the precision that is the ratio of correct guessed positives events in relation to all positive guesses, as shown on equation \ref{EQ:prec}. 
 
-Five appliances have been selected from the ECO dataset house 2. The appliances have been selected so there is some heavy and some small consumers. The appliances selected is: water kettle, fridge, TV, stereo and Laptop. All the methods will be traind using a training period of 15 days and validated on 75 days of data. 
+Five appliances have been selected from the ECO dataset house 2. The appliances have been selected so there is some heavy and some little consumers. The appliances selected is: water kettle, fridge, TV, stereo and Laptop. All the methods will be traind using a training period of 15 days and validated on 75 days of data. 
 
 \subsection{Sample rate experiment}
-Common for the three methods is that they are designed for signals sampled at low sample rate. To determined the sensitivity, on the sample rate, is a experiment conducted where the dataset is downsampled to simulate different sample rates. The downsampling is done by applying a mean filter, so the new sample will be the average values of the samples in a specific period. This method is selected since it is the assumed behaviour of a meter that transmits samples at low rates. 
+Common for the three methods is that they are designed for signals sampled at low sample rate. To determined the sensitivity, on the sample rate, is an experiment conducted where the dataset is downsampled to simulate different sample rates. The downsampling is done by applying a mean filter, so the new sample will be the average values of the samples in a specific period. This method is selected since it is the assumed behaviour of a meter that transmits samples at low rates. 
 
 The results shown in figure \ref{fig:DSE} shows the average score of the different algorithms when recognising the five appliances. 
 
@@ -301,7 +301,7 @@ In chapter \ref{Sec:GapFill} six methods of gap filling was evaluated. It turned
 
 Like the error tolerance experiment described in section \ref{Sec:ETE}, is errors artificially introduced in the dataset. After this process is an attempt to removed the errors being done by using the gap filling techniques. 
 
-On figure \ref{fig:GER} is the average F1 score shown for all 3 recognition methods applied on all 5 appliances. This indicates that by using a simple reconstruction method it is possible to keep the high performance. Where for the more advanced Envelope method seems to make it worse. This is typically because the more advanced types reconstruction methods tires to model the frequency components, witch for greatly stochastic signals is more likely to introduce errors. 
+On figure \ref{fig:GER} is the average F1 score shown for all 3 recognition methods applied on all 5 appliances. This indicates that by using a simple reconstruction method it is possible to keep the high performance. Where for the more advanced Envelope method seems to make it worse. This is typically because the more advanced types of reconstruction methods tries to model the frequency components, witch for greatly stochastic signals is more likely to introduce errors. 
 
 To ensure that it is not one recognition method that courses the bad performance for the envelope is the results inspected for the individual appliances and methods. 
 
