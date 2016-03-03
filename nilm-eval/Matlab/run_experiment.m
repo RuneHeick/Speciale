@@ -6,8 +6,8 @@
 function run_experiment()
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
-    configuration_input = 'input/configurations/fhmm_initialEX1.yaml';
-    experiment_input = 'input/experiments/fhmm/fhmm_EX3.yaml' %'input/experiments/weiss/app_laptop_r_0.2.yaml';
+    configuration_input = 'input/configurations/parsonAppliance_initial.yaml';
+    experiment_input = 'input/experiments/parson/SHG2/PC_EX1.yaml';
     global caching;
     caching = 0;
     
@@ -34,7 +34,7 @@ function run_experiment()
     for i = 1:length(setup_files)
         setup_file = setup_files(i).name;
 %         if strcmp(setup_file, '0-2.yaml') == 1
-       % plot_results([experiment_folder, setup_file]);
+        plot_results([experiment_folder, setup_file]);
 %         end
     end
             

@@ -1,0 +1,300 @@
+\ifglsentryexists{UDP}{}%
+{%
+\gls@defglossaryentry{UDP}%
+{%
+name={\acronymfont {\glsentryshort {UDP}}},%
+sort={UDP},%
+type={main},%
+first={UDP},%
+firstplural={UDPs},%
+text={UDP},%
+plural={UDPs},%
+description={user datagram protocol},%
+descriptionplural={user datagram protocol},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={user datagram protocol},%
+longplural={user datagram protocols},%
+short={UDP},%
+shortplural={UDPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{P-G}{}%
+{%
+\gls@defglossaryentry{P-G}%
+{%
+name={\acronymfont {\glsentryshort {P-G}}},%
+sort={P-G},%
+type={main},%
+first={P-G},%
+firstplural={P-Gs},%
+text={P-G},%
+plural={P-Gs},%
+description={Papoulis-Gerchberg},%
+descriptionplural={Papoulis-Gerchberg},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Papoulis-Gerchberg},%
+longplural={Papoulis-Gerchbergs},%
+short={P-G},%
+shortplural={P-Gs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{SSA}{}%
+{%
+\gls@defglossaryentry{SSA}%
+{%
+name={\acronymfont {\glsentryshort {SSA}}},%
+sort={SSA},%
+type={main},%
+first={SSA},%
+firstplural={SSAs},%
+text={SSA},%
+plural={SSAs},%
+description={Spatio-Temporal filling},%
+descriptionplural={Spatio-Temporal filling},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Spatio-Temporal filling},%
+longplural={Spatio-Temporal fillings},%
+short={SSA},%
+shortplural={SSAs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{EMD}{}%
+{%
+\gls@defglossaryentry{EMD}%
+{%
+name={\acronymfont {\glsentryshort {EMD}}},%
+sort={EMD},%
+type={main},%
+first={EMD},%
+firstplural={EMDs},%
+text={EMD},%
+plural={EMDs},%
+description={empirical mode decomposition filling},%
+descriptionplural={empirical mode decomposition filling},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={empirical mode decomposition filling},%
+longplural={empirical mode decomposition fillings},%
+short={EMD},%
+shortplural={EMDs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{IMF}{}%
+{%
+\gls@defglossaryentry{IMF}%
+{%
+name={\acronymfont {\glsentryshort {IMF}}},%
+sort={IMF},%
+type={main},%
+first={IMF},%
+firstplural={IMFs},%
+text={IMF},%
+plural={IMFs},%
+description={intrinsic mode functions},%
+descriptionplural={intrinsic mode functions},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={intrinsic mode functions},%
+longplural={intrinsic mode functionss},%
+short={IMF},%
+shortplural={IMFs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{NILM}{}%
+{%
+\gls@defglossaryentry{NILM}%
+{%
+name={\acronymfont {\glsentryshort {NILM}}},%
+sort={NILM},%
+type={main},%
+first={NILM},%
+firstplural={NILMs},%
+text={NILM},%
+plural={NILMs},%
+description={non intrusive load monitoring},%
+descriptionplural={non intrusive load monitoring},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={non intrusive load monitoring},%
+longplural={non intrusive load monitorings},%
+short={NILM},%
+shortplural={NILMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{HMM}{}%
+{%
+\gls@defglossaryentry{HMM}%
+{%
+name={\acronymfont {\glsentryshort {HMM}}},%
+sort={HMM},%
+type={main},%
+first={HMM},%
+firstplural={HMMs},%
+text={HMM},%
+plural={HMMs},%
+description={hidden Markov models},%
+descriptionplural={hidden Markov models},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={hidden Markov models},%
+longplural={hidden Markov modelss},%
+short={HMM},%
+shortplural={HMMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{NILMTK}{}%
+{%
+\gls@defglossaryentry{NILMTK}%
+{%
+name={\acronymfont {\glsentryshort {NILMTK}}},%
+sort={NILMTK},%
+type={main},%
+first={NILMTK},%
+firstplural={NILMTKs},%
+text={NILMTK},%
+plural={NILMTKs},%
+description={NILM-Toolkit},%
+descriptionplural={NILM-Toolkit},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={NILM-Toolkit},%
+longplural={NILM-Toolkits},%
+short={NILMTK},%
+shortplural={NILMTKs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{FHMM}{}%
+{%
+\gls@defglossaryentry{FHMM}%
+{%
+name={\acronymfont {\glsentryshort {FHMM}}},%
+sort={FHMM},%
+type={main},%
+first={FHMM},%
+firstplural={FHMMs},%
+text={FHMM},%
+plural={FHMMs},%
+description={factorial hidden Markov models},%
+descriptionplural={factorial hidden Markov models},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={factorial hidden Markov models},%
+longplural={factorial hidden Markov modelss},%
+short={FHMM},%
+shortplural={FHMMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ECO}{}%
+{%
+\gls@defglossaryentry{ECO}%
+{%
+name={\acronymfont {\glsentryshort {ECO}}},%
+sort={ECO},%
+type={main},%
+first={ECO},%
+firstplural={ECOs},%
+text={ECO},%
+plural={ECOs},%
+description={Electricity Consumption and Occupancy},%
+descriptionplural={Electricity Consumption and Occupancy},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Electricity Consumption and Occupancy},%
+longplural={Electricity Consumption and Occupancys},%
+short={ECO},%
+shortplural={ECOs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

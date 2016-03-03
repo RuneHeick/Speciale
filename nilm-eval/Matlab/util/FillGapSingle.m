@@ -97,6 +97,14 @@ function [ input ] = FillGapSingle( input , method )
         end
     end
 
+    %% Remove unkowns 
+    
+    nanIndexs = find(isnan(input));
+    for nanIndex = fliplr(nanIndexs)
+        input(nanIndex) = input(min(nanIndex+1,length(input)));
+    end
+
+    input(isnan(input)) = -1; 
 
 end
 

@@ -1,8 +1,8 @@
 datasetPath = 'data\smartHG'
-method = 'Env';
+method = 'Linear';
 traindays = 0; 
 
-
+warning off; 
 savepath =  [datasetPath '-' method];
 copyfile(datasetPath,savepath);
 

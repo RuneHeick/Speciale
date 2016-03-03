@@ -1,9 +1,0 @@
-name: 'all'
-dataset: 'smartHG'
-houses: [1]
-maxNumOfDays: 100000
-startDate: '2015-09-01'
-endDate: '2015-10-31'
-ignore_rounded_sm_period: 0
-missingValuesThresholdSM: 1
-missingValuesThresholdPlug: 1

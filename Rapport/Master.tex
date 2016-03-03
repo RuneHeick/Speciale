@@ -21,18 +21,17 @@
 \setlength{\abovedisplayskip}{1cm}
 \setlength{\belowdisplayskip}{.8cm}
 \maketitle % Insert title
-
-\newpage
+\newpage\null\thispagestyle{empty}\newpage
 %----------------------------------------------------------------------------------------
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
-
+\setcounter{page}{1}
 \begin{abstract}
 \fxnote{Write an abstract}
 \lipsum[7] %dummy text 
 \end{abstract}
 
-\printglossaries
+\printglossary[type=\acronymtype,title=Abbreviations]
 \newpage
 \listoffigures
 \newpage
@@ -51,27 +50,31 @@
 \lipsum[3] %dummy text 
 
 
-% 6 pages 
+% 6 pages
+\glsresetall 
 \input{sections/DataQuality}
 % 8 pages
+\glsresetall
 \input{sections/Reconstruction} 
 
 % 10 pages
+\glsresetall
 \input{sections/Recognition} 
 
 % 10 pages
-\chapter{SmartHG Data Recognition} 
-\section{Non Reconstructed Recognition }
-\section{Reconstructed Recognition }
-\section{Results}
+\glsresetall
+\input{sections/SmartHGRecongnition}
 
 %5 pages
+\glsresetall
 \chapter{NILM As an Application} 
 
 % 2 pages
+\glsresetall
 \chapter{Discussion}
 
 % 1 pages
+\glsresetall
 \chapter{Conclusion}
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST

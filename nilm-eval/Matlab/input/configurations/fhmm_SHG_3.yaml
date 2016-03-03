@@ -1,0 +1,21 @@
+configuration_name: 'fhmm_SHG'
+experiment_name: []
+algorithm: 'disag_fhmm'
+dataset: 'smartHG0'
+household:
+evalDays: 'all'
+numOfResults: 1
+trainingDays: 15
+granularity: 30
+filtering: 'meanMedian'
+filtLength: 5
+states_other: 3
+num_appliances: []
+appliance1: []
+appliance2: []
+appliance3: []
+num_states_appliance1: []
+num_states_appliance2: []
+num_states_appliance3: []
+gapMethod: 'Non'
+errorRate: 0

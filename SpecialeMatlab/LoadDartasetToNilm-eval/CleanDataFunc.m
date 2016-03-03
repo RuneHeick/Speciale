@@ -1,7 +1,8 @@
-
+function [ ] = CleanDataFunc( ports )
+%CLEANDATAFUNC Summary of this function goes here
+%   Detailed explanation goes here
 path = 'downloadedData';
 savepath = 'downloadedDataClean';
-ports = [[15],[19 21 23],[85],[87 89 91 93], [165],[167 169 171 173] ];
 sampleRate = 1;
 
 mkdir(savepath); 
@@ -65,3 +66,6 @@ for port = ports
     end % end day loop 
     
 end % end meter port loop 
+
+end
+
