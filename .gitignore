@@ -142,5 +142,10 @@ nilm-eval/Matlab/cache_sigdat.mat
 .DS_Store
 nilm-eval/Matlab/projects/buildsys/results/
 SpecialeMatlab/Learning/summaryOld/
-nilm-eval/Python/fhmm.pyc
-nilm-eval/Python/dictClean3.pyc
+SpecialeMatlab/LoadDartasetToNilm-eval/downloadedDataClean/*.mat
+SpecialeMatlab/LoadDartasetToNilm-eval/downloadedDataClean/**.mat
+SpecialeMatlab/LoadDartasetToNilm-eval/downloadedDataClean/**/*.mat
+SpecialeMatlab/LoadDartasetToNilm-eval/**/*.mat
+nilm-eval/Matlab/data/
+SHG - forsøg/
+*.pyc

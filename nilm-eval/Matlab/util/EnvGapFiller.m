@@ -13,6 +13,10 @@ function [ input ] = EnvGapFiller( input )
     [val,vallocs] = findpeaks(-input(ok_mask));
      vallocs = n_ok(vallocs);
     
+    if(length(pks) < 2 || length(val) < 2)
+        return;
+    end
+     
     maxenv = spline(pkslocs,pks,n);
     minenv = spline(vallocs,-val,n);
     

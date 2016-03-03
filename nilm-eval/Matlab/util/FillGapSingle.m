@@ -3,9 +3,15 @@ function [ input ] = FillGapSingle( input , method )
     if( strcmp(method,'Linear'))
         okaySamples = input ~= -1; 
         index = find(okaySamples);
-        input = interp1(index,input(index),1:length(input));
+        if(~isempty(index))
+            input = interp1(index,input(index),1:length(input));
+        end
     elseif(strcmp(method,'Env'))
-        input = EnvGapFiller(input); 
+        okaySamples = input ~= -1; 
+        index = find(okaySamples);
+        if(length(index) > 2)
+            input = EnvGapFiller(input); 
+        end
     elseif( strcmp(method,'PG'))
         validRange = 50; 
         inputRange = (validRange)/2; 
@@ -91,6 +97,14 @@ function [ input ] = FillGapSingle( input , method )
         end
     end
 
+    %% Remove unkowns 
+    
+    nanIndexs = find(isnan(input));
+    for nanIndex = fliplr(nanIndexs)
+        input(nanIndex) = input(min(nanIndex+1,length(input)));
+    end
+
+    input(isnan(input)) = -1; 
 
 end
 

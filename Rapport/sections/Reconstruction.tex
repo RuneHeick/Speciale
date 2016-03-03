@@ -1,4 +1,5 @@
 \chapter{Gap Reconstruction}
+\label{Sec:GapFill}
 One of the more common problems in citizen science projects is gaps in data. This can happen either if the network connection is unstable or the test equipment gets prematurely turn off, as discussed in chapter \ref{Sec:DataQuality}. This can greatly degrade the data quality, and lead to errors in the application. One way to deal with this problem is to use mathematical gap filling techniques to come with a qualified guess on how the data would look like in the gap. 
 
 In order to use this methods we must assume that the missing data in the gap follows the same behaviour as the data on each side off the gap. If the signal is so stochastic that this is not the case then gap filling is not recommended\citep{RefWorks:10}. 
@@ -13,19 +14,19 @@ In the following sections it will be briefly described what makes the five algor
 
 \subsection{Papoulis-Gerchberg Algorithm}
 \label{T:PGA}
-The Papoulis-Gerchberg algorithm is a multi gap filling algorithm, meaning it is capable of correcting more than one gap at the time. This makes the algorithm preform good in conditions with many gaps and few available data points between gaps. This is due to its ability to collect information about the signal across multiple gaps\citep{RefWorks:11}. The Papoulis-Gerchberg algorithm works under the assumption that the signal is a periodic stationary signal with a known bandwidth. The signal will therefore consist of $M$ frequency components, and everything outside the band is assumed to be noise. The signals in the SmartHG is not stationary, but for small snippets can approximately stationariness be assumed. 
+The \ab{P-G}[Papoulis-Gerchberg] algorithm is a multi gap filling algorithm, meaning it is capable of correcting more than one gap at the time. This makes the algorithm preform good in conditions with many gaps and few available data points between gaps. This is due to its ability to collect information about the signal across multiple gaps\citep{RefWorks:11}. The \ab{P-G} algorithm works under the assumption that the signal is a periodic stationary signal with a known bandwidth. The signal will therefore consist of $M$ frequency components, and everything outside the band is assumed to be noise. The signals in the SmartHG is not stationary, but for small snippets can approximately stationariness be assumed. 
 
-The true bandwidth is also unknown in the signal. The Papoulis-Gerchberg algorithm is very depended on the bandwidth for a correct reconstruction. A modified version of the algorithm that estimates the bandwidth, by varying the frequency components $M$ and analysing the mean square error on the known signal is therefore used \cite{RefWorks:13}. This approach is fairly good at estimating the true value of $M$, but it is time-consuming.
+The true bandwidth is also unknown in the signal. The \ab{P-G} algorithm is very depended on the bandwidth for a correct reconstruction. A modified version of the algorithm that estimates the bandwidth, by varying the frequency components $M$ and analysing the mean square error on the known signal is therefore used \cite{RefWorks:13}. This approach is fairly good at estimating the true value of $M$, but it is time-consuming.
 
 \subsection{Wiener Filling Algorithm}
 The Wiener filling algorithm is an extension of a Wiener predictor, the Wiener predictor assumes that there exist a linear relationship between the next sample and the previous samples. By trying to predict the missing samples from both sides of the gap, and combining the knowledge, it estimates the missing samples \citep{RefWorks:14}. For larger gaps does this methods rely on earlier predictions to close the gaps. This result in errors being accumulated over the gaps. The method is fast, and is therefore suited for large data with small gaps. 
 
 \subsection{Spatio-Temporal Filling Algorithm}
-The Spatio-Temporal filling algorithm uses singular spectrum analysis to split the signal into a series of sub-signals. The sum of the sub-signals is the original signal, and the sub-signals are ordered so the most dominant is first, and the least dominant is last. 
+The \ab{SSA}[Spatio-Temporal filling] algorithm uses singular spectrum analysis to split the signal into a series of sub-signals. The sum of the sub-signals is the original signal, and the sub-signals are ordered so the most dominant is first, and the least dominant is last. 
 
 The reconstruction philosophy is that the gap has introduced noise in the signal, but a sum of only the most dominant sub-signals must be close to the original signal without noise. But in order to know how many sub-signals to include in this sum, we introduce an other artificial gap. While the sub-signals are being accumulated the mean square error of the artificial gap is observed. When this mean square error hits its minimum peek, it is assumed that the reconstruction is as good as possible \cite{RefWorks:15}.
 
-This method is very popular for gap filling. It has shown to be very noise resistant since it finds the overall trends in the data. It does require quite a lot of data to be known post and prior to the gap since an artificial gap must be introduced. It is based on singular spectrum analysis which assumes that the signal consist of stationary processes. This is a similar constraint to the Papoulis-Gerchberg Algorithm in section \ref{T:PGA}.
+This method is very popular for gap filling. It has shown to be very noise resistant since it finds the overall trends in the data. It does require quite a lot of data to be known post and prior to the gap since an artificial gap must be introduced. It is based on singular spectrum analysis which assumes that the signal consist of stationary processes. This is a similar constraint to the \ab{P-G} Algorithm in section \ref{T:PGA}.
 
 \subsection{Envelope Filling Algorithm}
 \label{T:EGA}
@@ -34,9 +35,9 @@ Unlike the previous described methods does the Envelope filling algorithm not de
 The methods do not make any assumptions about the signals stationariness or bandwidth. The method can also be used on none equally spaced time series. 
 
 \subsection{Empirical Mode Decomposition Filling Algorithm}
-The empirical mode decomposition filling algorithm uses empirical mode decomposition, to break the signal into intrinsic mode functions (IMF). The sum of all IMF's is the original signal. The IMF's is all more low frequent and simpler in structure than the original signal. The hypothesis is that it is easier fixing a gap in a simple signal than a complex one. 
+The \ab{EMD}[empirical mode decomposition filling] algorithm uses empirical mode decomposition, to break the signal into \ab{IMF}[intrinsic mode functions]. The sum of all \ab{IMF}'s is the original signal. The \ab{IMF}'s is all more low frequent and simpler in structure than the original signal. The hypothesis is that it is easier fixing a gap in a simple signal than a complex one. 
 
-The envelope filling algorithm in section \ref{T:EGA} is used to fix the gaps in the IMF's. The IMF's can now be accumulated to get the original fixed signal. Like the envelope filling algorithm does it not make any assumptions about the signals stationariness, bandwidth and can be used on none equally spaced time series. But making a empirical mode decomposition on a signal with a gap in is a non trivial process and can introduce errors \citep{RefWorks:16}. 
+The envelope filling algorithm in section \ref{T:EGA} is used to fix the gaps in the \ab{IMF}'s. The \ab{IMF}'s can now be accumulated to get the original fixed signal. Like the envelope filling algorithm does it not make any assumptions about the signals stationariness, bandwidth and can be used on none equally spaced time series. But making a empirical mode decomposition on a signal with a gap in is a non trivial process and can introduce errors \citep{RefWorks:16}. 
 
 
 
@@ -99,7 +100,7 @@ The sample by sample comparison is created by finding the mean square error of t
 
 On figure \ref{fig:RecNorm} is the result shown for 3 different cases. The Known attribute indicates how much prior and post knowledge in samples is used to reconstruct the gap. On the x axis is shown the gap size, as expected does the prediction grow worse the greater the gap size. As a baseline is a linear predictor also added. The linear predictor makes a simple line between the two samples at each edge of the gap, and places all missing samples on the line. 
 
-As seen on the figure the best reconstruction is made by the Papoulis-Gerchberg algorithm, with relatively few samples as knowledge. The wiener algorithm is also close to the linear base line. The logical statement is the more information or knowledge we have the better should the prediction become. This does not seems to be the case, since a lot of the algorithms amperes to preform better at lower knowledge rate. This can be explained by the stochastic part of a signal, when the knowledge is small it is more likely that the information around the gap is relevant, the more knowledge grows the more likely is it the a stochastic event will bring false information to the model. This can be illustrated as on figure \ref{fig:StocIls}.
+As seen on the figure the best reconstruction is made by the \ab{P-G} algorithm, with relatively few samples as knowledge. The wiener algorithm is also close to the linear base line. The logical statement is the more information or knowledge we have the better should the prediction become. This does not seems to be the case, since a lot of the algorithms amperes to preform better at lower knowledge rate. This can be explained by the stochastic part of a signal, when the knowledge is small it is more likely that the information around the gap is relevant, the more knowledge grows the more likely is it the a stochastic event will bring false information to the model. This can be illustrated as on figure \ref{fig:StocIls}.
 
 \begin{figure}[H]
 	\begin{picture}(300,200)
@@ -132,7 +133,7 @@ An other metric to compare is how well the frequency response is preserved in th
 \label{fig:RecFeq}
 \end{figure}
 
-As shown on figure \ref{fig:RecFeq} both the Wiener and the Papoulis-Gerchberg Algorithm seems to preform well. Like for the sample comparison the most successful reconstruction seems to be at low knowledge. 
+As shown on figure \ref{fig:RecFeq} both the Wiener and the \ab{P-G} Algorithm seems to preform well. Like for the sample comparison the most successful reconstruction seems to be at low knowledge. 
 
 \subsection{Jitter Comparison }
 \label{T:jitterCom}

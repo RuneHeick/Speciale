@@ -1,0 +1,104 @@
+result 1:
+
+trained HMM means:
+8.566865	
+27.211884	
+
+trained HMM covs:
+22.365356	
+54.004094	
+
+trained dHMM means:
+-0.197132	11.125235	
+-7.374638	-0.063429	
+
+trained dHMM covs:
+7.501214	18.305634	
+22.885320	28.669429	
+
+
+result 2:
+
+trained HMM means:
+4.649423	
+28.208917	
+
+trained HMM covs:
+10.868996	
+82.836053	
+
+trained dHMM means:
+-0.028455	12.395597	
+-13.316370	0.069572	
+
+trained dHMM covs:
+2.664194	0.823830	
+15.335478	14.839064	
+
+
+result 3:
+
+trained HMM means:
+2.435526	
+31.114314	
+
+trained HMM covs:
+1.298634	
+48.254873	
+
+trained dHMM means:
+-0.217372	10.492618	
+-7.341764	-0.223539	
+
+trained dHMM covs:
+3.447100	32.383100	
+228.294866	14.088965	
+
+
+result 4:
+
+trained HMM means:
+5.108091	
+22.790133	
+
+trained HMM covs:
+18.082704	
+84.653420	
+
+trained dHMM means:
+-0.118800	11.946538	
+-10.524466	-0.004391	
+
+trained dHMM covs:
+9.107215	16.260337	
+4.241017	9.148356	
+
+
+result 5:
+
+trained HMM means:
+2.483982	
+32.821550	
+
+trained HMM covs:
+0.842178	
+27.515000	
+
+trained dHMM means:
+-0.071377	22.834570	
+-18.371085	-0.191235	
+
+trained dHMM covs:
+2.601545	305.332154	
+0.450019	15.299689	
+
+
+Consumption:
+Laptop: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.4656       0.4189     0.5239     0.5239     0.1195          1.3445    14.9740     2.3798
+           2     0.5245       0.4113     0.7236     0.7236     0.2363          0.7311    16.9134     1.6599
+           3     0.5319       0.4644     0.6224     0.6224     0.1443          0.3468    16.0232     1.3890
+           4     0.4563       0.3174     0.8112     0.8112     0.3759          0.9189    17.2743     1.9333
+           5        NaN          NaN     0.0000     0.0000     0.0000          0.6353    16.9917     1.2541
+

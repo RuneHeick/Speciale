@@ -152,6 +152,7 @@ function [] = plot_results(setup_file)
     if isfield(result, 'consumption')
         %% plot inferred plug data vs ground truth plug data
         i = 1;
+        endup;
         for appliance_name_cell = result.appliance_names
             appliance_name = cell2mat(appliance_name_cell);
             appliance_id = getApplianceID(appliance_name);
@@ -166,12 +167,12 @@ function [] = plot_results(setup_file)
                 fig = figure;
                 hold on;
                 plot(date_range, plug_consumption(idx_start:idx_stop));
-                plot(date_range, inferred_consumption(idx_start:idx_stop), 'r');
+                plot(date_range, inferred_consumption(idx_start:idx_stop), 'r'); 
+                legend('Actual', 'Inferred'); % does not work
                 if strcmp(appliance_name, 'Fridge') == 1 || strcmp(appliance_name, 'Freezer') == 1
                     ylim([0 500]);
                 end
                 datetick('x','HHPM')
-                % legend('Actual', 'Inferred'); % does not work
                 title([appliance_name, ' - ', evaluation_days(d,:)])
                 fig = make_report_ready(fig, 'size', [width, height], 'fontsize', fontsize);
                 filename = ['Consumption_', appliance_name, '_', evaluation_days(d,:)];
@@ -181,7 +182,7 @@ function [] = plot_results(setup_file)
             end
             i = i+1;
         end
-
+        startup;
         %% plot ground truth smart meter data vs ground truth plug data and vs. ground truth inferred consumption
         i = 1;
         plug_consumption = {};
@@ -193,6 +194,8 @@ function [] = plot_results(setup_file)
             inferred_consumption{i} = result.consumption(i,:);
             i = i+1;
         end
+        
+        endup; 
         for d = 1:num_days
             day = evaluation_days(d,:);
             idx_start = 86400 / granularity * (d-1) + 1;
@@ -205,8 +208,12 @@ function [] = plot_results(setup_file)
             for j = 1:length(plug_consumption)
                  plot(date_range, plug_consumption{j}(idx_start:idx_stop));
             end
+            
+            l{1} = 'Main Meter'; 
+            l(2:length(result.appliance_names)+1) = result.appliance_names; 
+            legend(l,'Location','best');
+            
             datetick('x','HHPM')
-            % legend('Actual', 'Inferred'); % does not work
             title(['Plug and Smart Meter - ', evaluation_days(d,:)])
             fig = make_report_ready(fig, 'size', [width, height], 'fontsize', fontsize);
             filename = ['plug-and-smartmeter_', evaluation_days(d,:)];
@@ -219,6 +226,7 @@ function [] = plot_results(setup_file)
             for j = 1:length(plug_consumption)
                 plot(date_range, inferred_consumption{j}(idx_start:idx_stop));
             end
+            legend(l,'Location','best');
             datetick('x','HHPM')
             % legend('Actual', 'Inferred'); % does not work
             title(['Inferred and Smart Meter -  - ', evaluation_days(d,:)])
@@ -228,7 +236,7 @@ function [] = plot_results(setup_file)
             saveas(fig, [plot_folder, filename, '.png'], 'png');
             close(fig);
         end
-
+        startup; 
         %% plot pie charts
         i = 1;
         plug_consumption = {};
@@ -253,6 +261,9 @@ function [] = plot_results(setup_file)
         subplot(1,2,2);
         pie([cell2mat(inferred_consumption), other_inferred]);
         title('Inferred');
+        endup;
+        legend(result.appliance_names);
+        startup; 
         fig = make_report_ready(fig, 'size', [width, height], 'fontsize', fontsize);    
         filename = 'Pie_Chart';
         % print('-depsc2', '-cmyk', '-r600', [plot_folder, filename, '.eps']); % if eps is needed

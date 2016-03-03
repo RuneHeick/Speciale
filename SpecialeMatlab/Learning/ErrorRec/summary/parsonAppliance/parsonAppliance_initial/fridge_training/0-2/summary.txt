@@ -1,0 +1,104 @@
+result 1:
+
+trained HMM means:
+6.403309	
+79.604287	
+
+trained HMM covs:
+7.880456	
+33.092580	
+
+trained dHMM means:
+-0.063519	60.116086	
+-57.133749	0.260811	
+
+trained dHMM covs:
+11.415211	13.963917	
+2.224970	38.562107	
+
+
+result 2:
+
+trained HMM means:
+6.423885	
+77.963443	
+
+trained HMM covs:
+7.276641	
+73.163911	
+
+trained dHMM means:
+0.064891	52.079785	
+-57.536505	0.002242	
+
+trained dHMM covs:
+13.285589	27.218262	
+42.282053	71.927622	
+
+
+result 3:
+
+trained HMM means:
+6.890179	
+76.004596	
+
+trained HMM covs:
+12.186594	
+34.123860	
+
+trained dHMM means:
+0.134456	56.791898	
+-57.238389	-0.114815	
+
+trained dHMM covs:
+20.715009	58.935559	
+12.780659	27.191501	
+
+
+result 4:
+
+trained HMM means:
+5.350266	
+75.160712	
+
+trained HMM covs:
+7.884655	
+26.805171	
+
+trained dHMM means:
+-0.079119	60.369260	
+-58.589083	0.064784	
+
+trained dHMM covs:
+14.172407	22.405479	
+14.160710	19.722340	
+
+
+result 5:
+
+trained HMM means:
+6.925852	
+79.339765	
+
+trained HMM covs:
+8.482637	
+41.886114	
+
+trained dHMM means:
+-0.081093	67.980115	
+-58.486696	-0.360782	
+
+trained dHMM covs:
+14.676043	386.738738	
+40.263548	59.620581	
+
+
+Consumption:
+fridge: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.0721       0.4633     0.0391     0.0391     0.0276          0.6757    40.8565     1.0567
+           2     0.1626       0.4827     0.0978     0.0978     0.0644          0.5598    41.5077     1.0699
+           3     0.1184       0.4700     0.0677     0.0677     0.0433          0.5972    40.3066     1.0743
+           4     0.1053       0.4883     0.0590     0.0590     0.0327          0.6720    40.3963     1.0578
+           5     0.1522       0.2718     0.1057     0.1057     0.1640          0.3443    45.3401     1.2563
+

@@ -8,7 +8,7 @@ numOfResults: 1
 trainingDays: 15
 granularity: 1
 filtering: 'meanMedian'
-filtLength: 5
+filtLength: 1
 states_other: 2
 num_appliances: []
 appliance1: []

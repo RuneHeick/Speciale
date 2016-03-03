@@ -1,9 +1,9 @@
 configuration_name: 'parsonAppliance_initial'
 experiment_name: []
 algorithm: 'parsonAppliance'
-dataset: 'eco'
+dataset: 'smartHG0'
 household:
-evalDays: 'first_90'
+evalDays: 'all'
 numOfResults: 1
 trainingDays: 0
 granularity: 60

@@ -1,0 +1,21 @@
+result 1:
+
+trained HMM means:
+26.635444	
+1872.831643	
+
+trained HMM covs:
+3620.523468	
+188.954669	
+
+trained dHMM means:
+-1.643889	1509.343923	
+-1311.928922	-1.779141	
+
+trained dHMM covs:
+3800.680749	6251.533835	
+1728.070890	93.244741	
+
+
+result 2:
+

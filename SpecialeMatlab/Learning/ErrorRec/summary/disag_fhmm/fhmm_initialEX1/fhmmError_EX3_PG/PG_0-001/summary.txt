@@ -1,0 +1,23 @@
+result 1:
+
+Consumption:
+TV: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.4714       0.4073     0.5595     0.5595     0.2091          0.3747    80.8403     1.2578
+
+Stereo: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.5997       0.9361     0.4412     0.4412     0.0124          0.5323    22.2380     0.5987
+
+Water kettle: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.0082       0.0041     0.4121     0.4121     0.2126         37.9057   283.1647    39.6867
+
+Laptop: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.1011       0.4471     0.0570     0.0570     0.0116          0.8705    15.1021     1.0809
+
+Fridge: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.5840       0.4769     0.7532     0.7532     0.5037          0.5362    44.6050     1.0997
+

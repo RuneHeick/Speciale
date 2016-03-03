@@ -45,6 +45,26 @@ function [appliance_house_matrix] = getApplianceHouseMatrix(dataset)
              0 0  0 0 0 0;        % laptops
              0 0  0 0 0 0;        % entertainment_tv
              0 0  0 0 0 0];       % entertainment_rest
+    elseif ~isempty(strfind(dataset, 'smartHG'))
+        appliance_house_matrix = [ % (appliance,house)
+             0 0  0 0 0 0;        % fridge
+             0 0  0 0 0 0;        % freezer
+             0 0  0 0 0 0;        % microwave
+             0 0  0 0 0 0;        % dishwasher
+             2 2  2 0 0 0;        % entertainment
+             0 0  0 0 0 0;        % water kettle
+             0 0  0 0 0 0;        % cooker
+             0 0  0 0 0 0;        % coffee machine  
+             0 0  0 0 0 0;        % washing machine
+             0 0  0 0 0 0;        % dryer
+             0 0  3 0 0 0;        % lamp   
+             1 2  0 0 0 0;        % pc 
+             0 0  0 0 0 0;        % laptop
+             3 3  1 0 0 0;        % tv
+             0 4  0 0 0 0;        % stereo
+             0 0  0 0 0 0;        % tablet
+             0 0  0 0 0 0;        % router
+             0 0  0 0 0 0];       % illuminated fountain
     else
         error('dataset not available');
     end
