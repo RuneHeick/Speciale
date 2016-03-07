@@ -26,6 +26,13 @@ threshold_vector = [
         5;   % Tablet
         5;   % Router
         5;   % Illuminated fountain
+        15;  % TV1
+        15;  % TV2
+        15;  % TV3
+        15;  % TV4
+        15;  % TV5
+        15;  % TV6
+        15;  % TV7
     ]; % stereo
 
      threshold = threshold_vector(applianceID,1);

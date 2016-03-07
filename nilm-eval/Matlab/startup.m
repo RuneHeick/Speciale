@@ -22,6 +22,7 @@ addpath('projects/');
 addpath('projects/buildsys/');
 addpath('projects/buildsys/images/');
 addpath(genpath('util'));
+addpath(genpath('SimDataProject'));
 %addpath('C:/Program Files/IBM/ILOG/CPLEX_Studio_Community1263/cplex/matlab/x64_win64')
 
 set(0,'DefaultTextFontname', 'Times New Roman');

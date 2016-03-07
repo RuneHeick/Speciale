@@ -11,7 +11,7 @@
 function save_evaluation_days()
     
     %% CONFIG HERE (name of the evaluation_day file)
-    config_file = 'input/evaluation_days/smartHG_all.yaml';
+    config_file = 'input/evaluation_days/FakeDS_all.yaml';
     
     config = ReadYaml(config_file);
     

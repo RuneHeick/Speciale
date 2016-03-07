@@ -1,0 +1,17 @@
+configuration_name: 'BreakDownTest'
+experiment_name: []
+algorithm: 'disag_fhmm'
+dataset: 'FakeDS'
+household:
+evalDays: 'all'
+numOfResults: 1
+trainingDays: 10
+granularity: 30
+filtering: 'meanMedian'
+filtLength: 5
+states_other: 3
+num_appliances: []
+appliance1: []
+num_states_appliance1: []
+gapMethod: 'Non'
+errorRate: 0

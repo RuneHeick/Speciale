@@ -65,6 +65,33 @@ function [appliance_house_matrix] = getApplianceHouseMatrix(dataset)
              0 0  0 0 0 0;        % tablet
              0 0  0 0 0 0;        % router
              0 0  0 0 0 0];       % illuminated fountain
+    elseif ~isempty(strfind(dataset, 'FakeDS'))
+        appliance_house_matrix = [ % (appliance,house)
+             0 0  0 0 0 0;        % fridge
+             0 0  0 0 0 0;        % freezer
+             0 0  0 0 0 0;        % microwave
+             0 0  0 0 0 0;        % dishwasher
+             0 2  2 0 0 0;        % entertainment
+             0 0  0 0 0 0;        % water kettle
+             0 0  0 0 0 0;        % cooker
+             0 0  0 0 0 0;        % coffee machine  
+             0 0  0 0 0 0;        % washing machine
+             0 0  0 0 0 0;        % dryer
+             0 0  3 0 0 0;        % lamp   
+             0 2  0 0 0 0;        % pc 
+             0 0  0 0 0 0;        % laptop
+             0 3  1 0 0 0;        % tv
+             0 4  0 0 0 0;        % stereo
+             0 0  0 0 0 0;        % tablet
+             0 0  0 0 0 0;        % router
+             0 0  0 0 0 0;        % illuminated fountain
+             1 3  1 0 0 0;        % tv1
+             2 3  1 0 0 0;        % tv2
+             3 3  1 0 0 0;        % tv3
+             4 3  1 0 0 0;        % tv4
+             5 3  1 0 0 0;        % tv5
+             6 3  1 0 0 0;        % tv6
+             7 3  1 0 0 0];       % tv7
     else
         error('dataset not available');
     end
