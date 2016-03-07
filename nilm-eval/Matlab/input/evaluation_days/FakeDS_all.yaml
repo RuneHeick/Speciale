@@ -1,0 +1,9 @@
+name: 'all'
+dataset: 'FakeDS'
+houses: [1]
+maxNumOfDays: 100000
+startDate: '2015-06-01'
+endDate: '2015-8-31'
+ignore_rounded_sm_period: 0
+missingValuesThresholdSM: 0.2
+missingValuesThresholdPlug: 0.2

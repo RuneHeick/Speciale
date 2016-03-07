@@ -149,3 +149,5 @@ SpecialeMatlab/LoadDartasetToNilm-eval/**/*.mat
 nilm-eval/Matlab/data/
 SHG - forsøg/
 *.pyc
+nilm-eval/Matlab/SimDataProject/downloadedDataClean/
+SpecialeMatlab/LoadDartasetToNilm-eval/DataSets.zip

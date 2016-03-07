@@ -22,7 +22,14 @@ function [threshold] = get_evaluation_threshold(appliance, household)
                      15 15 0 15 15 15;        %stereo
                      15 15 0 15 15 15;        %tablet
                      15 15 0 15 15 15;        %router
-                     15 15 0 15 15 15];       %illuminated fountain
+                     15 15 0 15 15 15;       %illuminated fountain
+                     15 15 0 15 15 15;        %tv1
+                     15 15 0 15 15 15;        %tv2
+                     15 15 0 15 15 15;        %tv3
+                     15 15 0 15 15 15;        %tv4
+                     15 15 0 15 15 15;        %tv5
+                     15 15 0 15 15 15;        %tv6
+                     15 15 0 15 15 15];       %tv7
 
     threshold = thresholdMatrix(appliance, household);             
 

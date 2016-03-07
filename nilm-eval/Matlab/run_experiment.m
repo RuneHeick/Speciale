@@ -3,11 +3,11 @@
 % Copyright: ETH Zurich, 2014
 % Author: Romano Cicchetti
 
-function run_experiment()
+function run_experiment(configuration_input, experiment_input)
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
-    configuration_input = 'input/configurations/parsonAppliance_initial.yaml';
-    experiment_input = 'input/experiments/parson/SHG2/PC_EX1.yaml';
+%     configuration_input = 'input/configurations/fhmm_SHG_4.yaml';
+%     experiment_input = 'input/experiments/fhmm/SHG/fhmm_SHG_2.yaml';
     global caching;
     caching = 0;
     
@@ -24,6 +24,7 @@ function run_experiment()
     if isempty(setup_files)
         error('No setup file available - first create a setup file using "create_experiment.m"');
     end
+    
     for i = 1:length(setup_files)
         setup_file = setup_files(i).name;
         nilm_eval([experiment_folder, setup_file]);
