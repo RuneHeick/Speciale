@@ -1,7 +1,7 @@
 configuration_name: 'fhmm_SHG'
 experiment_name: []
 algorithm: 'disag_fhmm'
-dataset: 'smartHG0'
+dataset: 'smartHG15'
 household:
 evalDays: 'all'
 numOfResults: 1

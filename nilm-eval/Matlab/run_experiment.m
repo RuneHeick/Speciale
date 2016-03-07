@@ -6,8 +6,8 @@
 function run_experiment()
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
-    configuration_input = 'input/configurations/parsonAppliance_initial.yaml';
-    experiment_input = 'input/experiments/parson/SHG2/PC_EX1.yaml';
+    configuration_input = 'input/configurations/fhmm_SHG_3.yaml';
+    experiment_input = 'input/experiments/fhmm/SHG/fhmm_SHG_1.yaml';
     global caching;
     caching = 0;
     
