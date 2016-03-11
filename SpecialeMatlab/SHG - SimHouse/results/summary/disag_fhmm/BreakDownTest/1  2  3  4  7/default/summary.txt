@@ -1,0 +1,23 @@
+result 1:
+
+Consumption:
+TV1: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.9955       0.9911     1.0000     1.0000     1.0000          0.0561    21.9289     0.2604
+
+TV2: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.2650       0.9954     0.1528     0.1528     0.0659          0.8527    25.4102     0.8672
+
+TV3: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.3489       0.2379     0.6541     0.6541     0.8046          1.9507    59.0618     2.7793
+
+TV4: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1        NaN          NaN        NaN        NaN     0.0000          0.7374     5.3408     0.7724
+
+TV7: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.1608       0.0980     0.4471     0.4471     0.7456          3.6597   155.0540     4.8321
+

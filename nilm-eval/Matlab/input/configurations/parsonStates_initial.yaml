@@ -16,3 +16,5 @@ likThresh: 0.01
 windowLength: 3600
 numOfWindows: 3
 trainingType: 'noTraining'
+gapMethod: 'non'
+errorRate: 0

@@ -2,6 +2,7 @@
 AppliancesPort = [37 41 91 97 117 171 217 ]; 
 
 
+%%
 
 ApplianceID = 1:length(AppliancesPort); 
 

@@ -23,7 +23,7 @@ end
 %CleanDataFunc(AllPorts);
 
 %%
-
+MarsterCatmat = []; 
 m = 1; 
 for house = database; 
     
@@ -41,22 +41,32 @@ for house = database;
         index = index+1; 
     end
     
+    
     if(others>0)
     
         labels = house{1}{4};
         labels = {labels{:,:}, 'Others'};
         dataset = [submeterPower others];
-        prc = round((dataset ./ sum(dataset))*100); 
-        explode = zeros(1,length(labels)); 
-        for i = 1:length(labels)
-            labels{i} = [labels{i} ': ' num2str(prc(i)) '%'];
-        end
+        
+        %[catmat, newlab] = CatDifferentAppliancesMatrix(dataset,labels);
+        
+        [catmat, catlab] = CatDifferentAppliancesMatrix( dataset, labels );
+        MarsterCatmat = [MarsterCatmat, [house{1}{1} ; catmat]];
+        
+%         %Pie Chart
+%         prc = round((dataset ./ sum(dataset))*100); 
+%         explode = zeros(1,length(labels)); 
+%         for i = 1:length(labels)
+%             labels{i} = [labels{i} ': ' num2str(prc(i)) '%'];
+%         end
+% 
+%         figure
+%         %subplot(1,length(houses),m)
+%         pie(dataset, explode, labels); 
+%         title(['House ' num2str(house{1}{1})]);
+        
+%        pause(0.001);
 
-        figure
-        %subplot(1,length(houses),m)
-        pie(dataset, explode, labels); 
-        title(['House ' num2str(house{1}{1})]);
-        pause(0.001);
     else
         disp('Error');
     end
@@ -64,5 +74,14 @@ for house = database;
     m = m+1; 
 end
 
+figure
+bar(fliplr(MarsterCatmat(2:end,:)'),'stacked')
+legend(fliplr(catlab));
+ax = gca;
+ax.XTickLabel = MarsterCatmat(1,:);
+ax.YTickLabel = []; 
+ax.YTick = []; 
+xlabel('House ID');
+ylabel('Energy Consumption');
 
 close(conn)
