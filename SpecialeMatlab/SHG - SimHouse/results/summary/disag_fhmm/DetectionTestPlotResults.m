@@ -1,5 +1,5 @@
 
-TestPath = 'ModelCompletnessTest'; 
+TestPath = 'BreakDownTest2'; 
 
 % Get a list of all files and folders in this folder.
 files = dir(TestPath);
@@ -41,27 +41,29 @@ for i = 1:length(subFolders)
 end
 
 F1Scores = cellfun(@(x) max(x),BinsF1)
+F1Scores(1,3) = F1Scores(1,1)
 
 AccScores = cellfun(@(x) max(x),BinsAcc)
+AccScores(1,3) = AccScores(1,1)
 
 subplot(2,1,1)
 plot(F1Scores,'-o');
 ylabel('F1 Score');
-xlabel('Number of appliances in model');
+xlabel('Collection');
 
 fig = gca; 
 fig.XTick
-fig.XTickLabel = cellfun(@(x) [x ' of 7' ],fig.XTickLabel,'UniformOutput', false)
+fig.XTickLabel = cellfun(@(x) [ ],fig.XTickLabel,'UniformOutput', false)
 
 
 subplot(2,1,2)
 plot(AccScores,'-o')
 ylabel('Accuracy Score'); 
-xlabel('Number of appliances in model');
+xlabel('Collection');
 
 fig = gca; 
 fig.XTick
-fig.XTickLabel = cellfun(@(x) [x ' of 7' ],fig.XTickLabel,'UniformOutput', false)
+fig.XTickLabel = cellfun(@(x) [''],fig.XTickLabel,'UniformOutput', false)
 
 legend1 = legend(gca,'show',{'TV 1','TV 2','TV 3','TV 4','TV 5','TV 6','TV 7'});
 set(legend1,'Position',[0.911714423256587 0.735429941860465 0.0834932812630786 0.189583328117927]);
