@@ -1,5 +1,5 @@
-configuration_name: BreakDownTest
-experiment_name: 3  5  6  7
+configuration_name: BreakDownTest2
+experiment_name: 1  2  3  4  5  6  7
 algorithm: disag_fhmm
 dataset: FakeDS
 household: []
@@ -10,14 +10,20 @@ granularity: 30.0
 filtering: meanMedian
 filtLength: 5.0
 states_other: 3.0
-num_appliances: 4.0
-appliance1: TV3
+num_appliances: 7.0
+appliance1: TV1
 num_states_appliance1: 2.0
 gapMethod: Non
 errorRate: 0.0
-appliance2: TV5
+appliance2: TV2
 num_states_appliance2: 2.0
-appliance3: TV6
+appliance3: TV3
 num_states_appliance3: 2.0
-appliance4: TV7
+appliance4: TV4
 num_states_appliance4: 2.0
+appliance5: TV5
+num_states_appliance5: 2.0
+appliance6: TV6
+num_states_appliance6: 2.0
+appliance7: TV7
+num_states_appliance7: 2.0
