@@ -5,7 +5,7 @@ setdbprefs('DataReturnFormat','table');
 path = 'downloadedData'; 
 
 %{ {1,[5],[6 9 11 13]}, {2,[85],[87 89 91 93]} , {3,[165],[167 169 171 173]} }
-ports = [[15],[19 21 23],[85],[87 89 91 93], [165],[167 169 171 173] ];
+ports = [37 41 91 97 117 171 217 ];
 
 fromStart = datetime(2015,6,1,0,0,0); % start
 EndTime = datetime(2015,8,31,0,0,0);

@@ -32,11 +32,11 @@ function run_experiment(configuration_input, experiment_input)
     
     summarize_results(configuration, experiment);
     
-    for i = 1:length(setup_files)
-        setup_file = setup_files(i).name;
-%         if strcmp(setup_file, '0-2.yaml') == 1
-        plot_results([experiment_folder, setup_file]);
-%         end
-    end
+%     for i = 1:length(setup_files)
+%         setup_file = setup_files(i).name;
+% %         if strcmp(setup_file, '0-2.yaml') == 1
+%         plot_results([experiment_folder, setup_file]);
+% %         end
+%     end
             
 end

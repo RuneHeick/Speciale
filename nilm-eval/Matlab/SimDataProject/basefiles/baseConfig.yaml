@@ -1,4 +1,4 @@
-configuration_name: 'BreakDownTest'
+configuration_name: 'BreakDownTest2'
 experiment_name: []
 algorithm: 'disag_fhmm'
 dataset: 'FakeDS'
