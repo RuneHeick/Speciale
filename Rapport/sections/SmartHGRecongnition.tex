@@ -119,7 +119,7 @@ If not all appliances in a house is known, a better performance can therefore be
 Some algorithms are designed to not be affected by the house bias, and is therefore moved from different environments more easily. The Parson algorithm is designed with this in mind. The performance of the parson algorithm is therefore the same, or in some cases improved, when using models trained in constructed data. This advantage unfortunately comes with the problem of generalization, which lead to harder source separation, as discussed in section \ref{sec:NOISE}. 
 
 
-\section{ Model Size And Completeness Influence }
+\section{Model Size And Completeness Influence }
 Some of the parameters that often differ in the many different environments \ab{NILM} applications are deployed in, is the number of appliances in the environment, and the number of appliances that are known in the environment.  
 
 The model size or complexity is a parameter that tells how many devices that are in a given environment. As the complexity in a \ab{NILM} application is increasing the detection rate is deceasing\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. 
@@ -167,7 +167,7 @@ This can be graphically shown as in figure \ref{fig:PSILLU}.
 \put(375,10){$\textbf{H}_7$}
 
 \end{picture}
-\caption{}
+\caption{$\textbf{H}_c$ sets from the TV house dataset}
 \label{fig:PSILLU}
 \end{figure}
 
@@ -188,6 +188,7 @@ In the case of the TV house dataset can the $|\textbf{H}_c|$ and $A_c$ values fo
 
 
 \subsection{Model Complexity Test}
+\label{sec:MCT}
 To investigate the effect the number of appliances in a house, have on the performance of a \ab{NILM} system, is disaggregation done on every artificial house in $\textbf{H}$.
 
 \begin{figure}[H]
@@ -203,12 +204,33 @@ For the most part it is fairly easy to correctly classify the TV's when the comp
 
 For other appliances that are not as hard to classify as TV 2 will the spill over effect decrease the F1 and accuracy score as seen on the figure. 
 
-\subsection{ Model Completeness Influence }
+\subsection{Model Completeness Influence }
+In the experiments conducted on the the SmartHG dataset in section \ref{sec:AppNoise} it was shown that the appliance noise made it hard to correctly disaggregate the appliances of the houses. In the last experiment in section \ref{sec:MCT}, it was shown that the performance of the disaggregation was higher when the complexity of the house was low. This is much the same results as seen in the experiments on the SmartHG dataset, where the completely simulated house, that had a low complexity, preformed better than the real house with a high complexity. 
 
+But in the SmartHG dataset was the complexity of the real dataset unknown since the amount of appliances that generated the appliance noise is unknown. It is therefore hard to conclude if the poor performance in the real data is due to the fact that the appliances is unknown by the disaggregation model, or because the complexity of the house is greater for the real data. 
 
+To further investigate this was a experiment conducted on the TV house dataset, where the house models where trained on the $\textbf{H}_{7}$ dataset. The models trained did not contain the full knowledge of the house. The models was only trained to find a subset of meters in the house. Like for the experiments in section \ref{sec:MCT}, was the experiment conducted on all subset combinations. 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/ModelCompletness.png}
-\caption{}
+\caption{Completeness test of disaggregation of appliances in the TV house dataset }
+\label{fig:COD}
 \end{figure}
+
+In figure \ref{fig:COD} is the result for each appliance shown. The result is a average of all tests at a given model completeness. It is seen from the figure that even though the disaggregation algorithm obtains more information about the complete house, it does not improve the recondition. 
+
+This indicates that the 7 algorithms working in parallel, each disaggregating one meter, would obtain the same results as one model capable of seeing the house as a hole. It is worth mentioning that these tests is based on the \ab{FHMM} algorithm and other algorithms might preform different in this aspect. 
+
+The results indicate that the complexity of the house is a more determining factor for the performance than the completeness of the model. 
+
+\section{Chapter Discussion}
+ %complexity 
+ 
+ %completness 
+ 
+ %use seperate phases 
+ 
+ %train in real enviorment. 
+ 
+ %small consumeres is hard to find 
