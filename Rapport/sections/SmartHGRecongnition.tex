@@ -1,10 +1,11 @@
 \chapter{Environment Influence } 
-Not just the sample rate and error is determining factors when designing a \ab{NILM} application. The environment which the application is deployed and trained in is critical for the performance of the system. 
+\label{sec:EnvInf}
+Not just the sample rate and error ratio are determining factors when designing a \ab{NILM} application. The environment which the application is deployed and trained in is critical for the performance of the system. 
 
-The environment is the parameters describing the static conditions of the household which the algorithms is deployed in. An example of an environment parameter can be number of known devices, number of unknown devices, number of simultaneously active devices or number of training days. In order to investigate some of the environment parameters effect the SmartHG dataset is used. 
+The environment is the parameters describing the static conditions of the household which the algorithms are deployed in. An example of an environment parameter can be number of known devices, number of unknown devices, number of simultaneously active devices or number of training days. In order to investigate some of the environment parameters effect on a \ab{NILM} application the SmartHG dataset is used. 
 
 \section{Challenges In The SmartHG Dataset} 
-The \ab{ECO} dataset, consists of 6 households and the data is sampled at a rate of 1 Hz over a period of 8 months. The SmartHG dataset is different in many aspects. The data is sampled at a slower rate of $\frac{1}{30}$ Hz, but on 25 households over a period of 6 month. Each house have only a small number of sub-meters. The sub-meters is mainly placed on little consumers such as televisions and stereos, which presents an interesting challenge for load disaggregation. The SmartHG dataset contains both the aggregated data, and the instantaneous power usages of the different households.
+The \ab{ECO} dataset, consists of 6 households and the data is sampled at a rate of 1 Hz over a period of 8 months. The SmartHG dataset is different in many aspects. The data is sampled at a slower rate of $\frac{1}{30}$ Hz, but on 25 households over a period of 6 month. Each house have only a small number of sub-meters. The sub-meters are mainly placed on little consumers such as televisions and stereos, which presents an interesting challenge for load disaggregation. The SmartHG dataset contains both the aggregated data, and the instantaneous power usages of the different households.
 
 \begin{figure}[H]
 \centering
@@ -13,21 +14,21 @@ The \ab{ECO} dataset, consists of 6 households and the data is sampled at a rate
 \label{fig:SLC}
 \end{figure}
 
-In figure \ref{fig:SLC} is the power distribution of three households shown. This illustrates how much energy each appliance uses, in relation to the households total energy consumption. The Other category shows the energy consumption not accounted for by the sub-meters.  
+In figure \ref{fig:SLC} is the power distribution of three households shown. This illustrates how much energy each appliance uses, in relation to the households total energy consumption. The "other" category shows the energy consumption not accounted for by the sub-meters.  
 
-Household 3,10 and 18 is some of the houses that have the smallest "other" category. They are therefore selected for further study, since they provide the most information about the house. 
+Household 3,10 and 18 are some of the houses that have the smallest "other" category. They are therefore selected for further study, since they provide the most information about the house. 
 
 \section{Appliance Noise Influence On Detection }
 \label{sec:AppNoise}
-The households in the SmartHG dataset have a relative big consumption created by other appliances than the ones with a sub-meter. The consumption can be thought of as "appliance noise", since it is a signal that is not included in the disaggregation model. 
+The households in the SmartHG dataset have a relative big consumption created by other appliances than the ones with a sub-meter. This consumption can be thought of as "appliance noise", since it is a signal that is not included in the disaggregation model. 
 
 \subsection{Detection In A Noisy Environment }
 \label{sec:NOISE}
-To investigate the influence appliance noise have on a \ab{NILM} application, disaggregation of the known appliances of house 3, 10 and 18 is done using the Parson and \ab{FHMM} algorithm. 
+To investigate the influence appliance noise have on a \ab{NILM} application, disaggregation of the known appliances of house 3, 10 and 18 are done using the Parson and \ab{FHMM} algorithm. 
 
 \input{tables/RealTab}                 
 
-On table \ref{table:Tab:SHGREAL} is the results from the disaggregation shown. The low F1 scores indicates that it is hard for the algorithms to correctly disaggregate the meters. This is due to the many spikes there are in the data that can indicate a change in appliance usage. On figure \ref{fig:RMD} is a sample from the validation period shown. The blue line shows the data from the main meter. The other lines indicates the appliances. On the left side of the figure is the true consumption shown for all the meters. This consumption is known from the sub-meters on the appliances. On the right side is the true main meter signal shown, and the inferred usages of the different appliances created by the \ab{FHMM} algorithm. 
+On table \ref{table:Tab:SHGREAL} is the results from the disaggregation shown. The low F1 scores indicates that it is hard for the algorithms to correctly disaggregate the meters. This is due to the many spikes there are in the data that can indicate a change in appliance usage. On figure \ref{fig:RMD} is a snippet from the validation period shown. The blue line shows the data from the main meter. The other lines indicates the appliances. On the left side of the figure is the true consumption shown for all the meters. This consumption is known from the sub-meters on the appliances. On the right side is the true main meter signal shown, and the inferred usages of the different appliances created by the \ab{FHMM} algorithm. 
 
 \begin{figure}[H]
 \begin{picture}(0,150)
@@ -44,7 +45,7 @@ On table \ref{table:Tab:SHGREAL} is the results from the disaggregation shown. T
 \label{fig:RMD}
 \end{figure}
 
-On the figure it is shown how the main meter have many fluctuations. The algorithm tries to map each fluctuation to a change in a appliance, or noise. There are many of the noise fluctuations that are similar to the appliance changes, and this creates errors in the disaggregation. 
+On the figure is shown how the main meter have many fluctuations. The algorithm tries to map each fluctuation to a change in an appliance, or noise. There are many of the noise fluctuations that are similar to the appliance changes, and this creates errors in the disaggregation. 
 
 \subsection{Detection In Noise Free Environment }
 \label{sec:NOISEFREE}
@@ -57,20 +58,20 @@ The assumption that the noise is what troubles the disaggregation, dictates that
 \label{fig:SIL}
 \end{figure}
 
-In order to test this hypothesis was an main meter signal artificially constructed by summing the values of all the sub-meters in a house as illustrated on figure \ref{fig:SIL}. In this manner was a new set of artificial houses created where there where no appliance noise. By applying the same disaggregation algorithms as for the noisy environment on the noise free environment it is seen that the disaggregation is much higher as shown in table \ref{table:Tab:SHGSIM}.
+In order to test this hypothesis is a main meter signal artificially constructed by summing the values of all the sub-meters in a house as illustrated on figure \ref{fig:SIL}. In this manner is a new set of artificial houses created where there are no appliance noise. By applying the same disaggregation algorithms, as for the noisy environment, on the noise free environment is the performance much increased as shown in table \ref{table:Tab:SHGSIM}.
 
 \input{tables/SimTab}  
 
-As shown on table \ref{table:Tab:SHGSIM} the F1 and accuracy score have both improved. Even though the artificial house only contains three or four appliances, and they are all accounted for by the model, there are still some of the appliances that are hard to find. This is due to the appliances power usage pattern in off/standby mode combine with the rare usage of the devices. When the standby pattern of a device is complex and the appliance is only rarely used the model will try to fit to the standby pattern and not the usage pattern, to get the most accurate consumption disaggregation. This can make the model incapable of detecting change between the on/off states.
+As shown on table \ref{table:Tab:SHGSIM} does the F1 and accuracy score both improve. Even though the artificial house only contains three or four appliances, and they are all accounted for by the model, there are still some of the appliances that are hard to find. This is due to the appliances power usage pattern in off/standby mode combined with the rare usage of the devices. When the standby pattern of a device is complex and the appliance is only rarely used the model will try to fit to the standby pattern and not the usage pattern, to get the most accurate consumption disaggregation. This can make the model incapable of detecting change between the on/off states.
 
-One other aspect to note is that even though the F1 scores is higher, only a few is higher than 0.9. This is due to the similarity effect. When a house contains two or more appliances that are similar it gets harder for the algorithm to tell if it is the one or the other. This is what happens for TV 1 and TV 2 in house 3. The algorithms will wrongfully assign some of the events belonging to TV 1, to TV 2 and vice versa. This can be a problem if the goal is to determine exactly witch appliance there is responsible for the power consumption. This is one of the key aspects of the little consumers problem, discussed in chapter \ref{sec:AppRec}.
+One other aspect to note is that even though the F1 scores are higher, only a few is higher than 0.9. This is due to the spill over effect that happens when appliances are similar. When a house contains two or more appliances that are similar it gets harder for the algorithm to tell if it is the one or the other. This is what happens for TV 1 and TV 2 in house 3. The algorithms will wrongfully assign some of the events belonging to TV 1, to TV 2 and vice versa. This can be a problem if the goal is to determine exactly witch appliance there is responsible for the power consumption. This is one of the key aspects of the little consumers problem, discussed in chapter \ref{sec:AppRec}.
 
 This has a profound effect on the parson algorithm that are designed to spilt up appliances based on appliance category's, by utilizing a set of general models. Since a lot of the appliances are similar in their consumption changes from state to state the parson models are almost identical which lead to the events being wrongly categorised. 
 
 \newpage
 
 \subsection{Noise Effect On Training And Validation }
-The experiments the two previous sections \ref{sec:NOISE} and \ref{sec:NOISEFREE} suggest that appliance noise have an impact on the performance of the system. But for a system based on machine learning techniques like the \ab{FHMM} and the Parson algorithms it raises the questions is it to hard for the system to find the correct models in the noise, or are the noise just interfering with the correct models? 
+The experiments in the two previous sections \ref{sec:NOISE} and \ref{sec:NOISEFREE} suggest that appliance noise have an impact on the performance of the system. But for a system based on machine learning techniques like the \ab{FHMM} and the Parson algorithms it raises the questions, is it to hard for the system to find the correct models in the noise, or are the noise just interfering with the correct models? 
 
 \begin{figure}[H]
 \centering
@@ -88,9 +89,9 @@ This creates a very noisy environment in the training phase and a noise free env
 
 If the results from the experiment, shown in table \ref{table:Tab:SHGREALSIM} is compared with the results from table \ref{table:Tab:SHGSIM} from section \ref{sec:NOISEFREE} it is clearly seen that the performance of the system trained in real data is much lower than the one trained on only artificially constructed data. This indicates that the models obtained in the real data is influenced by the appliance noise, and is therefore not fitting accurately enough to the true appliance model. 
 
-This could indicate that the low performance in the real data shown in table \ref{table:Tab:SHGREAL} in section \ref{sec:NOISE} is caused by the models not fitting correctly enough to the true values, and not by the models being triggered by application noise from other appliances.
+This could indicate that the low performance in the real data shown in table \ref{table:Tab:SHGREAL} in section \ref{sec:NOISE} is caused by the models not fitting correctly to the true values, and not by the models being triggered by application noise from other appliances.
 
-In order to validate this hypothesis was a similar experiment conducted, where the training data was artificially constructed, and the validation data was the true data from the main meter as illustrated in figure \ref{fig:SHGSIMREAL}. 
+In order to validate this hypothesis was a similar experiment conducted, where the training data was artificially constructed, and the validation data was the real data from the main meter as illustrated in figure \ref{fig:SHGSIMREAL}. 
 
 \begin{figure}[H]
 \centering
@@ -104,15 +105,15 @@ By training the model on the constructed data, is the true model for the applian
 
 \input{tables/SimRealTab}
 
-The results are shown in table \ref{table:Tab:SHGSIMREAL}. Here we see that the performance of this system is lower than the one from the noise free experiment. This lead to the conclusion that the noise is both affecting the models, and interfering in the validation process.  
+The results are shown in table \ref{table:Tab:SHGSIMREAL}. The performance of this system is lower than the one from the noise free experiment. This lead to the conclusion that the noise is both affecting the models, and interfering in the validation process.  
 
-The results from the disaggregation of the data in the real environment from section \ref{sec:NOISE} is compared with the results from the the experiments, where the models was extracted from constructed, data validated on the real data, is shown in table \ref{table:Tab:RealVsCon}. 
+The results from the disaggregation of the data in the real environment from section \ref{sec:NOISE} is compared with the results from the the previous experiments, where the models was extracted from constructed data and validated on the real data, is shown in table \ref{table:Tab:RealVsCon}. 
 
 \input{tables/RealvsCon}
 
-The tables shows that the performance of the system is better when trained in the real environment, as in relation to when the the system is trained in a noise free environment and than deployed in a noisy environment. This is in contrast to what one might think, since the noise free environment should have supplied more correct models. But when the appliance noise is removed from a house in the training process is a bias error introduced. 
+The table shows that the performance of the system is better when trained in the real environment, as in relation to when the the system is trained in a noise free environment and then deployed in a noisy environment. This is in contrast to what one might think, since the noise free environment should have supplied more correct models. But when the appliance noise is removed from a house, in the training process, is a bias error introduced. 
 
-Appliances such as refrigerators and freezers that are always on will create a local house bias. This will vary from house to house, and is depended on the types and number of appliances in the house. If only a small number of devices is modelled in each house, as the smartHG case, is the bias almost exclusivity a part of the appliance noise. When the models are fitted by training in the real data, is the bias learned into the model, and further improves the model. This is not the case when the model are trained in the constructed dataset. 
+Appliances such as refrigerators and freezers that are always on will create a local house bias. This will vary from house to house, and is depended on the types and number of appliances in the house. If only a small number of devices are modelled in each house, as in the SmartHG case, is the bias almost exclusivity a part of the appliance noise. When the models are fitted by training in the real data, is the bias learned into the model, and further improves the model. This is not the case when the model are trained in the constructed dataset. 
 
 If not all appliances in a house is known, a better performance can therefore be obtained by training in the intended environment of deployment. 
 
@@ -122,17 +123,17 @@ Some algorithms are designed to not be affected by the house bias, and is theref
 \section{Model Size And Completeness Influence }
 Some of the parameters that often differ in the many different environments \ab{NILM} applications are deployed in, is the number of appliances in the environment, and the number of appliances that are known in the environment.  
 
-The model size or complexity is a parameter that tells how many devices that are in a given environment. As the complexity in a \ab{NILM} application is increasing the detection rate is deceasing\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. 
+The environment size or complexity is a parameter that tells how many devices that are in a given environment. As the complexity in a \ab{NILM} application is increasing the detection rate is deceasing\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. 
 
-The model completeness is a metric describing how many appliances is known by the application in relation to the total amount of appliances. This can also be seen as the amount of appliance noise as discussed in section \ref{sec:AppNoise}.
+The model completeness is a metric describing how many appliances are known by the application in relation to the total amount of appliances. This can also be seen as the amount of appliance noise as discussed in section \ref{sec:AppNoise}.
 
 \subsection{Test Set Creation}
 \label{sec:datasetCreation}
-In order to experiment with the completeness and complexity in the smartHG dataset, a more controllable series of datasets was artificially constructed from the smartHG dataset. 
+In order to experiment with the completeness and complexity in the SmartHG dataset is a more controllable series of datasets artificially constructed from the SmartHG dataset. 
 
-First an artificial house was created called the "TV House" dataset. The TV house dataset is created by picking the relative dominant TV signals from the houses 5,10,11,13,18 and 23 in the smartHG dataset and combining them two one artificial house with 7 TV's. 
+First an artificial house where created called the "TV House" dataset. The TV house dataset is created by picking the relative dominant TV signals from the houses 5,10,11,13,18 and 23 in the SmartHG dataset and combining them to one artificial house with 7 TV's. 
 
-This dataset contains of dominant appliances, and there is no appliance noise from unknown devices. It is still worth noticing that all the 7 appliances is a Type-II appliances, and they are all TV's, which make there usage pattern some what similar. Since the Parson algorithm is greatly effected by this will the focus mainly be on the \ab{FHMM} algorithm. 
+This dataset contains of dominant appliances, and there is no appliance noise from unknown devices. It is still worth noticing that all the 7 appliances are a Type-II appliances, and they are all TV's, which make there usage pattern some what similar. Since the Parson algorithm is greatly effected by this will the focus mainly be on the \ab{FHMM} algorithm. 
 
 If the TV House dataset was seen as a set of sub-meters as mathematically shown in equation \ref{EQ:SUBMS}. 
 
@@ -141,7 +142,7 @@ If the TV House dataset was seen as a set of sub-meters as mathematically shown 
 	\label{EQ:SUBMS}
 \end{equation}
 
-Since there is no appliance noise the main meter data can be found as the sum of sub-meters data as shown in equation \ref{EQ:SUMSUB}. 
+Since there is no appliance noise, can the main meter data be found as the sum of sub-meters data as shown in equation \ref{EQ:SUMSUB}. 
 
 \begin{equation}
 	M_{main} = \sum_{X \in H_{full}}X
@@ -180,7 +181,7 @@ Where the $\textbf{H}_7$ only contains the $H_{full}$ set. In this manner it is 
 % n! / ( r! (n - r)! )
 
 
-As illustrated on figure \ref{fig:PSILLU} can an appliance appear in multiple sets in a given $\textbf{H}_c$ collection. The number of sets containing a specific appliance in a $\textbf{H}_c$ collection $A_c$ can be calculated as in equation \ref{EQ:ACr}. In order to ensure that the combination of appliances does not have a effect on the experiments, is the experiments conducted on all combinations in $\textbf{H}_c$. The results for each experiment is a average of the performance for the appliance in the experiment. 
+As illustrated on figure \ref{fig:PSILLU} can an appliance appear in multiple sets in a given $\textbf{H}_c$ collection. The number of sets containing a specific appliance in a $\textbf{H}_c$ collection $A_c$ can be calculated as in equation \ref{EQ:ACr}. In order to ensure that the combination of appliances does not have an effect on the experiments, are the experiments conducted on all combinations in $\textbf{H}_c$. The results for each experiment is an average of the performance for the appliance in the experiment. 
 
 \input{tables/TvhouseTab}
 
@@ -198,9 +199,9 @@ To investigate the effect the number of appliances in a house, have on the perfo
 \label{fig:COMPT}
 \end{figure}
 
-The test is preformed on every combination, to ensure that there is not some combination that are more favourable than others. The results shown in figure \ref{fig:COMPT} is the average of the results from the many combinations as described in section \ref{sec:datasetCreation}. 
+The test is preformed on every combination, to ensure that there is not some combination that are more favourable than others. The results shown in figure \ref{fig:COMPT} are the average of the results from the many combinations as described in section \ref{sec:datasetCreation}. 
 
-For the most part it is fairly easy to correctly classify the TV's when the complexity is only one. As a general trend does the F1 and accuracy score of the TV's decrees as the complexity of the house increase. This is due to the application spill over effect. The spill over effect is when there actually is an event, but the system classifies it to the wrong device.  An effect of this is most clearly seen on TV 2 signal. TV 2 is a very complex signal, and is therefore hard to track by the algorithm, as seen at the $\textbf{H}_1$ complexity that have a F1 score on almost zero. When the complexity is increased it looks like it is easier to detect the signal, and the F1 score is increasing. What is actually happening is the spill effect from the other TV's. Since all the appliances are TV's they have a lot of overlap in their usage, since a lot of people watches TV between 18-22. This makes the algorithm encounter signal's that are similar in structure for the different TV's, and it have a hard time deciding which appliance is responsible. Therefore can some of the events generated by the other TV's spill over in TV 2. If by chance TV 2 actually was on when the events from the other TV's was wrongfully assigned, the F1 and accuracy score of TV 2 would improve. 
+For the most part it is fairly easy to correctly classify the TV's when the complexity is only one. As a general trend does the F1 and accuracy score of the TV's decrees as the complexity of the house increase. This is due to the application spill over effect. The spill over effect is when there actually is an event, but the system classifies it to the wrong device.  An effect of this is most clearly seen on TV 2 signal. TV 2 is a very complex signal, and is therefore hard to track by the algorithm, as seen at the $\textbf{H}_1$ complexity that have a F1 score on almost zero. When the complexity is increased it looks like it is easier to detect the signal, and the F1 score is increasing. What is actually happening is the spill effect from the other TV's. Since all the appliances are TV's they have a lot of overlap in their usage. A lot of people watches TV at the same time of day e.g. between 18-22. This makes the algorithm encounter signal's that are similar in structure for the different TV's, and it have a hard time deciding which appliance is responsible. Therefore can some of the events generated by the other TV's spill over in TV 2. If by chance TV 2 actually was on when the events from the other TV's was wrongfully assigned, the F1 and accuracy score of TV 2 would improve. 
 
 For other appliances that are not as hard to classify as TV 2 will the spill over effect decrease the F1 and accuracy score as seen on the figure. 
 
@@ -209,7 +210,7 @@ In the experiments conducted on the the SmartHG dataset in section \ref{sec:AppN
 
 But in the SmartHG dataset was the complexity of the real dataset unknown since the amount of appliances that generated the appliance noise is unknown. It is therefore hard to conclude if the poor performance in the real data is due to the fact that the appliances is unknown by the disaggregation model, or because the complexity of the house is greater for the real data. 
 
-To further investigate this was a experiment conducted on the TV house dataset, where the house models where trained on the $\textbf{H}_{7}$ dataset. The models trained did not contain the full knowledge of the house. The models was only trained to find a subset of meters in the house. Like for the experiments in section \ref{sec:MCT}, was the experiment conducted on all subset combinations. 
+To further investigate this was an experiment conducted on the TV house dataset, where the house models where trained on the $\textbf{H}_{7}$ dataset. The models trained did not contain the full knowledge of the house. The models was only trained to find a subset of meters in the house. Like for the experiments in section \ref{sec:MCT}, was the experiment conducted on all subset combinations. 
 
 \begin{figure}[H]
 \centering
@@ -218,19 +219,15 @@ To further investigate this was a experiment conducted on the TV house dataset, 
 \label{fig:COD}
 \end{figure}
 
-In figure \ref{fig:COD} is the result for each appliance shown. The result is a average of all tests at a given model completeness. It is seen from the figure that even though the disaggregation algorithm obtains more information about the complete house, it does not improve the recondition. 
+In figure \ref{fig:COD} is the result for each appliance shown. The result is an average of all tests at a given model completeness. It is seen from the figure that even though the disaggregation algorithm obtains more information about the complete house, it does not improve the recondition. 
 
-This indicates that the 7 algorithms working in parallel, each disaggregating one meter, would obtain the same results as one model capable of seeing the house as a hole. It is worth mentioning that these tests is based on the \ab{FHMM} algorithm and other algorithms might preform different in this aspect. 
+This indicates that the 7 algorithms working in parallel, each disaggregating one meter, would obtain the same results as one model capable of seeing the house as a hole. It is worth mentioning that these tests are based on the \ab{FHMM} algorithm and other algorithms might preform different in this aspect. 
 
 The results indicate that the complexity of the house is a more determining factor for the performance than the completeness of the model. 
 
 \section{Chapter Discussion}
- %complexity 
- 
- %completness 
- 
- %use seperate phases 
- 
- %train in real enviorment. 
- 
- %small consumeres is hard to find 
+The findings in this chapter indicates that the complexity of a dataset have a profound impact on the detection performance. A simple way to decrease the performance in a house is to look at each phase in the house separately. This is one of the techniques used in the \ab{ECO} dataset to improve the performance in the system. This does require additional knowledge of which appliances that are connected to which phases. This knowledge can be analytical extracted from the dataset, or must be supplied at training time. 
+
+It is also indicated that the methods based on the \ab{HMM} does not greatly improve by knowing the entire house model, in relation to only knowing a sub part. This can indicate that a system that focus on detecting each appliance individuality, potentially can detect the appliance as well as one that tires to see the house as a hole.   
+
+The many problems that can occur when using small consumers and once that are similar in behaviour is nicely illustrated in the chapter. The spill over effect for similar appliances is greatly decreasing the overall performance, and the small consumers is almost undetectable. In order to better this performance, more unique features is needed. This could either be higher frequency features, as discussed in chapter \ref{sec:AppRec}, or by using reactive features. Furthermore it is shown that the best performance is obtained by training in the same environment as the solution will be deployed in. This is a subject that is also discussed by the developers of the Parson and Weiss algorithms \citep{RefWorks:28} \citep{RefWorks:23}, where they discussed ways to train or fit the models to the desired deployment environment.  

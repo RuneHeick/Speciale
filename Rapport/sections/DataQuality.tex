@@ -23,14 +23,16 @@ Data quality is an area that recently have become a hot topic, due to the wast q
 
 In bioinformatics is a tool named QCScreen developed to help create better dataset to metabolomics studies. In metabolomics studies is dataset often created by joining information from several different experiments of various quality. By using tools that can check the data quality and consistency to determine if a dataset is suitable for further processing, they are able to greatly improve the test results \citep{RefWorks:9}.
  
-In the article \emph{Taking a big Data approach to data quality in a citizen science project}\citep{RefWorks:2} they talk about how quality assessment can be used to rate the 
-believe on your data, and how to improve data collected in citizen science. The project focuses on bird observations, done by users on their smartphones. They improve the quality by disallowing the user to send incomplete datasets to the database, and in this way forcing the user to only deliver high quality information. They then cross check the information with information from people in the same area, to see if it varies greatly. 
+In the article \emph{Taking a big Data approach to data quality in a citizen science project}\citep{RefWorks:2} they talk about how quality assessment can be used to rate the believe on your data, and how to improve data collected in citizen science. The project focuses on bird observations, done by users on their smartphones. They improve the quality by disallowing the user to send incomplete datasets to the database, and in this way forcing the user to only deliver high quality information. They then cross check the information with information from people in the same area, to see if it varies greatly. 
+
+In the \ab{NILM} research area have data quality also emerge when talking about comparison between dataset. One of the tools working with this is the \ab{NILMTK} project \citep{RefWorks:21}. In this they look at a series of quality parameter that can be used specifically for \ab{NILM}. They point out that looking at the energy consumption observed by the main meter in relation to what is observed at the sub-meters tells a lot about the training set. This is since the success ratio of disaggregating appliances consuming lot of energy is higher than once that only consume a little. 
 
 One of the things all the methods have in common is trying to look at the completeness of the data. Some of the most low level criteria is the sample availability. The sample availability describes how many samples there is collected in relation to the expected collection amount, and look at how the samples are distributed in the measurement period. It is also seen that the activity is a good quality metric since a good data set must contain both areas with activity and areas without. 
 
 \section{Quality In SmartHG Citizen Data}
 As a part of the SmartHG project 25 households have been equipped with meters on selected appliances and the main meter. The data collected from this experiment are prone with errors due to malfunctioning test equipment or unexpected interference from the resident which have resulted in offline measurement equipment for periods of time. Examples on unexpected interference could be if the resident is unplugging the measurable equipment, or turning off the power socket that supply's it. Unstable network does further degrade the signal, since the measurement equipment uses a lossy network. 
 
+\subsection{Completeness And Activity}
 The SmartHG data is intended for appliance recognition, and the quality must be assessed with this in mind. The completeness and the activity in the data is therefore important. 
 
 \begin{figure}[H]
@@ -116,9 +118,23 @@ Where $\epsilon$ describes a threshold to filter out changes caused by noise. Th
 
 The activity shown on figure \ref{fig:ActivityMap} is the average of the activity of the meters in the house. There is almost never a meter that does not have at least a little activity in a house, so a complete read area is fairly rare. The most interesting areas in the activity map, is often the places where there is a lot of change in the amount of activity like for house 16.
 
+\subsection{Main Meter In Relation To Sub-meter consumption}
+As disused in the \ab{NILMTK} project \citep{RefWorks:21} is the relation between the energy consumption measured by the main meter and the consumption measured by the sub-meters an important quality metric. This can give two important indications about the dataset. The first indicator is how much knowledge about a house we have. A house where only a small fraction of the energy consumption is accounted for can give problems when applying \ab{NILM} algorithms, since there can be a lot of unknown noise from other appliances. The other is more appliance specific. If a appliance is not responsible for a significant part of the total consumption, odds are that it is almost never on, or that it usages so little energy that it is hard to detect. Both can have a significant impact on \ab{NILM} algorithms. This will be further discussed in chapter \ref{sec:AppRec} and \ref{sec:EnvInf}.  
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/SHGHouseUsages.png}
+\caption{Usage of SmartHG houses}
+\label{fig:USAGEofSHG}
+\end{figure}
+
+On figure \ref{fig:USAGEofSHG} is the total consumption of the houses shown, and split up in the the different sub-meters, and a "other" category. The "other" category is the energy the main meter has used besides the energy accounted for by the sub-meters. On the figure is only shown the houses which main meter had observed a energy equal or greater than the sum of all the sub meters. This is not the case for houses that have malfunctioning main meters for a longer period of time, or for houses that have generated a lot of energy form solar cells. 
+
+As seen on figure \ref{fig:USAGEofSHG} is the appliances equipped with sub-meters only responsible for a minor part of the total house consumption. Only the TV's and some of the unknown devices, have a relative high energy usage. The unknown devices is devices that have a sub-meter, but the appliance on the sub-meter is unknown.  
+
 \section{Chapter Discussion}
+When working and gathering big amounts of data it is important to be able to gesture about the data prior to analysing it. To look at different quality measurements researchers are able to get a good general overview of the data, and find better areas to focus on. 
 
-% what to be aware when measurning 
+It is shown that the quality also can indicate problem in the data gathering phase of a project. problems such as malfunctioning equipment, network failure or server problems can be detected by quality monitoring systems. 
 
-% 
-
+For NILM applications the activity in the data, and error rate in the data can be good indications of quality. Further more is the amount of energy observed by the main meter in contrast to the energy observed by the sub-meters in a house also a good indication of the dataset quality. 

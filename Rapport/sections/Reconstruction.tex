@@ -161,15 +161,6 @@ It the estimated jitter power have been compared with the real jitter power for 
 As seen on figure \ref{fig:RecJit} does non of the methods model the noise very well, as is to be expected due to the nature of the selected methods. This is will probably not be a problem for the SmartHG data, since it is sampled at a very low sample rate, and noise therefore is not likely to be used as a parameter. For data there have been sampled with high frequency it have shown that the noise created by the different appliances can be used to detect them \citep{RefWorks:17}. 
 
 \section{Chapter Discussion}
+In the chapter the errors of the smartHG dataset is analysed. The dataset is a raw dataset, that have not undergone any cleaning prior to the process. It is shown that the most common errors in this types of data is single sample errors, and minor gaps of up to 5 missing samples.  
 
-% types of errors 
-
-% Sotcastic signals
-
-% bandwith signals  
-
-% sample rate issus 
-
-% siguation of data 
-
-% time complexity 
+different kind of gap filling techniques is used on a series of artificial introduced gaps. It is shown that the small gaps, that are the most common, can be fixed relativity easy. For larger gaps it is harder do to, due to the stochastic nature of the signal. The stochastic element of a electric signal is often greater than the periodic part, which is a challenge for the gap filling. This combined with the low sample rate makes it hard to gesture about the true frequency content of the signal, since it is sampled way below the Nyquist rate.  
