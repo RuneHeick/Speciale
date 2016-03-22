@@ -119,6 +119,7 @@ Where $\epsilon$ describes a threshold to filter out changes caused by noise. Th
 The activity shown on figure \ref{fig:ActivityMap} is the average of the activity of the meters in the house. There is almost never a meter that does not have at least a little activity in a house, so a complete read area is fairly rare. The most interesting areas in the activity map, is often the places where there is a lot of change in the amount of activity like for house 16.
 
 \subsection{Main Meter In Relation To Sub-meter consumption}
+\label{sec:MMIRTSM}
 As disused in the \ab{NILMTK} project \citep{RefWorks:21} is the relation between the energy consumption measured by the main meter and the consumption measured by the sub-meters an important quality metric. This can give two important indications about the dataset. The first indicator is how much knowledge about a house we have. A house where only a small fraction of the energy consumption is accounted for can give problems when applying \ab{NILM} algorithms, since there can be a lot of unknown noise from other appliances. The other is more appliance specific. If a appliance is not responsible for a significant part of the total consumption, odds are that it is almost never on, or that it usages so little energy that it is hard to detect. Both can have a significant impact on \ab{NILM} algorithms. This will be further discussed in chapter \ref{sec:AppRec} and \ref{sec:EnvInf}.  
 
 \begin{figure}[H]

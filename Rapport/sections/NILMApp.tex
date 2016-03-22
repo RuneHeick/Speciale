@@ -5,16 +5,25 @@ The applications proposed in many of the articles published about \ab{NILM} focu
 
 \fxnote{Many of these claims need refs}
 
-\section{The TV Rating Case}
+\section{The TV Viewing Habits Case}
+The case setting is a small town, that have a number of households and a electric company supplying energy to the city.For this case data from the SmartHG dataset is used to simulate a small town with 5 houses. The houses selected for this case is 10, 13, 17, 18 and 23  since they contain a TV that are relatively dominant, as discussed in section \ref{sec:MMIRTSM}. 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{billeder/CaseIlu.png}
 \caption{Frequency comparison of the reconstruction methods}
-\label{fig:SLC}
+\label{fig:CaseSetup}
 \end{figure}
 
+In the city setup is illustrated in figure \ref{fig:CaseSetup}. The figure is illustrated how the power company supplies power to the houses. All the houses have smart meters, and is informing the power company about the current consumption of each house, using some network. This is a fairly simplified example of a smart grid, that exists in many cities today. In this case it is assumed that the electric company receives information about the consumption of the houses each 30 seconds, as in the SmartHG dataset. Even though many smart meters today are capable of delivering information at this speed, it is more common to only get information each hour. This is mainly because the information is used to regulate distribution and production, which is a slow process that would not improve by faster update rates.  
+
+The electric companies collect the information, and by using \ab{NILM} can calculate statistical information about the town. So if a TV station are making a analysis about the TV viewing habits in the town they are able to buy this information from the electric companies. 
+
+
 \section{Results}
+
+
+
 
 
 \section{Chapter Discussion}
