@@ -30,17 +30,22 @@ for house = database;
     mainMeter = house{1}{2}; 
     submeters = house{1}{3}; 
     
-    mainPower = GetPortTotalPower(mainMeter);
-    others = mainPower;
-    index = 1; 
-    submeterPower = zeros(1, length(submeters)); 
-    for submeter = submeters;
+    [mainPower, timemain] = GetPortTotalPower(mainMeter);
+    others = mainPower/(timemain/3600);
     
-        submeterPower(index) = GetPortTotalPower(submeter); 
-        others = others - submeterPower(index); 
-        index = index+1; 
+    if(others>0)
+    
+        index = 1; 
+        submeterPower = zeros(1, length(submeters)); 
+        for submeter = submeters;
+
+            [subP, timesub] = GetPortTotalPower(submeter); 
+            subPower = subP/(timesub/3600);
+            submeterPower(index) = subPower; 
+            others = others - submeterPower(index); 
+            index = index+1; 
+        end
     end
-    
     
     if(others>0)
     
@@ -75,13 +80,11 @@ for house = database;
 end
 
 figure
-bar(fliplr(MarsterCatmat(2:end,:)'),'stacked')
+bar((fliplr(MarsterCatmat(2:end,:)')./1000),'stacked','EdgeColor',[0 0 0])
 legend(fliplr(catlab));
 ax = gca;
 ax.XTickLabel = MarsterCatmat(1,:);
-ax.YTickLabel = []; 
-ax.YTick = []; 
 xlabel('House ID');
-ylabel('Energy Consumption');
+ylabel('Energy Consumption [kWh]');
 
 close(conn)
