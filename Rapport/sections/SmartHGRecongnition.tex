@@ -47,16 +47,6 @@ On table \ref{table:Tab:SHGREAL} is the results from the disaggregation shown. T
 
 On the figure is shown how the main meter have many fluctuations. The algorithm tries to map each fluctuation to a change in an appliance, or noise. There are many of the noise fluctuations that are similar to the appliance changes, and this creates errors in the disaggregation. 
 
-\subsection{Filter Noisy Signals Using Norm Knowledge }
-\label{sec:NormFilter}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=1\textwidth]{billeder/AppNormFilterH10.png}
-\caption{}
-\end{figure}
-
-
 
 \subsection{Detection In Noise Free Environment }
 \label{sec:NOISEFREE}
@@ -130,6 +120,33 @@ If not all appliances in a house is known, a better performance can therefore be
 
 Some algorithms are designed to not be affected by the house bias, and is therefore moved from different environments more easily. The Parson algorithm is designed with this in mind. The performance of the parson algorithm is therefore the same, or in some cases improved, when using models trained in constructed data. This advantage unfortunately comes with the problem of generalization, which lead to harder source separation, as discussed in section \ref{sec:NOISE}. 
 
+\subsection{Filter Noisy Signals Using Norm Knowledge }
+\label{sec:NormFilter}
+When an appliance is in a noisy environment some of the nosy signal will be assigned as the appliance. This creates a scenario where the appliance is used more often than one would expect and most often in a manner than is unrealistic. By improving the method with the knowledge of how a specific appliance is most commonly used, also called the norm usage, it is possible to filter the signal and improve the performance. 
+
+On figure \ref{fig:Norm1} is the disaggregation of TV 1 from house 10 shown for a one day period. The blue line indicate the \ab{FHMM} algorithms suggestions on when the TV are on and off. The green line is the actual on and off periods, collected from the sub-meters. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/AppNormFilterH10_1.png}
+\caption{Disaggregation of TV 1 from house 10}
+\label{fig:Norm1}
+\end{figure}
+
+As seen on the figure there is a lot of small spikes that are less than 10 min, and sometime is the TV on for 15 minutes off in 2 and then on again for another 15 minutes. This behaviour does not fit the normal behaviour one would expect for a person. The norm is to see TV more than 15 minutes of the time, and when a TV is turned off it is common that it is turned off for atleast 15 minutes before turned on again. These numbers are a loose estimate, found by observing the sub-meter data. 
+
+By applying purge and merge process, where all events shorter than 10 minutes are purged from the signal and events separated with less than 15 minutes of off time are merged, it is possible to clean the signal. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/AppNormFilterH10_2.png}
+\caption{Purged and merged signal from TV 1}
+\label{fig:Norm2}
+\end{figure}
+
+In figure \ref{fig:Norm2} is the same signal as in figure \ref{fig:Norm1} filtered by using the purge and merge process. The purge and merge process can be used to create a norm filter, that filters appliance usage that does not fit the norm. As seen in figure \ref{fig:Norm2} does the signal inferred by the filtered \ab{FHMM} algorithm match more closely to the actual signal. 
+
+In this example is the norm knowledge applied as a filter, that can filter the disaggregation result. Another approach could be to integrate the norm knowledge as a component in the state transition probability of the \ab{HMM}. 
 
 \section{Model Size And Completeness Influence }
 Some of the parameters that often differ in the many different environments \ab{NILM} applications are deployed in, is the number of appliances in the environment, and the number of appliances that are known in the environment.  

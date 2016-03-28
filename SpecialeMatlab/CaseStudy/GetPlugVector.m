@@ -52,8 +52,8 @@ realfiltered = TopFilter(realfiltered, 700);
 infsig = houseInfo{H}(2,:);
 filtered = TopFilter(infsig, 700); 
 filtered = MergeFilter(filtered,1000);
-filtered = TopFilter(filtered, 1500); 
-filtered = MergeFilter(filtered,3000);
+% filtered = TopFilter(filtered, 1500); 
+% filtered = MergeFilter(filtered,3000);
 
 inf = (filtered > 20)*1;
 realuf = (infsig > 20)*1;
