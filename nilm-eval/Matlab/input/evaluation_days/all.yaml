@@ -1,9 +1,9 @@
 name: 'all'
-dataset: 'eco'
-houses: [1, 2, 3, 4, 5, 6]
+dataset: 'smartHGCase'
+houses: [1, 2, 3, 4, 5, 6, 7]
 maxNumOfDays: 100000
-startDate: '2012-06-01'
-endDate: '2013-01-31'
+startDate: '2015-06-01'
+endDate: '2015-08-30'
 ignore_rounded_sm_period: 0
 missingValuesThresholdSM: 0.1
 missingValuesThresholdPlug: 0.3

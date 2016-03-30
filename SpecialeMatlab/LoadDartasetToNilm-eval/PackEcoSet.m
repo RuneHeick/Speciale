@@ -1,12 +1,12 @@
 dataPath = 'downloadedDataClean';
-savePath = 'smartHG15'
+savePath = 'smartHGCase'
 house = 1;
 
-realNum = 15;
-flipreal = false; 
+realNum = 0;
+flipreal = true; 
 
 % Collection of housenr, mainmeter, submeter; 
-houses = { {1,[15],[19 21 23]}, {2,[85],[87 89 91 93]} , {3,[165],[167 171 173]} }; 
+houses = { {1,[85],[91]}, {2,[115],[117]} , {3,[155],[159]}, {4,[165],[167]}, {5,[215],[217]}, {6,[225],[233]}, {7,[35],[41]}  }; 
 
 
 for house = houses
@@ -43,12 +43,12 @@ for house = houses
     
      %% mainmeter import.
     
-    load(sprintf('%02d', mainmeter.household ));
-    
-    simdays = evalDays(realNum+1:end,:); 
-    if(flipreal)
-        simdays = evalDays(1:realNum,:);        
-    end
+%     load(sprintf('%02d', mainmeter.household ));
+%     
+%     simdays = evalDays(realNum+1:end,:); 
+%     if(flipreal)
+%         simdays = evalDays(1:realNum,:);        
+%     end
     
     listing = dir([dataPath '\' num2str(mainmeter.powerallphases)])
     mkdir([savePath '\smartmeter\' sprintf('%02d', mainmeter.household ) ]);
@@ -58,7 +58,9 @@ for house = houses
         date = datetime(name);
         
 
-        ispresent = isempty(strmatch(name, simdays, 'exact'));
+        %ispresent = isempty(strmatch(name, simdays, 'exact'));
+        ispresent = true;
+        
         if ispresent
             values = load([dataPath '\' num2str(mainmeter.powerallphases) '\' file]);
             data = values.data;

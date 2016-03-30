@@ -298,3 +298,33 @@ parent={},%
 %
 }%
 }%
+\ifglsentryexists{NILL}{}%
+{%
+\gls@defglossaryentry{NILL}%
+{%
+name={\acronymfont {\glsentryshort {NILL}}},%
+sort={NILL},%
+type={main},%
+first={NILL},%
+firstplural={NILLs},%
+text={NILL},%
+plural={NILLs},%
+description={non-intrusive load leveling},%
+descriptionplural={non-intrusive load leveling},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={non-intrusive load leveling},%
+longplural={non-intrusive load levelings},%
+short={NILL},%
+shortplural={NILLs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

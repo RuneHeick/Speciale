@@ -1,6 +1,6 @@
 
-configuration_input = 'input/configurations/parsonStates_initial.yaml';
-experiment_input = 'input/experiments/parson/SHG2/TV_States.yaml';
+configuration_input = 'input/configurations/fhmm_Tv.yaml';
+experiment_input = 'input/experiments/fhmm/fhmm_Tv_Case.yaml';
 
 
 create_experiment(configuration_input,experiment_input);

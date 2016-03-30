@@ -39,7 +39,7 @@ sizeL = 24*60*60*42;
 houseInfoChanged = zeros(2,sizeL); 
 
 
-for H = 1%:4; 
+for H = 1:4; 
 
 realsig = (houseInfo{H}(1,:)>20)*50; 
 
@@ -52,8 +52,8 @@ realfiltered = TopFilter(realfiltered, 700);
 infsig = houseInfo{H}(2,:);
 filtered = TopFilter(infsig, 700); 
 filtered = MergeFilter(filtered,1000);
-% filtered = TopFilter(filtered, 1500); 
-% filtered = MergeFilter(filtered,3000);
+filtered = TopFilter(filtered, 1500); 
+filtered = MergeFilter(filtered,3000);
 
 inf = (filtered > 20)*1;
 realuf = (infsig > 20)*1;
@@ -62,34 +62,50 @@ real = (realfiltered > 20)*1;
 
 
 %% plot
-for week = 2;
-interval = 24*60*60*7; 
-
-siminf = inf(interval*(week-1)+1:interval*(week)-24*60*60*6);
-simreal = real(interval*(week-1)+1:interval*(week)-24*60*60*6);
-siminfUf = (infsig(interval*(week-1)+1:interval*(week)-24*60*60*6) > 20)* 1 ;
-
-%% find statistics 
-
-val = siminfUf; 
-
-TP = sum(val == 1 .* simreal==1);
-FP = sum(val == 1 .* simreal==0);
-
-TN = sum(val == 0 .* simreal==0);
-FN = sum(val == 0 .* simreal==1);
-
-acc = (TP+TN) / (TP + TN+ FP +FN)
-
-recall = TP/(TP + FN); 
-prec = TP/ (TP + FP); 
-
-f1 =  (2*TP)/(2*TP+FP+FN)
-
-
+% for week = 1:6;
+% interval = 24*60*60*7; 
+% 
+% siminf = inf(interval*(week-1)+1:interval*(week)-24*60*60*6);
+% simreal = real(interval*(week-1)+1:interval*(week)-24*60*60*6);
+% siminfUf = (infsig(interval*(week-1)+1:interval*(week)-24*60*60*6) > 20)* 1 ;
+% 
+% %% find statistics 
+% 
+% val = siminfUf; 
+% 
+% TP = sum(val == 1 .* simreal==1);
+% FP = sum(val == 1 .* simreal==0);
+% 
+% TN = sum(val == 0 .* simreal==0);
+% FN = sum(val == 0 .* simreal==1);
+% 
+% acc = (TP+TN) / (TP + TN+ FP +FN)
+% 
+% recall = TP/(TP + FN); 
+% prec = TP/ (TP + FP); 
+% 
+% f1 =  (2*TP)/(2*TP+FP+FN)
+% 
+% 
+% val = siminf; 
+% 
+% TP = sum(val == 1 .* simreal==1);
+% FP = sum(val == 1 .* simreal==0);
+% 
+% TN = sum(val == 0 .* simreal==0);
+% FN = sum(val == 0 .* simreal==1);
+% 
+% acc = (TP+TN) / (TP + TN+ FP +FN)
+% 
+% recall = TP/(TP + FN); 
+% prec = TP/ (TP + FP); 
+% 
+% f1 =  (2*TP)/(2*TP+FP+FN)
+% 
+% figure
 % subplot(2,1,1)
-% hold on;
 % plot(simreal,'g','LineWidth',2);
+% hold on;
 % plot(siminfUf,'b');
 % ylim([0 1.1]);
 % 
@@ -115,7 +131,10 @@ f1 =  (2*TP)/(2*TP+FP+FN)
 % legend({'Actual', 'Inferred', }); 
 % 
 % hold off;
-end
+% 
+% pause()
+% clc
+% end
 
 
 %%

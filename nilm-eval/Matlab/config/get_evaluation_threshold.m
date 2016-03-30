@@ -5,31 +5,31 @@
 
 function [threshold] = get_evaluation_threshold(appliance, household)
 
-  thresholdMatrix = [15 15 0 15 15 15;        %fridge
-                     15 15 0 15 15 15;        %freezer
-                     15 15 0 50 50 15;        %microwave
-                     15 15 0 15 15 15;        %dishwasher
-                     15 15 0 15 15 15;        %entertainment
-                     15 15 0 15 15 15;        %water kettle
-                     15 15 0 15 15 15;        %cooker
-                     15 15 0 15 15 15;        %coffee machine  
-                     15 15 0 15 15 15;        %washing machine
-                     15 15 0 15 15 15;        %dryer
-                     15 15 0 15 15 15;        %lamp   
-                     15 15 0 15 15 15;        %pc 
-                     15 15 0 15 15 15;        %laptop
-                     15 15 0 15 15 15;        %tv
-                     15 15 0 15 15 15;        %stereo
-                     15 15 0 15 15 15;        %tablet
-                     15 15 0 15 15 15;        %router
-                     15 15 0 15 15 15;       %illuminated fountain
-                     15 15 0 15 15 15;        %tv1
-                     15 15 0 15 15 15;        %tv2
-                     15 15 0 15 15 15;        %tv3
-                     15 15 0 15 15 15;        %tv4
-                     15 15 0 15 15 15;        %tv5
-                     15 15 0 15 15 15;        %tv6
-                     15 15 0 15 15 15];       %tv7
+  thresholdMatrix = [15 15 0 15 15 15 15;        %fridge
+                     15 15 0 15 15 15 15;        %freezer
+                     15 15 0 50 50 15 15;        %microwave
+                     15 15 0 15 15 15 15;        %dishwasher
+                     15 15 0 15 15 15 15;        %entertainment
+                     15 15 0 15 15 15 15;        %water kettle
+                     15 15 0 15 15 15 15;        %cooker
+                     15 15 0 15 15 15 15;        %coffee machine  
+                     15 15 0 15 15 15 15;        %washing machine
+                     15 15 0 15 15 15 15;        %dryer
+                     15 15 0 15 15 15 15;        %lamp   
+                     15 15 0 15 15 15 15;        %pc 
+                     15 15 0 15 15 15 15;        %laptop
+                     15 15 15 15 15 15 15;        %tv
+                     15 15 0 15 15 15 15;        %stereo
+                     15 15 0 15 15 15 15;        %tablet
+                     15 15 0 15 15 15 15;        %router
+                     15 15 0 15 15 15 15;       %illuminated fountain
+                     15 15 0 15 15 15 15;        %tv1
+                     15 15 0 15 15 15 15;        %tv2
+                     15 15 0 15 15 15 15;        %tv3
+                     15 15 0 15 15 15 15;        %tv4
+                     15 15 0 15 15 15 15;        %tv5
+                     15 15 0 15 15 15 15;        %tv6
+                     15 15 0 15 15 15 15];       %tv7
 
     threshold = thresholdMatrix(appliance, household);             
 

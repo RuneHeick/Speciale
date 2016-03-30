@@ -3,7 +3,7 @@ experiment_name: []
 algorithm: 'disag_fhmm'
 dataset: 'eco'
 household:
-evalDays: 'first_30'
+evalDays: 'all'
 numOfResults: 1
 trainingDays: 10
 granularity: 1
@@ -13,3 +13,5 @@ num_appliances: 1
 states_other: 2
 appliance1: []
 num_states_appliance1: []
+gapMethod: 'Linear'
+errorRate: 0
