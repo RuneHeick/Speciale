@@ -1,3 +1,33 @@
+\ifglsentryexists{NIST}{}%
+{%
+\gls@defglossaryentry{NIST}%
+{%
+name={\acronymfont {\glsentryshort {NIST}}},%
+sort={NIST},%
+type={main},%
+first={NIST},%
+firstplural={NISTs},%
+text={NIST},%
+plural={NISTs},%
+description={National Institute of Standards and Technology},%
+descriptionplural={National Institute of Standards and Technology},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={National Institute of Standards and Technology},%
+longplural={National Institute of Standards and Technologys},%
+short={NIST},%
+shortplural={NISTs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
 \ifglsentryexists{UDP}{}%
 {%
 \gls@defglossaryentry{UDP}%
