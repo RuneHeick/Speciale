@@ -1,12 +1,12 @@
 \chapter{Introduction}
 \pagenumbering{arabic}
 
-In the past electricity production and consumption was localised to small communities. The communities often had one electricity utility company supplying the required energy. As the energy demand increased beyond single production facilities at peak hours, the solution was to add more production facilities that could support in peak hours. This approach is costly, since such support facilities must be kept in a standby state, ready to deliver additional energy at a moments notice. As the electric grid expanded it began to interconnect the communities. The distribution of energy in the grid also became a challenging task. Energy must be delivered at the different consumers, at correct quantities, without overloading the grid. Furthermore must the impact errors and damages have on the grid be minimised. 
+In the past electricity production and consumption was localised to small communities. The communities often had one electricity utility company supplying the required energy. As the energy demand increased beyond single production facilities, the solution was to add more production facilities that could support in peak hours. This approach is costly, since such support facilities must be kept in a standby state, ready to deliver additional energy at a moments notice. As the electric grid expanded it began to interconnect the communities. The distribution of energy in the grid also became a challenging task. Energy must be delivered at the different consumers, at correct quantities, without overloading the grid. Furthermore must the impact errors and damages have on the grid be minimised. 
 
 \section{Smart Grid}
 As sensor technology became cheaper and more reliable the electricity utility companies started to integrate sensors in the grid. These sensors delivered information about the performance of key sections of the grid. This information was used to improve the performance of the grid. The grid grew to be more global and less local. More types of energy producing devices, such as solar power and wind turbines, got connected to it. This created a need for more control of the grid and the energy production. 
 
-The \ab{NIST}[National Institute of Standards and Technology] is tasked with the job of creating and maintaining the standards used for the American smart-grid. The concept behind the smart-grid is to create a electrical grid that enables two way communication. Besides electricity must information about the usage also flow between the consumers and the utility companies. Usage patterns must flow to the engineers tasked with controlling the grid, and control information must flow back to the consumers or control points in the grid. This can ensure the delivery of electricity more efficiently, reliably, and securely. 
+The \ab{NIST}[National Institute of Standards and Technology] is tasked with the job of creating and maintaining the standards used for the American smart-grid. The concept behind the smart-grid is to create a electrical grid that enables two way communication. Besides electricity must information about the usage also flow between the consumers and the utility companies. Usage patterns must flow to the engineers tasked with controlling the grid, and control information must flow back to the consumers or control points in the grid. This can ensure the delivery of electricity more efficiently, reliably, and securely ~\citep{RefWorks:42}. 
 
 There are many different kind of stakeholders in today's smart-grid. In order to better understand the needs and relationships between the stakeholders have \ab{NIST} split them in to seven domains. This helps to identify the different user interest in the grid, and their needs.  
 
@@ -15,11 +15,11 @@ There are many different kind of stakeholders in today's smart-grid. In order to
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/SMARTGRID.png}
-\caption{Conceptual model of smart-grid architecture. Source \fxnote{Add source}}
+\caption{Conceptual model of smart-grid architecture. Source \citep{RefWorks:41}}
 \label{fig:CMOSG}
 \end{figure}
  
-Figure \ref{fig:CMOSG} illustrates the seven domains. The seven domains each have a set of functions that is characteristic for the domain.  
+Figure \ref{fig:CMOSG} illustrates the seven domains. The seven domains each have a set of functions that is characteristic for the domain~\citep{RefWorks:41}.  
  
 \begin{tabularx}{\linewidth}{ r X }
 Generation:& Generators of electricity. This is typically coal, oil or nuclear power plants or large-scale hydro generators. This can also include energy storage facilities that stores energy for later distribution. \\\\
@@ -41,13 +41,13 @@ The operators have the responsibility of controlling the flow of energy on the s
 
 The concept of \ab{NILM} is to use the consumption information collected at household level, and use machine learning techniques to make a qualified guess on what appliances in the household is responsible for the current consumption. By using the information from the active appliances more precise estimates of future consumption can be made. 
 
-In today's smart grid is all customers equipped with a smart-meter. The smart-meter measures the consumption of the household, and reports it back to the smart grid. This information can be used by the markets to automatically create billing information, or by the operator to regulate the power distribution. Since this information is used for distribution regulation it is send in real-time. It is this information \ab{NILM} applications hopes to use in order to create better predictions.
+In today's smart grid is all customers equipped with a smart-meter. The smart-meter measures the consumption of the household, and reports it back to the smart grid. This information can be used by the markets to automatically create billing information, or by the operator to regulate the power distribution. Since this information is used for distribution regulation it is send in real-time \citep{RefWorks:41}. It is this information \ab{NILM} applications hopes to use in order to create better predictions.
 
-\ab{NILM} can also create many opportunities for the service provider. Using \ab{NILM} it is potentially possible to gesture about the usage of each appliance in a household. This can be used to better inform the resident about power saving opportunities. Studies have shown that detailed information about energy usage, makes the resident use less energy \fxnote{ref here}. Other business opportunities, like selling the statistical information about the usage of specific appliances, also exists.  
+\ab{NILM} can also create many opportunities for the service provider. Using \ab{NILM} it is potentially possible to gesture about the usage of each appliance in a household. This can be used to better inform the resident about power saving opportunities. Studies have shown that detailed information about energy usage, makes the resident use less energy \citep{RefWorks:33}. Other business opportunities, like selling the statistical information about the usage of specific appliances, also exists.  
 
 \section{The Problem Statement}
 
-This report seek to investigate some of the common approaches used for \ab{NILM} today, in order to determine what the capability of such approaches. It is assumed that such approaches is used in a modern smart grid setting. In order to answer this broad question, the following questions must be investigated. 
+This report seek to investigate some of the common approaches used for \ab{NILM} today, in order to determine the capabilities of such approaches. It is assumed that such approaches is used in a modern smart grid setting. In order to answer this broad question, the following questions must be investigated. 
 
 \begin{itemize}
 \item	What quality of data can be expected from the smart-meters?\\
@@ -61,4 +61,4 @@ This report seek to investigate some of the common approaches used for \ab{NILM}
 If these question is answered it creates a strong foundation for gesturing about the the capability of \ab{NILM}. The main motivation for this study is not to improve grid load predictions, but to get a better basis for validate different \ab{NILM} related business opportunities for service providers. 
 
 \subsection{The Data Approach}
-To investigate the questions in the problem statement is the SmartHG dataset used. The SmartHG dataset is a collection of smart-meter data collected from 25 residential households in Denmark. The data is not filtered or cleaned en any way prior usage. This means that the data closely resembles what would be collected in a smart grid. Furthermore does the dataset contain information about the usage pattern of selected devices. This information can be used to compare inferred usage patterns to the actual. 
+To investigate the questions in the problem statement is the SmartHG dataset used. The SmartHG dataset is a collection of smart-meter data collected from 25 residential households in Denmark. The data is not filtered or cleaned in any way prior usage. This means that the data closely resembles what would be collected in a smart grid. Furthermore does the dataset contain information about the usage pattern of selected devices. This information can be used to compare inferred usage patterns to the actual. 

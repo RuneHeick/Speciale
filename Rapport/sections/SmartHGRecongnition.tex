@@ -1,11 +1,21 @@
 \chapter{Environment Influence } 
 \label{sec:EnvInf}
-Not just the sample rate and error ratio are determining factors when designing a \ab{NILM} application. The environment which the application is deployed and trained in is critical for the performance of the system. 
+Not just the sample rate and error rate are determining factors when designing a \ab{NILM} application. The "environment" which the application is deployed and trained in is critical for the performance of the system. The "environment" is the parameters describing the static conditions of the household which the algorithms are deployed in. An example of an environment parameter can be number of known devices, number of unknown devices, number of simultaneously active devices or number of training days.
 
-The environment is the parameters describing the static conditions of the household which the algorithms are deployed in. An example of an environment parameter can be number of known devices, number of unknown devices, number of simultaneously active devices or number of training days. In order to investigate some of the environment parameters effect on a \ab{NILM} application the SmartHG dataset is used. 
+In order to investigate some of the environment parameters effect on a \ab{NILM} application the SmartHG dataset is used. In the chapter is appliance disaggregation conducted on the SmartHG dataset, using the \ab{FHMM} and Parson algorithms. The Weiss algorithm uses the power factor information, which is not available in the SmartHG dataset. The disaggregation process consists of a training phase and a validation phase. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/REAL.png}
+\caption{Disaggregation phases}
+\label{fig:IDF}
+\end{figure}
+
+All experiments conducted in the chapter will start with a training phase of 15 days. During this period the sub-meter and main meter data will be used to by the \ab{FHMM} and Parson algorithm to learn statistical disaggregation models. After this initial training phase will the algorithms be tasked with the job of disaggregating the main meter signal in a 45 day validation period. The algorithms will only have access to the data supplied by the main meter, and the statistical disaggregation models found in the initial training phase. The sub-meter data in the validation phase be used to validate the results of the disaggregation. The basis setup is illustrated in figure \ref{fig:IDF} where the green color symbolises data from main meter, and blue symbolises data from sub-meter. 
+
 
 \section{Challenges In The SmartHG Dataset} 
-The \ab{ECO} dataset, consists of 6 households and the data is sampled at a rate of 1 Hz over a period of 8 months. The SmartHG dataset is different in many aspects. The data is sampled at a slower rate of $\frac{1}{30}$ Hz, but on 25 households over a period of 6 month. Each house have only a small number of sub-meters. The sub-meters are mainly placed on little consumers such as televisions and stereos, which presents an interesting challenge for load disaggregation. The SmartHG dataset contains both the aggregated data, and the instantaneous power usages of the different households.
+The \ab{ECO} dataset used in the last chapter, consists of 6 households and the data is sampled at a rate of 1 Hz over a period of 8 months. The SmartHG dataset is different in many aspects. The data is sampled at a slower rate of $\frac{1}{30}$ Hz, but on 25 households over a period of 8 month. Each house have only a small number of sub-meters. The sub-meters are mainly placed on little consumers such as televisions and stereos, which presents an interesting challenge for load disaggregation. The SmartHG dataset contains both the accumulated power, and the instantaneous power usages of the different households.
 
 \begin{figure}[H]
 \centering
@@ -14,21 +24,23 @@ The \ab{ECO} dataset, consists of 6 households and the data is sampled at a rate
 \label{fig:SLC}
 \end{figure}
 
-In figure \ref{fig:SLC} is the power distribution of three households shown. This illustrates how much energy each appliance uses, in relation to the households total energy consumption. The "other" category shows the energy consumption not accounted for by the sub-meters.  
+The power distribution of three households is shown in figure \ref{fig:SLC}. This illustrates how much energy each appliance uses, in relation to the households total energy consumption. The "other" category shows the energy consumption not accounted for by the sub-meters.  
 
-Household 3,10 and 18 are some of the houses that have the smallest "other" category. They are therefore selected for further study, since they provide the most information about the house. 
+Household 3,10 and 18 are some of the houses that have the smallest \df{other} category. They are therefore selected for further study, since they provide the most information about the house. 
 
-\section{Appliance Noise Influence On Detection }
+\section{Background Consumption Influence On Disaggregation}
 \label{sec:AppNoise}
-The households in the SmartHG dataset have a relative big consumption created by other appliances than the ones with a sub-meter. This consumption can be thought of as "appliance noise", since it is a signal that is not included in the disaggregation model. 
+The households in the SmartHG dataset have a relative big consumption created by appliances in the \df{other} category. The consumption in the \df{other} category is created by appliances that are unknown. In order to do disaggregation, statistical models like models based on the \ab{FHMM} and Parson algorithms, must first be created. This requires knowledge about the appliances consumption. This kind of information is not available for appliances in the \df{other} category. 
 
-\subsection{Detection In A Noisy Environment }
+This consumption created by appliances that is not part of the statistical disaggregation models can be thought of as "background consumption". The appliances in the \df{other} category will always create \df{background consumption}. This does not exclude appliances that are not part of the \df{other} category from creating \df{background consumption}. All appliances that are not part of the statistical disaggregation models, contribute to the \df{background consumption}.
+
+\subsection{Detection In An Environment With High Background Consumption}
 \label{sec:NOISE}
-To investigate the influence appliance noise have on a \ab{NILM} application, disaggregation of the known appliances of house 3, 10 and 18 are done using the Parson and \ab{FHMM} algorithm. 
+To investigate the influence \df{background consumption} have on a \ab{NILM} application, disaggregation of the known appliances of house 3, 10 and 18 are done using the Parson and \ab{FHMM} algorithms. 
 
 \input{tables/RealTab}                 
 
-On table \ref{table:Tab:SHGREAL} is the results from the disaggregation shown. The low F1 scores indicates that it is hard for the algorithms to correctly disaggregate the meters. This is due to the many spikes there are in the data that can indicate a change in appliance usage. On figure \ref{fig:RMD} is a snippet from the validation period shown. The blue line shows the data from the main meter. The other lines indicates the appliances. On the left side of the figure is the true consumption shown for all the meters. This consumption is known from the sub-meters on the appliances. On the right side is the true main meter signal shown, and the inferred usages of the different appliances created by the \ab{FHMM} algorithm. 
+As previously stated is the \df{background consumption} high for this dataset. Table \ref{table:Tab:SHGREAL} summarizes the results from the disaggregation. The low F1 scores indicates that it is hard for the algorithms to correctly disaggregate the meters. This is due to the many spikes there are in the data that can indicate a change in appliance usage. In figure \ref{fig:RMD} is a snippet from the validation period shown. The blue lines shows the data as it is received from the smart-meter. The other lines indicates the appliances. In the sub plot named "True Signals", on the left side, is the true consumption shown for all the meters. This consumption is known from the sub-meters on the appliances. In the sub plot named "Inferred Signal", on the right, side is the inferred usages of the different appliances created by the \ab{FHMM} algorithm. 
 
 \begin{figure}[H]
 \begin{picture}(0,150)
@@ -45,12 +57,11 @@ On table \ref{table:Tab:SHGREAL} is the results from the disaggregation shown. T
 \label{fig:RMD}
 \end{figure}
 
-On the figure is shown how the main meter have many fluctuations. The algorithm tries to map each fluctuation to a change in an appliance, or noise. There are many of the noise fluctuations that are similar to the appliance changes, and this creates errors in the disaggregation. 
+In the figure does the blue lines illustrates how the main meter have many fluctuations. The algorithm tries to map each fluctuation to a change in an appliance state, or as \df{background consumption}. There are many of the fluctuations created by the \df{background consumption} that are similar to the power changes created by the TV, PC and entertainment system. The inferred signal shows how the algorithm thinks the appliances is used. It is easily seen that this is quite different from the true values. 
 
-
-\subsection{Detection In Noise Free Environment }
+\subsection{Detection In An Environment With No Background Consumption}
 \label{sec:NOISEFREE}
-The assumption that the noise is what troubles the disaggregation, dictates that for a house where all appliances are known, and therefore there are no noise, will preform better. 
+The assumption that the \df{background consumption} is what troubles the disaggregation dictates that for a house where all appliances are known, and there are no \df{background consumption}, the disaggregation will perform better. 
 
 \begin{figure}[H]
 \centering
@@ -59,20 +70,19 @@ The assumption that the noise is what troubles the disaggregation, dictates that
 \label{fig:SIL}
 \end{figure}
 
-In order to test this hypothesis is a main meter signal artificially constructed by summing the values of all the sub-meters in a house as illustrated on figure \ref{fig:SIL}. In this manner is a new set of artificial houses created where there are no appliance noise. By applying the same disaggregation algorithms, as for the noisy environment, on the noise free environment is the performance much increased as shown in table \ref{table:Tab:SHGSIM}.
+In order to test this hypothesis is a main meter signal artificially constructed by summing the values of all the sub-meters in a house. This process is illustrated in figure \ref{fig:SIL}. In this manner is a new set of artificial houses created where there are no \df{background consumption}. By applying the same disaggregation algorithms, as for the environment with high \df{background consumption}, on the new environment with no \df{background consumption} is the performance much increased as shown in table \ref{table:Tab:SHGSIM}.
 
 \input{tables/SimTab}  
 
-As shown on table \ref{table:Tab:SHGSIM} does the F1 and accuracy score both improve. Even though the artificial house only contains three or four appliances, and they are all accounted for by the model, there are still some of the appliances that are hard to find. This is due to the appliances power usage pattern in off/standby mode combined with the rare usage of the devices. When the standby pattern of a device is complex and the appliance is only rarely used the model will try to fit to the standby pattern and not the usage pattern, to get the most accurate consumption disaggregation. This can make the model incapable of detecting change between the on/off states.
+The F1 and accuracy score are both improve, as shown in table \ref{table:Tab:SHGSIM}. Even though the artificial house only contains three or four appliances, and all are accounted for by the statistical disaggregation model created by the \ab{FHMM} and Parson algorithms, there are still some of the appliances that are hard to find. This is due to the appliances power usage pattern in OFF/standby mode combined with the rare usage of the devices. When the standby pattern of a device is complex and the appliance is only rarely used the model will try to fit to the standby pattern and not the usage pattern. This happens if the over all best consumption disaggregation results is achieved by fitting to the small energy fluctuations in the OFF state. This is often the case for appliances that are rarely used int the training period. The downside to this is that it will be incapable of detecting change between the ON/OFF states.
 
-One other aspect to note is that even though the F1 scores are higher, only a few is higher than 0.9. This is due to the spill over effect that happens when appliances are similar. When a house contains two or more appliances that are similar it gets harder for the algorithm to tell if it is the one or the other. This is what happens for TV 1 and TV 2 in house 3. The algorithms will wrongfully assign some of the events belonging to TV 1, to TV 2 and vice versa. This can be a problem if the goal is to determine exactly witch appliance there is responsible for the power consumption. This is one of the key aspects of the little consumers problem, discussed in chapter \ref{sec:AppRec}.
+One other aspect to note is that even though the F1 scores are higher, only a few is higher than 0.9. 
+This could be due to "appliance interference". This happens when appliances are similar. When a house contains two or more appliances that are similar it gets harder for the algorithm to tell if it is the one or the other. This is could be what happened for TV 1 and TV 2 in house 3. The algorithms will wrongfully assign some of the events belonging to TV 1, to TV 2 and vice versa. This happens because the power draw signature are similar.  This can be a problem if the goal is to determine exactly which appliance there is responsible for the power consumption. This is one of the key aspects of the little consumers problem, discussed in Chapter \ref{sec:AppRec}.
 
-This has a profound effect on the parson algorithm that are designed to spilt up appliances based on appliance category's, by utilizing a set of general models. Since a lot of the appliances are similar in their consumption changes from state to state the parson models are almost identical which lead to the events being wrongly categorised. 
+\df{Appliance interference} has a profound effect on the Parson algorithm. The parson algorithm is designed to split up appliances based on appliance categories, by utilizing a set of general models. Since a lot of the appliances are similar in their consumption changes from state to state are the model used by the Parson algorithm almost identical which lead to the events being wrongly categorised. The usages general models is one of the benefits of the Parson algorithm, since it makes the algorithm very portable between unknown domains. Unfortunately does this feature come whit the downside of increased sensibility to \df{appliance interference}. The influence of \df{appliance interference} is further studied in Section \ref{sec:MCT}. 
 
-\newpage
-
-\subsection{Noise Effect On Training And Validation }
-The experiments in the two previous sections \ref{sec:NOISE} and \ref{sec:NOISEFREE} suggest that appliance noise have an impact on the performance of the system. But for a system based on machine learning techniques like the \ab{FHMM} and the Parson algorithms it raises the questions, is it to hard for the system to find the correct models in the noise, or are the noise just interfering with the correct models? 
+\subsection{Background Consumption Effect On Training And Validation }
+The experiments in the two previous Sections \ref{sec:NOISE} and \ref{sec:NOISEFREE} suggest that \df{background consumption} has an impact on the performance of the system. But for a system based on machine learning techniques like the \ab{FHMM} and the Parson algorithms it raises the questions, is it to hard for the system to train the correct statistical disaggregation models in the signal with much \df{background consumption}, or are the \df{background consumption} just interfering with the disaggregation process? 
 
 \begin{figure}[H]
 \centering
@@ -81,16 +91,14 @@ The experiments in the two previous sections \ref{sec:NOISE} and \ref{sec:NOISEF
 \label{fig:REALSIMILU}
 \end{figure}
 
-In order to investigate these questions was a new dataset created that combined real data, collected from the house main meter, and an artificially constructed main meter. The new dataset was created by using the real data in the training period of the house, and using the constructed main meter in the validation, as illustrated on figure \ref{fig:REALSIMILU}.
+In order to investigate these questions was a new dataset created that combined real data collected from the house main meter, and an artificially constructed main meter. The new dataset was created by using the real data in the training period of the house, and constructed main meter data in the validation, as illustrated on figure \ref{fig:REALSIMILU}.
 
-This creates a very noisy environment in the training phase and a noise free environment in the validation phase. If the noise did not influence the creation of the statistical models that represent each appliance, then the results was expected to be just as good as for the noise free experiments conducted in section \ref{sec:NOISEFREE}.
+This creates a environment with a lot of \df{background consumption} in the training phase and no \df{background consumption} in the validation phase. If the \df{background consumption} did not influence the creation of the statistical disaggregation models that represent each appliance, then the results were expected to be just as good as for the noise free experiments conducted in Section \ref{sec:NOISEFREE}.
 
 
 \input{tables/RealSimTab}
 
-If the results from the experiment, shown in table \ref{table:Tab:SHGREALSIM} is compared with the results from table \ref{table:Tab:SHGSIM} from section \ref{sec:NOISEFREE} it is clearly seen that the performance of the system trained in real data is much lower than the one trained on only artificially constructed data. This indicates that the models obtained in the real data is influenced by the appliance noise, and is therefore not fitting accurately enough to the true appliance model. 
-
-This could indicate that the low performance in the real data shown in table \ref{table:Tab:SHGREAL} in section \ref{sec:NOISE} is caused by the models not fitting correctly to the true values, and not by the models being triggered by application noise from other appliances.
+If the results from the experiment, shown in table \ref{table:Tab:SHGREALSIM}, is compared with the results from table \ref{table:Tab:SHGSIM} from section \ref{sec:NOISEFREE} it is clearly seen that the performance of the system trained in real data is much lower than the one trained on artificially constructed data. This indicates that the disaggregation models obtained in the real data is influenced by the \df{background consumption}, and is therefore not fitting accurately enough to the true disaggregation models. This indicates that the low performance in the real data shown in table \ref{table:Tab:SHGREAL} in section \ref{sec:NOISE} is caused by the models not fitting correctly to the true values, and not by the models being triggered by application noise from other appliances.
 
 In order to validate this hypothesis was a similar experiment conducted, where the training data was artificially constructed, and the validation data was the real data from the main meter as illustrated in figure \ref{fig:SHGSIMREAL}. 
 
@@ -101,30 +109,30 @@ In order to validate this hypothesis was a similar experiment conducted, where t
 \label{fig:SHGSIMREAL}
 \end{figure}
 
-By training the model on the constructed data, is the true model for the appliances found. If the appliance noise in the real noisy environment is non-interfering can a performance like for the noise free environment described in section \ref{sec:NOISEFREE} be expected. 
+By training the model on the constructed data, is the true model for the appliances more easily found. If the environment with high \df{background consumption} and real data is non-interfering with the disaggregation models can a performance like for the artificially constructed environment, with no \df{background consumption}, described in Section \ref{sec:NOISEFREE} be expected for the validation phase. 
 
 
 \input{tables/SimRealTab}
 
-The results are shown in table \ref{table:Tab:SHGSIMREAL}. The performance of this system is lower than the one from the noise free experiment. This lead to the conclusion that the noise is both affecting the models, and interfering in the validation process.  
+The results are shown in table \ref{table:Tab:SHGSIMREAL}. The performance of this experiment is lower than for the one in the environment with no \df{background consumption}. This lead to the conclusion that the \df{background consumption} is both affecting the models, and interfering in the validation process.  
 
-The results from the disaggregation of the data in the real environment from section \ref{sec:NOISE} is compared with the results from the the previous experiments, where the models was extracted from constructed data and validated on the real data, is shown in table \ref{table:Tab:RealVsCon}. 
+The results from the disaggregation of the data in the real environment from section \ref{sec:NOISE} are compared with the results from the the previous experiments, where the models were extracted from constructed data and validated on the real data. The results is summarized in table \ref{table:Tab:RealVsCon}. 
 
 \input{tables/RealvsCon}
 
-The table shows that the performance of the system is better when trained in the real environment, as in relation to when the the system is trained in a noise free environment and then deployed in a noisy environment. This is in contrast to what one might think, since the noise free environment should have supplied more correct models. But when the appliance noise is removed from a house, in the training process, is a bias error introduced. 
+The table shows that the performance of the system is better when trained in the real environment, as in relation to when the the system is trained in a artificial environment and then deployed in a environment with \df{background consumption}. This is in contrast to what one might think, since the environment with no \df{background consumption} should have supplied more correct models. But when the \df{background consumption} is removed from a house, in the training process, is a offset error introduced in the models. 
 
-Appliances such as refrigerators and freezers that are always on will create a local house bias. This will vary from house to house, and is depended on the types and number of appliances in the house. If only a small number of devices are modelled in each house, as in the SmartHG case, is the bias almost exclusivity a part of the appliance noise. When the models are fitted by training in the real data, is the bias learned into the model, and further improves the model. This is not the case when the model are trained in the constructed dataset. 
+Appliances such as refrigerators and freezers that are always on will create a local house offset. This will vary from house to house, and is depended on the types and number of appliances in the house. If only a small number of devices are modelled in each house, as in the SmartHG case, is the offset almost exclusivity a part of the \df{background consumption}. When the models are learned in the training phase in the real data, is the offset learned into the model, and further improves the model. This is not the case when the model are trained in the constructed dataset. 
 
-If not all appliances in a house is known, a better performance can therefore be obtained by training in the intended environment of deployment. 
+If not all appliances in a house are known, a better performance can therefore be obtained by training in the intended environment of deployment. 
 
-Some algorithms are designed to not be affected by the house bias, and is therefore moved from different environments more easily. The Parson algorithm is designed with this in mind. The performance of the parson algorithm is therefore the same, or in some cases improved, when using models trained in constructed data. This advantage unfortunately comes with the problem of generalization, which lead to harder source separation, as discussed in section \ref{sec:NOISE}. 
+Some algorithms are designed to not be affected by the house offset, and is therefore moved from different environments more easily. The Parson algorithm is designed with this in mind. The performance of the Parson algorithm is therefore the same, or in some cases improved, when using models trained in constructed data. This advantage unfortunately comes with the problem of generalization, which lead to harder source separation, as discussed in section \ref{sec:NOISE}. 
 
-\subsection{Filter Noisy Signals Using Norm Knowledge }
+\subsection{Improving Performance Using Norm Knowledge }
 \label{sec:NormFilter}
-When an appliance is in a noisy environment some of the nosy signal will be assigned as the appliance. This creates a scenario where the appliance is used more often than one would expect and most often in a manner than is unrealistic. By improving the method with the knowledge of how a specific appliance is most commonly used, also called the norm usage, it is possible to filter the signal and improve the performance. 
+When an appliance is in a environment with a lot of \df{background consumption} some of the \df{background consumption} can be interpreted as the appliance.This \df{appliance interference} creates a scenario where it seems like the appliance is used more than it actually is. Often does the \df{appliance interference} create usage patterns that is in contrast to that one would expect. This can make it seems like a appliance is used in a unrealistic manner. By improving the method with the knowledge of how a specific appliance is most commonly used, also called the norm usage, it is possible to filter the signal and improve the performance. 
 
-On figure \ref{fig:Norm1} is the disaggregation of TV 1 from house 10 shown for a one day period. The blue line indicate the \ab{FHMM} algorithms suggestions on when the TV are on and off. The green line is the actual on and off periods, collected from the sub-meters. 
+In figure \ref{fig:Norm1} is the disaggregation of TV 1 from house 10 shown for an one day period. The blue line indicate the \ab{FHMM} algorithms suggestions on when the TV are ON and OFF. The green line is the actual ON and OFF periods, collected from the sub-meters. 
 
 \begin{figure}[H]
 \centering
@@ -133,7 +141,9 @@ On figure \ref{fig:Norm1} is the disaggregation of TV 1 from house 10 shown for 
 \label{fig:Norm1}
 \end{figure}
 
-As seen on the figure there is a lot of small spikes that are less than 10 min, and sometime is the TV on for 15 minutes off in 2 and then on again for another 15 minutes. This behaviour does not fit the normal behaviour one would expect for a person. The norm is to see TV more than 15 minutes of the time, and when a TV is turned off it is common that it is turned off for atleast 15 minutes before turned on again. These numbers are a loose estimate, found by observing the sub-meter data. 
+As seen in the figure there is a lot of small spikes that are less than 10 min, and sometime is the TV ON for 15 minutes off in 2 and then on again for another 15 minutes. This behaviour does not fit the normal behaviour one would expect for a person. The norm is to see TV more than 10 minutes of the time, and when a TV is turned off it is common that it is turned off for atleast 15 minutes before turned on again. These numbers are a loose estimate, found by observing the sub-meter data. 
+
+%% Rettelser til dette punkt - (Mangler stadig tabeller!!) 
 
 By applying purge and merge process, where all events shorter than 10 minutes are purged from the signal and events separated with less than 15 minutes of off time are merged, it is possible to clean the signal. 
 
@@ -151,7 +161,7 @@ In this example is the norm knowledge applied as a filter, that can filter the d
 \section{Model Size And Completeness Influence }
 Some of the parameters that often differ in the many different environments \ab{NILM} applications are deployed in, is the number of appliances in the environment, and the number of appliances that are known in the environment.  
 
-The environment size or complexity is a parameter that tells how many devices that are in a given environment. As the complexity in a \ab{NILM} application is increasing the detection rate is deceasing\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. 
+The environment size or complexity is a parameter that tells how many devices that are in a given environment. As the complexity in a \ab{NILM} application is increasing the detection rate is deceasing~\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. 
 
 The model completeness is a metric describing how many appliances are known by the application in relation to the total amount of appliances. This can also be seen as the amount of appliance noise as discussed in section \ref{sec:AppNoise}.
 
@@ -209,7 +219,7 @@ Where the $\textbf{H}_7$ only contains the $H_{full}$ set. In this manner it is 
 % n! / ( r! (n - r)! )
 
 
-As illustrated on figure \ref{fig:PSILLU} can an appliance appear in multiple sets in a given $\textbf{H}_c$ collection. The number of sets containing a specific appliance in a $\textbf{H}_c$ collection $A_c$ can be calculated as in equation \ref{EQ:ACr}. In order to ensure that the combination of appliances does not have an effect on the experiments, are the experiments conducted on all combinations in $\textbf{H}_c$. The results for each experiment is an average of the performance for the appliance in the experiment. 
+As illustrated in figure \ref{fig:PSILLU} can an appliance appear in multiple sets in a given $\textbf{H}_c$ collection. The number of sets containing a specific appliance in a $\textbf{H}_c$ collection $A_c$ can be calculated as in equation \ref{EQ:ACr}. In order to ensure that the combination of appliances does not have an effect on the experiments, are the experiments conducted on all combinations in $\textbf{H}_c$. The results for each experiment is an average of the performance for the appliance in the experiment. 
 
 \input{tables/TvhouseTab}
 
@@ -218,7 +228,7 @@ In the case of the TV house dataset can the $|\textbf{H}_c|$ and $A_c$ values fo
 
 \subsection{Model Complexity Test}
 \label{sec:MCT}
-To investigate the effect the number of appliances in a house, have on the performance of a \ab{NILM} system, is disaggregation done on every artificial house in $\textbf{H}$.
+To investigate the effect the number of appliances in a house have on the performance of a \ab{NILM} system, is disaggregation done on every artificial house in $\textbf{H}$.
 
 \begin{figure}[H]
 \centering
@@ -254,7 +264,7 @@ This indicates that the 7 algorithms working in parallel, each disaggregating on
 The results indicate that the complexity of the house is a more determining factor for the performance than the completeness of the model. 
 
 \section{Chapter Discussion}
-The findings in this chapter indicates that the complexity of a dataset have a profound impact on the detection performance. A simple way to decrease the performance in a house is to look at each phase in the house separately. This is one of the techniques used in the \ab{ECO} dataset to improve the performance in the system. This does require additional knowledge of which appliances that are connected to which phases. This knowledge can be analytical extracted from the dataset, or must be supplied at training time. 
+The findings in this chapter indicates that the complexity of a dataset has a profound impact on the detection performance. A simple way to decrease the performance in a house is to look at each phase in the house separately. This is one of the techniques used in the \ab{ECO} dataset to improve the performance in the system. This does require additional knowledge of which appliances that are connected to which phases. This knowledge can be analytical extracted from the dataset, or must be supplied at training time. 
 
 It is also indicated that the methods based on the \ab{HMM} does not greatly improve by knowing the entire house model, in relation to only knowing a sub part. This can indicate that a system that focus on detecting each appliance individuality, potentially can detect the appliance as well as one that tires to see the house as a hole.   
 

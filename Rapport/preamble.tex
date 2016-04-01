@@ -241,16 +241,17 @@
 \glstoctrue
 \setacronymstyle{long-short}
 
+\DeclareDocumentCommand{\df}{ m }{%
+   \textit{#1}}
+
 \DeclareDocumentCommand{\ab}{ m o }{%
    \IfNoValueTF{#2}%
    {}%
-   {\newacronym{#1}{#1}{#2} }%
-   \gls{#1}
-}
+   {\newacronym{#1}{#1}{#2}}%
+   \gls{#1}}
 
 \DeclareDocumentCommand{\Ab}{ m o }{%
    \IfNoValueTF{#2}%
    {}%
-   {\newacronym{#1}{#1}{#2} }%
-   \Gls{#1}
-}
+   {\newacronym{#1}{#1}{#2}}%
+   \Gls{#1}}
