@@ -141,11 +141,15 @@ In figure \ref{fig:Norm1} is the disaggregation of TV 1 from house 10 shown for 
 \label{fig:Norm1}
 \end{figure}
 
-As seen in the figure there is a lot of small spikes that are less than 10 min, and sometime is the TV ON for 15 minutes off in 2 and then on again for another 15 minutes. This behaviour does not fit the normal behaviour one would expect for a person. The norm is to see TV more than 10 minutes of the time, and when a TV is turned off it is common that it is turned off for atleast 15 minutes before turned on again. These numbers are a loose estimate, found by observing the sub-meter data. 
+As seen in the figure there is a lot of small spikes that are less than 10 min, and sometime is the TV ON for 15 minutes off in 2 and then on again for another 15 minutes. This behaviour does not fit the normal behaviour one would expect for a person. The norm is to see TV more than 20 minutes of the time, and when a TV is turned off it is common that it is turned off for atleast 15 minutes before turned on again. These numbers are a loose estimate, found by observing the sub-meter data. 
 
 %% Rettelser til dette punkt - (Mangler stadig tabeller!!) 
 
-By applying purge and merge process, where all events shorter than 10 minutes are purged from the signal and events separated with less than 15 minutes of off time are merged, it is possible to clean the signal. 
+One approach of applying the norm knowledge to the disaggregation result is to use a "Norm filter". This is a filter that takes the results from the disaggregation and removes unrealistic behaviour. This is achieved by using a method that iteratively purges events from the signal and merges events that are too close to one event. The "purge and merge process" runs two iterations. First is all events shorter than 10 minutes are purged from the signal.Next is events separated with less than 15 minutes of off time are merged. The purge and merge cycle is repeated one more time where events shorter than 25 minutes are purged and events closer than 30 min are merged. 
+
+The values used in the \df{purge and merge process} is found experimentally. These parameters gave the best results for the TV's in the experiments. In a real deployment scenario where a \df{norm filter} was applied, the coefficients must be selected to fit the normal behaviour of the residents.
+
+The downside of this approach is that it assumes that the devices is used in a certain manner. For our example of values found for a TV will all watch sessions shorter than 25 minutes be missed.
 
 \begin{figure}[H]
 \centering
@@ -154,47 +158,48 @@ By applying purge and merge process, where all events shorter than 10 minutes ar
 \label{fig:Norm2}
 \end{figure}
 
-In figure \ref{fig:Norm2} is the same signal as in figure \ref{fig:Norm1} filtered by using the purge and merge process. The purge and merge process can be used to create a norm filter, that filters appliance usage that does not fit the norm. As seen in figure \ref{fig:Norm2} does the signal inferred by the filtered \ab{FHMM} algorithm match more closely to the actual signal. 
+In figure \ref{fig:Norm2} is the same signal as in figure \ref{fig:Norm1} filtered by using the \df{norm filter}. As seen in figure \ref{fig:Norm2} does the signal inferred by the filtered \ab{FHMM} algorithm match more closely to the actual signal. 
 
-In this example is the norm knowledge applied as a filter, that can filter the disaggregation result. Another approach could be to integrate the norm knowledge as a component in the state transition probability of the \ab{HMM}. 
+In this example is the norm knowledge applied as a filter, that can filter the disaggregation result. Another approach could be to integrate the norm knowledge as a component in the state transition probability of the \ab{HMM}.
 
-\section{Model Size And Completeness Influence }
-Some of the parameters that often differ in the many different environments \ab{NILM} applications are deployed in, is the number of appliances in the environment, and the number of appliances that are known in the environment.  
+The \df{Norm filter} is only recommended if the accuracy and F1 score of the disaggregation is low. It is undesirable to force the system to enforce the normal usage as the truth. This can filter away accentually events, that lay outside the norm. But for systems that have a low accuracy and F1 score can this approach help clean the signal. 
 
-The environment size or complexity is a parameter that tells how many devices that are in a given environment. As the complexity in a \ab{NILM} application is increasing the detection rate is deceasing~\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. 
+\section{Model Complexity And Completeness Influence }
+Some of the parameters that often differ in the environments where\ab{NILM} applications are deployed, is the number of appliances. As previously disused is not all appliances included in the statistical disaggregation models used by the \ab{FHMM} and Parson algorithms. These are the appliances creating the \df{background consumption}. The statistical disaggregation models often contain the information needed to do disaggregation on multiple appliances. The number of appliances included in the statistical disaggregation model is defined as the "complexity" of the model. The \df{complexity} tells only how many appliances a given model is trained to detect. As the \df{complexity} in a \ab{NILM} application is increasing the detection rate is deceasing~\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. The \df{complexity} tells nothing about the appliances creating the \df{background consumption}. 
 
-The model completeness is a metric describing how many appliances are known by the application in relation to the total amount of appliances. This can also be seen as the amount of appliance noise as discussed in section \ref{sec:AppNoise}.
+An other metric looks at the ratio between the \df{complexity} and the total number of appliances in the environment. This ratio is called the "completeness" of the model, since it indicate how many of the total appliances that are include in the model. The total number of appliances in the environment can be seen as the number of appliances creating the \df{background consumption} plus the \df{complexity}.
+
 
 \subsection{Test Set Creation}
 \label{sec:datasetCreation}
-In order to experiment with the completeness and complexity in the SmartHG dataset is a more controllable series of datasets artificially constructed from the SmartHG dataset. 
+In order to experiment with the \df{completeness} and \df{complexity} of the statistical disaggregation models in the SmartHG dataset is a more controllable environment required. In order to obtain this is a series of datasets artificially constructed from the SmartHG dataset. 
 
-First an artificial house where created called the "TV House" dataset. The TV house dataset is created by picking the relative dominant TV signals from the houses 5,10,11,13,18 and 23 in the SmartHG dataset and combining them to one artificial house with 7 TV's. 
+First an artificial house dataset where created called the "TV House dataset". The \df{TV house dataset} is created by picking the relative dominant TV signals from the houses 5, 10, 11, 13, 18 and 23 in the SmartHG dataset. By combining the signals to one artificial signal can a artificial main meter for a house with 7 TV's be created. 
 
-This dataset contains of dominant appliances, and there is no appliance noise from unknown devices. It is still worth noticing that all the 7 appliances are a Type-II appliances, and they are all TV's, which make there usage pattern some what similar. Since the Parson algorithm is greatly effected by this will the focus mainly be on the \ab{FHMM} algorithm. 
+The \df{TV House dataset} consists of dominant appliances, and there is no \df{background consumption} from unknown devices. It is still worth noticing that all the 7 appliances are a Type-II appliances, and they are all TV's, which make there usage pattern some what similar. Since the Parson algorithm is greatly effected by this. Therefore will the focus mainly be on the \ab{FHMM} algorithm. 
 
-If the TV House dataset was seen as a set of sub-meters as mathematically shown in equation \ref{EQ:SUBMS}. 
+If the \df{TV House dataset} was seen as a set of sub-meters as mathematically shown in equation \ref{EQ:SUBMS}. Where $TV_n$ is a vector containing the consumption data collected for a specific TV.
 
 \begin{equation}
-	H_{full} = \{ TV_1, TV_2, ... , TV_7 \}
+	\textbf{S}_{full} = \{ TV_1, TV_2, ... , TV_7 \}
 	\label{EQ:SUBMS}
 \end{equation}
 
-Since there is no appliance noise, can the main meter data be found as the sum of sub-meters data as shown in equation \ref{EQ:SUMSUB}. 
+Since there is no \df{background consumption}, can the main meter data be artificially created as the sum of sub-meters data as shown in equation \ref{EQ:SUMSUB}. Where $X$ is the vector of sub-meter measurements from the televisions. $M_{main}$ is a vector containing the artificial main meter consumption data. 
 
 \begin{equation}
-	M_{main} = \sum_{X \in H_{full}}X
+	M_{main} = \sum_{X \in \textbf{S}_{full}}X
 	\label{EQ:SUMSUB}
 \end{equation}
 
-Using this information it is possible to create a set with a specified complexity, by taking a subset of the $H_{full}$ set with the cardinality of the specified complexity. The main meter can now be found on this subset using the same principle as in equation \ref{EQ:SUMSUB}. Using the equation \ref{EQ:TVCARSET}, it is possible to find a set of all sets with a desired complexity $c$.
+Using this approach it is possible to create a set with a specific number of appliances. This can be achieved by taking a subset of the $\textbf{S}_{full}$ set with the cardinality of the desired number of appliances. The main meter can now be found for this subset, using the same principle as in equation \ref{EQ:SUMSUB}. Using the equation \ref{EQ:TVCARSET}, it is possible to find a set of all sets with a desired number of appliances $c$.
 
 \begin{equation}
-	\textbf{H}_c = \{ x | x \in \powerset{H_{full}}, \forall |x| = c   \}
+	\textbf{H}_c = \{ x | x \in \powerset{\textbf{S}_{full}}, \forall |x| = c   \}
 	\label{EQ:TVCARSET}
 \end{equation}
 
-This can be graphically shown as in figure \ref{fig:PSILLU}. 
+This is done using a set comprehension that iterates over the power set of $\textbf{S}_{full}$ and picking out all sets that have a cardinality equal to the desired number of appliances $c$. $\textbf{H}_c$ is therefore a set of sets with a given number of appliances. This can be graphically shown as in figure \ref{fig:PSILLU}. 
 
 \begin{figure}[H]
 \begin{picture}(0,200)
@@ -210,25 +215,25 @@ This can be graphically shown as in figure \ref{fig:PSILLU}.
 \label{fig:PSILLU}
 \end{figure}
 
-Where the $\textbf{H}_7$ only contains the $H_{full}$ set. In this manner it is possible to artificially create one or more datasets in a desired complexity equal to or less than the $H_{full}$ complexity. The amount of artificiality created houses for a given complexity can be found by using the simple combinatorial equation shown in equation \ref{EQ:nCr}.
+Where the $\textbf{H}_7$ only contains the $\textbf{S}_{full}$ set. In the figure is illustrated the relative energy usage of each appliance in a dataset.   In this manner it is possible to artificially create one or more datasets with a desired number of appliances, equal to or less than the number of appliances in $\textbf{S}_{full}$. The amount of artificiality created houses for a desired number of appliances can be found by using the simple combinatorial equation shown in equation \ref{EQ:nCr}. Where $|\textbf{H}_c|$ is the cardinality of $\textbf{H}_c$. The number of desired appliances is $c$, and the size of the pool for which appliances can be selected from is given by the cardinality of $\textbf{S}_{full}$.
 
 \begin{gather}
-		|\textbf{H}_c| = \frac{|H_{full}|!}{c! \times (|H_{full}| - c)!} \label{EQ:nCr} \\
-		A_c = |\textbf{H}_c| \times \frac{c}{|H_{full}|} \label{EQ:ACr}
+		|\textbf{H}_c| = \frac{|\textbf{S}_{full}|!}{c! \times (|\textbf{S}_{full}| - c)!} \label{EQ:nCr} \\
+		A_c = |\textbf{H}_c| \times \frac{c}{|\textbf{S}_{full}|} \label{EQ:ACr}
 \end{gather}
 % n! / ( r! (n - r)! )
 
 
-As illustrated in figure \ref{fig:PSILLU} can an appliance appear in multiple sets in a given $\textbf{H}_c$ collection. The number of sets containing a specific appliance in a $\textbf{H}_c$ collection $A_c$ can be calculated as in equation \ref{EQ:ACr}. In order to ensure that the combination of appliances does not have an effect on the experiments, are the experiments conducted on all combinations in $\textbf{H}_c$. The results for each experiment is an average of the performance for the appliance in the experiment. 
+As illustrated in figure \ref{fig:PSILLU} can an appliance appear in multiple sets in a given $\textbf{H}_c$ collection. The number of sets containing a specific appliance in a $\textbf{H}_c$ collection is $A_c$. This can be calculated as in equation \ref{EQ:ACr}. In order to ensure that the combination of appliances does not have an effect on the experiments, are the experiments conducted on all combinations in $\textbf{H}_c$. The results for each experiment is an average of the performance for the appliance in the experiment. 
 
 \input{tables/TvhouseTab}
 
-In the case of the TV house dataset can the $|\textbf{H}_c|$ and $A_c$ values for the different complexity be seen in table \ref{Tab:TvHouse}.
+In the case of the \df{TV house dataset} can the cardinality of $\textbf{H}_c$ and $A_c$ values for the different number of appliances $c$, be seen in table \ref{Tab:TvHouse}. The cardinality of $\textbf{H}_c$ tells how many artificial houses can be constructed with the desired number of appliances $c$. The $A_c$ values tells how many artificial houses contains a specific TV.
 
 
 \subsection{Model Complexity Test}
 \label{sec:MCT}
-To investigate the effect the number of appliances in a house have on the performance of a \ab{NILM} system, is disaggregation done on every artificial house in $\textbf{H}$.
+To investigate the effect the \df{complexity} of the statistical disaggregation models have on the performance of a \ab{NILM} system, is disaggregation done on every artificial house that can be created from $\textbf{H}$. The experiment is conducted by training the models be able to disaggregate all the appliances in a given scenario. This creates an environment where there is no \df{background consumption} that can interfere.
 
 \begin{figure}[H]
 \centering
@@ -237,18 +242,18 @@ To investigate the effect the number of appliances in a house have on the perfor
 \label{fig:COMPT}
 \end{figure}
 
-The test is preformed on every combination, to ensure that there is not some combination that are more favourable than others. The results shown in figure \ref{fig:COMPT} are the average of the results from the many combinations as described in section \ref{sec:datasetCreation}. 
+The test is performed on every combination, to ensure that there is not some combination that are more favourable than others. The results shown in figure \ref{fig:COMPT} are the average of the results from the many combinations as described in section \ref{sec:datasetCreation}. 
 
-For the most part it is fairly easy to correctly classify the TV's when the complexity is only one. As a general trend does the F1 and accuracy score of the TV's decrees as the complexity of the house increase. This is due to the application spill over effect. The spill over effect is when there actually is an event, but the system classifies it to the wrong device.  An effect of this is most clearly seen on TV 2 signal. TV 2 is a very complex signal, and is therefore hard to track by the algorithm, as seen at the $\textbf{H}_1$ complexity that have a F1 score on almost zero. When the complexity is increased it looks like it is easier to detect the signal, and the F1 score is increasing. What is actually happening is the spill effect from the other TV's. Since all the appliances are TV's they have a lot of overlap in their usage. A lot of people watches TV at the same time of day e.g. between 18-22. This makes the algorithm encounter signal's that are similar in structure for the different TV's, and it have a hard time deciding which appliance is responsible. Therefore can some of the events generated by the other TV's spill over in TV 2. If by chance TV 2 actually was on when the events from the other TV's was wrongfully assigned, the F1 and accuracy score of TV 2 would improve. 
+For the most part it is fairly easy to correctly classify the TV's when the complexity is only one. As a general trend does the F1 and accuracy score of the TV's decrease as the complexity of the house increase. This is due to the \df{Application interference}. The \df{Application interference} effect is when there actually is an event, but the system classifies it to the wrong device.  An effect of this is most clearly seen on TV 2 signal. TV 2 is a very complex signal, and is therefore hard to track by the algorithm, as seen at the $\textbf{H}_1$ complexity that have an F1 score on almost zero. When the complexity is increased it looks like it is easier to detect the signal, and the F1 score is increasing. What is actually happening is \df{Application interference} from the other TV's. Since all the appliances are TV's they have a lot of overlap in their usage. A lot of people watches TV at the same time of day e.g. between 18:00-22:00. This makes the algorithm encounter signal's that are similar in structure for the different TV's. It has a hard time deciding which appliance is responsible. Therefore can some events generated by the other TV's be assigned as TV 2. If by chance TV 2 actually was on when the events from the other TV's was wrongfully assigned, the F1 and accuracy score of TV 2 would improve. 
 
-For other appliances that are not as hard to classify as TV 2 will the spill over effect decrease the F1 and accuracy score as seen on the figure. 
+For other appliances that are not as hard to classify as TV 2 will the \df{appliance interference} effect decrease the F1 and accuracy score as seen in the figure. 
 
 \subsection{Model Completeness Influence }
-In the experiments conducted on the the SmartHG dataset in section \ref{sec:AppNoise} it was shown that the appliance noise made it hard to correctly disaggregate the appliances of the houses. In the last experiment in section \ref{sec:MCT}, it was shown that the performance of the disaggregation was higher when the complexity of the house was low. This is much the same results as seen in the experiments on the SmartHG dataset, where the completely simulated house, that had a low complexity, preformed better than the real house with a high complexity. 
+In the experiments conducted on the the SmartHG dataset in section \ref{sec:AppNoise} it was shown that the \df{appliance interference} made it hard to correctly disaggregate the appliances of the houses. In the last experiment in section \ref{sec:MCT}, it was shown that the performance of the disaggregation was higher when the \df{complexity} of the house was low. This is much the same results as seen in the experiments on the SmartHG dataset. The completely simulated houses that had a low \df{complexity}, preformed better, than the real house with a high \df{complexity}. 
 
-But in the SmartHG dataset was the complexity of the real dataset unknown since the amount of appliances that generated the appliance noise is unknown. It is therefore hard to conclude if the poor performance in the real data is due to the fact that the appliances is unknown by the disaggregation model, or because the complexity of the house is greater for the real data. 
+But in the SmartHG dataset was the \df{complexity} of the real dataset unknown since the amount of appliances that generated the \df{background consumption} is unknown. It is therefore hard to conclude if the poor performance in the real data is due to the fact that the appliances is unknown by the disaggregation model, or because the \df{complexity} of the house is greater for the real data. 
 
-To further investigate this was an experiment conducted on the TV house dataset, where the house models where trained on the $\textbf{H}_{7}$ dataset. The models trained did not contain the full knowledge of the house. The models was only trained to find a subset of meters in the house. Like for the experiments in section \ref{sec:MCT}, was the experiment conducted on all subset combinations. 
+To further investigate this was an experiment conducted on the \df{TV house dataset}, where the statistical disaggregation models where trained on the $\textbf{H}_{7}$ dataset. The models trained did not contain the full knowledge of the house. The models was only trained to find a subset of meters in the house. Like for the experiments in section \ref{sec:MCT}, was the experiment conducted on all subset combinations. This creates a test where the amount of \df{background consumption} is artificially controlled. There is a lot of \df{background consumption} when there only is one appliance in the disaggregation model, and non if all seven appliances is in the disaggregation model. This can also be seen as a change in the \df{completeness} of the model. 
 
 \begin{figure}[H]
 \centering
@@ -257,15 +262,15 @@ To further investigate this was an experiment conducted on the TV house dataset,
 \label{fig:COD}
 \end{figure}
 
-In figure \ref{fig:COD} is the result for each appliance shown. The result is an average of all tests at a given model completeness. It is seen from the figure that even though the disaggregation algorithm obtains more information about the complete house, it does not improve the recondition. 
+In figure \ref{fig:COD} is the result for each appliance shown. The result is an average of all tests at a given model \df{completeness}. It is seen from the figure that even though the disaggregation algorithm obtains more information about the complete house, it does not improve the recondition. 
 
-This indicates that the 7 algorithms working in parallel, each disaggregating one meter, would obtain the same results as one model capable of seeing the house as a hole. It is worth mentioning that these tests are based on the \ab{FHMM} algorithm and other algorithms might preform different in this aspect. 
+This indicates that 7 instances of the algorithms working in parallel, each disaggregating one meter, would obtain the same results as one model capable of seeing the house as a whole. It is worth mentioning that these tests are based on the \ab{FHMM} algorithm and other algorithms might preform different in this aspect. 
 
-The results indicate that the complexity of the house is a more determining factor for the performance than the completeness of the model. 
+The results indicate that the performance is more depended on the \df{complexity} of the model, rather than the \df{completeness}.
 
 \section{Chapter Discussion}
-The findings in this chapter indicates that the complexity of a dataset has a profound impact on the detection performance. A simple way to decrease the performance in a house is to look at each phase in the house separately. This is one of the techniques used in the \ab{ECO} dataset to improve the performance in the system. This does require additional knowledge of which appliances that are connected to which phases. This knowledge can be analytical extracted from the dataset, or must be supplied at training time. 
+The findings in this chapter indicates that the \df{complexity} of a dataset has a profound impact on the detection performance. A simple way to decrease the performance in a house is to look at each phase in the house separately. This is one of the techniques used in the \ab{ECO} dataset to improve the performance in the system. This does require additional knowledge of which appliances that are connected to which phases. This knowledge can be analytically extracted from the dataset, or supplied by the household. 
 
-It is also indicated that the methods based on the \ab{HMM} does not greatly improve by knowing the entire house model, in relation to only knowing a sub part. This can indicate that a system that focus on detecting each appliance individuality, potentially can detect the appliance as well as one that tires to see the house as a hole.   
+It is also indicated that the methods based on the \ab{HMM} does not greatly improve by knowing the entire house model, in relation to only knowing a sub part. This can indicate that a system that focus on detecting each appliance individuality, potentially can detect the appliance as well as one that tires to see the house as a whole.   
 
-The many problems that can occur when using small consumers and once that are similar in behaviour is nicely illustrated in the chapter. The spill over effect for similar appliances is greatly decreasing the overall performance, and the small consumers is almost undetectable. In order to better this performance, more unique features is needed. This could either be higher frequency features, as discussed in chapter \ref{sec:AppRec}, or by using reactive features. Furthermore it is shown that the best performance is obtained by training in the same environment as the solution will be deployed in. This is a subject that is also discussed by the developers of the Parson and Weiss algorithms \citep{RefWorks:28} \citep{RefWorks:23}, where they discussed ways to train or fit the models to the desired deployment environment.  
+The many problems that can occur when using small consumers and once that are similar in behaviour is nicely illustrated in the chapter. The \df{appliance interference} effect for similar appliances is greatly decreasing the overall performance. This makes the small consumers almost undetectable. In order to better this performance, more unique features is needed. This could either be higher frequency features, as discussed in chapter \ref{sec:AppRec}, or by using reactive features. Furthermore it is shown that the best performance is obtained by training in the same environment as the solution will be deployed in. This is a subject that is also discussed by the developers of the Parson and Weiss algorithms~\citep{RefWorks:28},~\citep{RefWorks:23}, where they discussed ways to train or fit the models to the desired deployment environment.  
