@@ -2,7 +2,7 @@
 \label{sec:AppRec}
 Appliance recognition and load disaggregation are some of the key aspects in \ab{NILM}[non-intrusive load monitoring]. The main purpose of the \ab{NILM} approach is to better understand the power usage in the home. This information is used by the electric companies to better plan the energy production and distribution. It also have the potential to help the different households to more optimal power savings. This is done by informing the residents about the power consumption of individual appliances. It is shown that informing a household about its usages pattern can lead to significant savings \citep{RefWorks:33}. This makes the basis for load disaggregation, where appliance specific load is guessed based on the main meter load. This enables the user to know what uses the energy and when.
 
-One other aspect of \ab{NILM} is event detection. Sometime the actual consumption of an appliance is not as important as when it was used, and for how long \fxnote{find a ref}. This is a simpler task than guessing the true consumption, and for some applications is a better approach. As an example is this kind of information sufficient if we want to track the activity of an elderly person in an assisted living situation. 
+One other aspect of \ab{NILM} is event detection. Sometime the actual consumption of an appliance is not as important as when it was used, and for how long \citep{RefWorks:23}. This is a simpler task than guessing the true consumption, and for some applications is a better approach. As an example is this kind of information sufficient if we want to track the activity of an elderly person in an assisted living situation. 
 
 \section{NILM Concepts And Challenges} 
 The aim of \ab{NILM} is to partition the whole house consumption data in to appliance specific consumption. 
@@ -31,7 +31,7 @@ Some of the different appliance types is illustrated on figure \ref{fig:ATO}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{billeder/Types.png}
-\caption{Appliance types. Source \citep{RefWorks:17} \fxnote{make your own figure}  }
+\caption{Appliance types. Source \citep{RefWorks:17}. }
 \label{fig:ATO}
 \end{figure}
 
@@ -71,7 +71,7 @@ This is illustrated in equation \ref{EQ:OMP} were a set of appliances $M$ that c
 
 Due to this, most researchers use pattern recognition techniques instead. These have the benefits of being more scalable, and be usable even if only parts of the device database is known. There are generality two approaches to pattern recognition: supervised and non-supervised. In supervised training it is assumed that the ground truth of your system is known. For a \ab{NILM} application this means that the true consumption of the appliance need to be available for the training process. This means that a sub meter must be placed to measure the appliances individually, which often is costly and time consuming. In non-supervised methods only the main meter readings are available, and no information about the appliances are known. This type of algorithms will usually try to cluster the readings in distinct groups cosponsoring to a guess of what appliances that correspond to the reading. Fore this kind of training it is easy to collect a big training set, but it requires the groups to be manually labelled afterwards.  
   
-Most algorithms are based on clustering techniques and \ab{HMM}[hidden Markov models]\fxnote{find a ref}. \Ab{HMM} have proven very effective when classifying Type-I and Type-II appliances. This is due to its ability to model state changes as an imported part of the classification. It is shown that using clustering techniques can greatly improve the classification, and reduce the training time. Artificial neural networks are also showing great promise, and is a topic that is currently in focus by many \ab{NILM} researchers. More on this can be found in section \ref{sec:RecRelatedwork}. 
+Many algorithms are based on clustering techniques and \ab{HMM}[hidden Markov models]~\citep{RefWorks:28}, \citep{RefWorks:26}, \citep{RefWorks:23}, \citep{RefWorks:17}, \citep{RefWorks:24}. \Ab{HMM} have proven very effective when classifying Type-I and Type-II appliances. This is due to its ability to model state changes as an imported part of the classification. It is shown that using clustering techniques can greatly improve the classification, and reduce the training time. Artificial neural networks are also showing great promise, and is a topic that is currently in focus by many \ab{NILM} researchers. More on this can be found in section \ref{sec:RecRelatedwork}. 
 
 \subsection{NILM Challenges} 
 There are many challenges in \ab{NILM}. One is the Type-III appliances. Due to their varying, and at times random, energy consumption it is hard to fit them to a behavioural model. This is made further harder by the low sample rate. Many great features of the appliances is hidden due to the low sample rate most data is collected with\citep{RefWorks:17}.
@@ -345,7 +345,7 @@ On figure \ref{fig:ERWEISS} is the result from the reconstruction with the Weiss
 
 The low score indicates that the method in it self is struggling to identify the appliance, and the data error is therefore not the primary problem.  
 
-\section{Chapter Discussion}
+\section{Chapter Summary}
 In the chapter the effects of errors and gaps in the dataset is investigated. It is shown that a system that simply ignores that errors will perform worse than one that ties to do some compensation. The amount and type of compensation is shown to be very signal depended. In general is a simple linear interpolation enough when using algorithms that are designed for low frequency signals. 
 
 The resolution of the samples seems to have an effect of the performance. The algorithms in focus are designed to low frequency signals, even so it is shown that the small variations created in higher resolution can improve the performance. This is working with the assumption that the instantaneous power consumption received from the smart meter is a average of the power consumption since the last sample. 
