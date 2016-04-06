@@ -10,7 +10,7 @@ The aim of \ab{NILM} is to partition the whole house consumption data in to appl
 	P(t) = p_1(t) + p_2(t) + ... + p_n(t)
 	\label{EQ:PAC}
 \end{equation}
-This can be seen as in equation \ref{EQ:PAC} where $P(t)$ is the total consumption at time $t$, and $p_n(t)$ is the consumption of appliance $n$ at time $t$. The aim is to partition $P(t)$ back to the different appliance specific consumptions. In order to structure the problem we categorise the appliances in 4 groups~\citep{RefWorks:17}: 
+This can be seen as in Equation~\ref{EQ:PAC} where $P(t)$ is the total consumption at time $t$, and $p_n(t)$ is the consumption of appliance $n$ at time $t$. The aim is to partition $P(t)$ back to the different appliance specific consumptions. In order to structure the problem we categorise the appliances in 4 groups~\citep{RefWorks:17}: 
 
 \begin{tabularx}{\linewidth}{ r X }
 Type-I:&Appliances that only have 2 states corresponding to ON/OFF. This could be a lamp or a water boiler. \\
@@ -42,7 +42,7 @@ Type-I and Type-II are very used, and can cover almost any appliance. In the are
 \subsection{NILM Features} 
 For data disaggregation it is common to use method based on machine learning and optimization. The approach is to first extract features from the dataset, and then train or validate advanced statistical models by using these features. 
 
-In \ab{NILM} the features can be sub categorised in steady state, transient state and non-traditional features.  These categories can be further expanded as shown in Figure \ref{fig:FTR}. 
+In \ab{NILM} the features can be sub categorised in steady state, transient state and non-traditional features.  These categories can be further expanded as shown in Figure~\ref{fig:FTR}. 
 
 \begin{figure}[H]
 \centering
@@ -67,16 +67,16 @@ When you have extracted features from the signal there are several algorithms th
 	\label{EQ:OMP}
 \end{equation}
 
-This is illustrated in equation \ref{EQ:OMP} were a set of appliances $M$ that correspond to the measured signal $\hat{y}$ needed to be found. This is achieved by searching the known database of all appliances $D$. This is done by taking the powerset of the database and finding the subset that minimises the error. It can therefore be seen as a minimization problem, where the desired set $M$ is the arguments to the minimum solution. This approach is fine for a small amounts of appliances, but for large databases and many appliances in use at the same time this would take far too long to be practical. 
+This is illustrated in Equation~\ref{EQ:OMP} were a set of appliances $M$ that correspond to the measured signal $\hat{y}$ needed to be found. This is achieved by searching the known database of all appliances $D$. This is done by taking the powerset of the database and finding the subset that minimises the error. It can therefore be seen as a minimization problem, where the desired set $M$ is the arguments to the minimum solution. This approach is fine for a small amounts of appliances, but for large databases and many appliances in use at the same time this would take far too long to be practical. 
 
 Due to this, most researchers use pattern recognition techniques instead. These have the benefits of being more scalable, and be usable even if only parts of the device database is known. The basis concept is to create a statistical model that can be used to classify the appliances. There are generality two approaches to pattern recognition: supervised and non-supervised. In supervised training it is assumed that the ground truth of your system is known. For a \ab{NILM} application this means that the true consumption of the appliances needs to be available for the training process. This means that sub-meters must be placed to measure the appliances individually, which often is costly and time consuming. In non-supervised methods only the main meter readings are available, and no information about the appliances are known. This type of algorithms will usually try to cluster the readings in distinct groups cosponsoring to a guess of what appliances that correspond to the reading. Fore this kind of training it is easy to collect a big training set, but it requires the groups to be manually labelled afterwards.  
   
-Many algorithms are based on clustering techniques and \ab{HMM}[hidden Markov models]~\citep{RefWorks:28}, \citep{RefWorks:26}, \citep{RefWorks:23}, \citep{RefWorks:17}, \citep{RefWorks:24}. \Ab{HMM} have proven very effective when classifying Type-I and Type-II appliances. This is due to its ability to model state changes as an imported part of the classification. It is shown that using clustering techniques can greatly improve the classification, and reduce the training time. Artificial neural networks are also showing great promise, and is a topic that is currently in focus by many researchers. More on this can be found in section \ref{sec:RecRelatedwork}. 
+Many algorithms are based on clustering techniques and \ab{HMM}[hidden Markov models]~\citep{RefWorks:28}, \citep{RefWorks:26}, \citep{RefWorks:23}, \citep{RefWorks:17}, \citep{RefWorks:24}. \Ab{HMM} have proven very effective when classifying Type-I and Type-II appliances. This is due to its ability to model state changes as an imported part of the classification. It is shown that using clustering techniques can greatly improve the classification, and reduce the training time. Artificial neural networks are also showing great promise, and is a topic that is currently in focus by many researchers. More on this can be found in Section~\ref{sec:RecRelatedwork}. 
 
 \subsection{NILM Challenges} 
 There are many challenges in \ab{NILM}. One is the Type-III appliances. Due to their varying, and at times random, energy consumption it is hard to fit them to a behavioural model. This is made further harder by the low sample rate. Many great features of the appliances is hidden due to the low sample rate most data is collected with\citep{RefWorks:17}.
 
-A other problem is the "top consumer problem". In a household there are some appliances that require a lot of energy when they are on, such as stoves, air conditioners and refrigerators. These are often refereed to as the top consumers. Then there is the appliances that consumes very little energy like laptops, DVD players and routers. The \df{top consumer problem} is that the top consumers is so dominant that they make it hard to track the power signature of little consumers. This is why many researchers only focus on the top 10 consumers when during \ab{NILM} applications \citep{RefWorks:21}. 
+A other problem is the "top consumer problem". In a household there are some appliances that require a lot of energy when they are on, such as stoves, air conditioners and refrigerators. These are often refereed to as the top consumers. Then there is the appliances that consumes very little energy like laptops, DVD players and routers. The \df{top consumers problem} is that the top consumers is so dominant that they make it hard to track the power signature of little consumers. This is why many researchers only focus on the top 10 consumers when during \ab{NILM} applications \citep{RefWorks:21}. 
 
 \section{Related Work} 
 \label{sec:RecRelatedwork}
@@ -105,16 +105,16 @@ The \ab{HMM} has proven to be one of the most used tools to create probabilistic
 	\label{EQ:HMM}
 \end{equation}
 
-The joint probability for a specific hidden state $S_t$ that has caused the observed output $Y_t$ can be seen in equation \ref{EQ:HMM}. $P(Y_t|S_t)$ is the emission probability, which shows the conditional probability for $Y_t$ being outputted by a given hidden state $S_t$. The probability for a state change is given by the transition property $P(S_t|S_{t-1})$. 
+The joint probability for a specific hidden state $S_t$ that has caused the observed output $Y_t$ can be seen in Equation~\ref{EQ:HMM}. $P(Y_t|S_t)$ is the emission probability, which shows the conditional probability for $Y_t$ being outputted by a given hidden state $S_t$. The probability for a state change is given by the transition property $P(S_t|S_{t-1})$. 
 
-\Ab{FHMM}[factorial hidden Markov models] is an extension of this classic \ab{HMM} where there exists several hidden state chains that all contribute to the observed output. This can be seen as an extension to equation \ref{EQ:HMM} where the hidden states $S_t$ can be seen as a set of states as shown on equation \ref{EQ:FHMM} where $M$ is the number of chains.
+\Ab{FHMM}[factorial hidden Markov models] is an extension of this classic \ab{HMM} where there exists several hidden state chains that all contribute to the observed output. This can be seen as an extension to Equation~\ref{EQ:HMM} where the hidden states $S_t$ can be seen as a set of states as shown on Equation~\ref{EQ:FHMM} where $M$ is the number of chains.
 
 \begin{equation}
 	S_t = \{ S_t^{(1)}, ..., S_t^{(m)}, ...., S_t^{(M)} \}
 	\label{EQ:FHMM}
 \end{equation}
 
-This can also be shown graphically on figure \ref{fig:FHMM}. It is illustrated how several hidden states from different chains contribute to the output. 
+This can also be shown graphically in Figure~\ref{fig:FHMM}. It is illustrated how several hidden states from different chains contribute to the output. 
 
 \begin{figure}[H]
 \centering
@@ -123,7 +123,7 @@ This can also be shown graphically on figure \ref{fig:FHMM}. It is illustrated h
 \label{fig:FHMM}
 \end{figure}
 
-As an extra constrain can each hidden state, in each chain, only depended on the previously state in the chain, and not on the hidden state of other chains. This makes the state transition probability to be defined as in equation \ref{EQ:CTP}. 
+As an extra constrain can each hidden state, in each chain, only depended on the previously state in the chain, and not on the hidden state of other chains. This makes the state transition probability to be defined as in Equation~\ref{EQ:CTP}. 
 
 \begin{equation}
 	P(S_t|S_{t-1}) = \prod_{m = 1}^M P\left( S_t^{(m)}| S_{t-1}^{(m)} \right)
@@ -137,7 +137,7 @@ In this implementation there is normally used only two or three states, since mo
 \subsection{Parson}
 The Parson algorithem is a variant of the Kolter and Jaakkola algorithm\citep{RefWorks:22}. The algorithm is designed to be a semi-supervised learning algorithms. This means that the algorithm does not need to train on the data from the concrete house prior to deployment, but it still requires some prior knowledge. The idea is to have a database of general appliance models, that tells how specific appliances most likely will behave. This model will be able to detect the device, and do some unsupervised special training to better fit the concrete appliance. 
 
-The algorithm is based on a kind of HMM called "difference HMM" since they take the step difference in the aggregated data and use as the observed output $Y_t$. In a normal \ab{HMM} there is only emitted one output for each hidden state in a chain. In the Parson algorithm the model is changed to output two states from the hidden states $X_t$ and $Y$. This creates a model structure that can be graphically illustrated as in figure \ref{Fig:ParsonModel}\citep{RefWorks:28}. 
+The algorithm is based on a kind of HMM called "difference HMM" since they take the step difference in the aggregated data and use as the observed output $Y_t$. In a normal \ab{HMM} there is only emitted one output for each hidden state in a chain. In the Parson algorithm the model is changed to output two states from the hidden states $X_t$ and $Y$. This creates a model structure that can be graphically illustrated as in Figure~\ref{Fig:ParsonModel}\citep{RefWorks:28}. 
 
 \begin{figure}[H]
 \begin{picture}(0,140)
@@ -155,21 +155,21 @@ The algorithm is based on a kind of HMM called "difference HMM" since they take 
 
 The $Y_t$ is corresponding to the step in power that is observed since the last sample. It is assumed that the only thing that can cause a step in power is if an appliance changes states from one to another. The $X_t$ is the constant power consumption the appliance would have in the state. This is used to filter out the appliance if the power consumption observed is smaller than this threshold.
 
-It is assumed that the power consumption of a state in the general model of an appliance can be modelled as a normal distribution. This can be illustrated as in equation \ref{EQ:GPF}. 
+It is assumed that the power consumption of a state in the general model of an appliance can be modelled as a normal distribution. This can be illustrated as in Equation~\ref{EQ:GPF}. 
 
 \begin{equation}
 	w_t|_{S_t} \rightarrow \mathcal{N}( \mu_{S_t} , \sigma_{S_t}^2 )
 	\label{EQ:GPF}
 \end{equation}
 
-This shows how the power consumption of an appliance is modelled as a normal distribution. The step Power $Y_t$, can also be modelled as a normal distribution that is created from the change between two states as shown in equation \ref{EQ:GST}.0
+This shows how the power consumption of an appliance is modelled as a normal distribution. The step Power $Y_t$, can also be modelled as a normal distribution that is created from the change between two states as shown in Equation~\ref{EQ:GST}.0
 
 \begin{equation}
 	Y_t|_{S_t,S_{t-1}} \rightarrow \mathcal{N}( \mu_{S_t} - \mu_{S_{t-1}} , \sigma_{S_t}^2 + \sigma_{S_{t-1}}^2 )
 	\label{EQ:GST}
 \end{equation}
 
-To model the constraint that the meter only can be on if the power consumption present in the signal is higher than the requirement for the state is an additional constraint added to the emission probability. This constrain is mathematically described in equation \ref{EQ:PCA}.
+To model the constraint that the meter only can be on if the power consumption present in the signal is higher than the requirement for the state is an additional constraint added to the emission probability. This constrain is mathematically described in Equation~\ref{EQ:PCA}.
 
 \begin{equation}
 	P(w_{S_t} \leq x_t | S_t ) = \int_{-\infty}^{x_t}  \mathcal{N}( \mu_{S_t} , \sigma_{S_t}^2 ) dw
@@ -199,11 +199,11 @@ The data is sampled with a resolution on 1 Hz on both the sub-meters and the mai
 \label{fig:EHD}
 \end{figure}
 
-On figure \ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses in the \ab{ECO} dataset. For house two, more than $75\%$ of the energy usages is accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who the the heavy consumers are and who the little consumers are.  
+In Figure~\ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses in the \ab{ECO} dataset. For house two, more than $75\%$ of the energy usages is accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who the the heavy consumers are and who the little consumers are.  
 
 \section{Validation of Methods} 
 \label{sec:VOM}
-This section describes the experiments conducted using the three methods mentioned in section \ref{RecognitionMethods}. The experiments is validated using F1 and accuracy sensitivity and specificity metrics's. Since the focus is event detection a sample can fall in one of four categories. 
+This section describes the experiments conducted using the three methods mentioned in Section~\ref{RecognitionMethods}. The experiments is validated using F1 and accuracy sensitivity and specificity metrics's. Since the focus is event detection a sample can fall in one of four categories. 
 
 \begin{tabularx}{\linewidth}{ r X }
 True Positive& This is when the guess says that there is an event, and there really is an event. Corresponding to the appliance is on. \\
@@ -214,7 +214,7 @@ False Positive& This is when the guess says that there is an event, but there re
 \\
 False Negative&This is when the guess says that there is no event, but there really is an event. \\\\
 \end{tabularx}
-The F1 and accuracy score is calculated as shown in equation \ref{EQ:F1} and \ref{EQ:ACC}
+The F1 and accuracy score is calculated as shown in Equation~\ref{EQ:F1} and Equation~\ref{EQ:ACC}
 
 \begin{gather}
 		TP = \text{number of true positives} \\
@@ -227,14 +227,14 @@ The F1 and accuracy score is calculated as shown in equation \ref{EQ:F1} and \re
 		accuracy = \frac{TP+TN}{TN+TP+FN+FP} \label{EQ:ACC}
 \end{gather}
 
-The F1 score is mainly focused on how well the system guesses the the events, and do not score the true negatives. The accuracy is slightly different in that it looks at how many correct guesses there are in relation to the total amount of guesses. For a \ab{NILM} application the accuracy score on its own is not a very representative metric since some appliances have way more off time than on time \citep{RefWorks:35}. To guess that a appliance is off is just as good at guessing that it is on for the accuracy score. Appliances that are mostly off can therefore get a high accuracy score even though it is hard to determine when they are on. Therefore is it necessary also to look at the F1-score. This score tells how accurate it can be guessed when a appliance is on. This is done by combining the recall, that tells how many true positive was guess correctly in relation to the total amount of positives, as described by equation \ref{EQ:recall}, and the precision that is the ratio of correct guessed positives events in relation to all positive guesses, as shown on equation \ref{EQ:prec}. 
+The F1 score is mainly focused on how well the system guesses the the events, and do not score the true negatives. The accuracy is slightly different in that it looks at how many correct guesses there are in relation to the total amount of guesses. For a \ab{NILM} application the accuracy score on its own is not a very representative metric since some appliances have way more off time than on time \citep{RefWorks:35}. To guess that a appliance is off is just as good at guessing that it is on for the accuracy score. Appliances that are mostly off can therefore get a high accuracy score even though it is hard to determine when they are on. Therefore is it necessary also to look at the F1-score. This score tells how accurate it can be guessed when a appliance is on. This is done by combining the recall, that tells how many true positive was guess correctly in relation to the total amount of positives, as described by Equation~\ref{EQ:recall}, and the precision that is the ratio of correct guessed positives events in relation to all positive guesses, as shown on Equation~\ref{EQ:prec}. 
 
 Five appliances have been selected from the \ab{ECO} dataset house 2. The appliances have been selected so there is some heavy and some little consumers. The appliances selected are: water kettle, fridge, TV, stereo and Laptop. All the methods will be traind using a training period of 15 days and validated on 75 days of data. 
 
 \subsection{Sample rate experiment}
 Common for the three methods is that they are designed for signals sampled at low sample rates in the sub 1 Hz rate. To determined the sensitivity, on the sample rate, is an experiment conducted where the dataset is downsampled to simulate different sampling rates. The downsampling is done by applying a mean filter, so the new sample will be the average values of the samples in a specific period. This method is selected since it is the assumed behaviour of a meter that transmits samples at low rates. 
 
-The results shown in figure \ref{fig:DSE} illustrates the average score of the different algorithms when recognising the five appliances discussed in section \ref{sec:VOM}. 
+The results shown in Figure~\ref{fig:DSE} illustrates the average score of the different algorithms when recognising the five appliances discussed in Section~\ref{sec:VOM}. 
 
 \begin{figure}[H]
 \centering
@@ -247,7 +247,7 @@ Both the accuracy and F1 score is shown. It is shown that for the Weiss clusteri
 
 It seems that for high sample rates does the Weiss algorithm preform superior to the others, where for lower is the Parson algorithm that preforms well. The \ab{FHMM} algorithm seems to preform worse that the others, but is more robust to changes in the sample rate. 
 
-The results shown in figure \ref{fig:DSE} is the average for all appliances. The different appliances individual scores shows that some appliances are easier to find than others. The accuracy score for the different appliances is shown in figure \ref{fig:AccGS}. 
+The results shown in Figure~\ref{fig:DSE} is the average for all appliances. The different appliances individual scores shows that some appliances are easier to find than others. The accuracy score for the different appliances is shown in Figure~\ref{fig:AccGS}. 
 
 \begin{figure}[H]
 \centering
@@ -260,7 +260,7 @@ Since the accuracy score tells how well all events are guessed it can be heavily
 
 This is the reason why the score is fairly high for all the different appliances. It is also shown that the top algorithm is different form appliance to appliance. The fridge and the stereo is the only appliances that are greatly affected by the change in sample rate, the rest seems to be  relatively stable.
 
-Since the accuracy score is dominated by the off periods, the F1 score is also shown in figure \ref{fig:AppF1}. This once again indicates how the different appliances has different algorithms that best detect them.  
+Since the accuracy score is dominated by the off periods, the F1 score is also shown in Figure~\ref{fig:AppF1}. This once again indicates how the different appliances has different algorithms that best detect them.  
 
 
 \begin{figure}[H]
@@ -274,7 +274,7 @@ Since the accuracy score is dominated by the off periods, the F1 score is also s
 
 \subsection{Error Tolerance Experiment}
 \label{Sec:ETE}
-As discussed in chapter \ref{Sec:DataQuality} is the data collected often filled with errors. This degrades the quality of the signal which can lead to worse performance. To validate the errors impact on the algorithms is an experiment conducted where the error rate is increased, and the F1 and accuracy score is measured. 
+As discussed in Chapter~\ref{Sec:DataQuality} is the data collected often filled with errors. This degrades the quality of the signal which can lead to worse performance. To validate the errors impact on the algorithms is an experiment conducted where the error rate is increased, and the F1 and accuracy score is measured. 
 
 \begin{figure}[H]
 \centering
@@ -283,16 +283,16 @@ As discussed in chapter \ref{Sec:DataQuality} is the data collected often filled
 \label{fig:ErrorEx}
 \end{figure}
 
-The experiment was preformed by randomly introducing errors with a probability given by the error rate. The errors was introduced only on the validation dataset, to simulate a situation where a model was created in an error free environment, and then deployed in an error full environment. The errors is introduced independently of each other, simulating network packet loss error. This is the most common error type in the SmartHG dataset, as discussed in chapter \ref{Sec:DataQuality}.  This was done up to 30\% where approximately $\frac{1}{3}$ of the samples are missing. The results is shown in figure \ref{fig:ErrorEx}. It is shown that all methods is impacted by the errors, and have a decrease in performance. The experiment is conducted at a simulated sample rate on $\frac{1}{30} Hz$.
+The experiment was preformed by randomly introducing errors with a probability given by the error rate. The errors was introduced only on the validation dataset, to simulate a situation where a model was created in an error free environment, and then deployed in an error full environment. The errors is introduced independently of each other, simulating network packet loss error. This is the most common error type in the SmartHG dataset, as discussed in Chapter~\ref{Sec:DataQuality}.  This was done up to 30\% where approximately $\frac{1}{3}$ of the samples are missing. The results is shown in Figure~\ref{fig:ErrorEx}. It is shown that all methods is impacted by the errors, and have a decrease in performance. The experiment is conducted at a simulated sample rate on $\frac{1}{30} Hz$.
 
 The algorithms tries as default to make a mean filtering to try to remove errors and noise. This will in situations with many errors remove some of the steps from the signal, and decrease the performance.  
 
 
 
 \subsection{Gap Filling Experiment}
-In chapter \ref{Sec:GapFill} it was described how mathematical gap filling methods could be used to estimate values for the missing gaps. It was mentioned that due to the stochastic nature of the signal, it was impossible to make a perfect reconstruction, but a qualifiedly guess could still be estimated.
+In Chapter~\ref{Sec:GapFill} it was described how mathematical gap filling methods could be used to estimate values for the missing gaps. It was mentioned that due to the stochastic nature of the signal, it was impossible to make a perfect reconstruction, but a qualifiedly guess could still be estimated.
 
-In chapter \ref{Sec:GapFill} six methods of gap filling was evaluated. It turned out that the simple linear method performed quite well in comparison to the others. The envelop method did also perform acceptable for smaller gaps. Therefore are these two method evaluated on the \ab{ECO} dataset, to see if it is possible to increase performance when preforming gap fixing. 
+In Chapter~\ref{Sec:GapFill} six methods of gap filling was evaluated. It turned out that the simple linear method performed quite well in comparison to the others. The envelop method did also perform acceptable for smaller gaps. Therefore are these two method evaluated on the \ab{ECO} dataset, to see if it is possible to increase performance when preforming gap fixing. 
 
 
 \begin{figure}[H]
@@ -302,9 +302,9 @@ In chapter \ref{Sec:GapFill} six methods of gap filling was evaluated. It turned
 \label{fig:GER}
 \end{figure}
 
-Like the error tolerance experiment described in section \ref{Sec:ETE}, is errors artificially introduced in the dataset. After this process is an attempt to removed the errors being done by using the gap filling techniques. 
+Like the error tolerance experiment described in Section~\ref{Sec:ETE}, is errors artificially introduced in the dataset. After this process is an attempt to removed the errors being done by using the gap filling techniques. 
 
-On figure \ref{fig:GER} is the average F1 score shown for all 3 recognition methods applied on all 5 appliances. This indicates that by using a simple reconstruction method it is possible to keep the high performance. Where for the more advanced Envelope method seems to make it worse. This is typically because the more advanced types of reconstruction methods tries to model the frequency components, which for greatly stochastic signals is more likely to introduce errors. 
+In Figure~\ref{fig:GER} is the average F1 score shown for all 3 recognition methods applied on all 5 appliances. This indicates that by using a simple reconstruction method it is possible to keep the high performance. Where for the more advanced Envelope method seems to make it worse. This is typically because the more advanced types of reconstruction methods tries to model the frequency components, which for greatly stochastic signals is more likely to introduce errors. 
 
 To ensure that it is not one recognition method that courses the bad performance for the envelope is the results inspected for the individual appliances and methods. 
 
@@ -318,7 +318,7 @@ To ensure that it is not one recognition method that courses the bad performance
 \label{fig:ERFHMM}
 \end{figure}
 
-On figure \ref{fig:ERFHMM} is the result from the reconstruction with the \ab{FHMM} algorithm shown. Here we see that the performance is prevented from decaying by the two reconstruction methods. It is also shown that the Envelope reconstruction actually preforms marginally better for the \ab{FHMM} algorithm. In all cases is the reconstruction better than non-reconstruction. 
+In Figure~\ref{fig:ERFHMM} is the result from the reconstruction with the \ab{FHMM} algorithm shown. Here we see that the performance is prevented from decaying by the two reconstruction methods. It is also shown that the Envelope reconstruction actually preforms marginally better for the \ab{FHMM} algorithm. In all cases is the reconstruction better than non-reconstruction. 
 
 \newpage
 
@@ -329,7 +329,7 @@ On figure \ref{fig:ERFHMM} is the result from the reconstruction with the \ab{FH
 \label{fig:ERPARSON}
 \end{figure}
 
-On figure \ref{fig:ERPARSON} is the result from the reconstruction with the Parson algorithm shown. Here we see that the Envelope method is always worse than no reconstruction. For some of the appliances is the linear reconstruction a help, but fore some does it preform worse than no reconstruction. 
+In Figure~\ref{fig:ERPARSON} is the result from the reconstruction with the Parson algorithm shown. Here we see that the Envelope method is always worse than no reconstruction. For some of the appliances is the linear reconstruction a help, but fore some does it preform worse than no reconstruction. 
 
 The parson algorithm looks at jumps in the power, and uses a moving window mean filter to noise reduction and to ensure that only the significant jumps is detected. This behaviour can explains why a linear reconstruction gives almost no performance gain compared to no reconstruction for some of the devices.
  
@@ -341,7 +341,7 @@ The parson algorithm looks at jumps in the power, and uses a moving window mean 
 \label{fig:ERWEISS}
 \end{figure}
 
-On figure \ref{fig:ERWEISS} is the result from the reconstruction with the Weiss algorithm shown. For the Weiss algorithm it is appliance depended what reconstruction method is the best. Even though it seems like reconstruction is not preferred for some of the appliances like the laptop, is it worth noticing that the score is close to 0.2 which is a low score. For appliances that have a higher score like the TV and fridge reconstruction seems to work as intended.
+In Figure~\ref{fig:ERWEISS} is the result from the reconstruction with the Weiss algorithm shown. For the Weiss algorithm it is appliance depended what reconstruction method is the best. Even though it seems like reconstruction is not preferred for some of the appliances like the laptop, is it worth noticing that the score is close to 0.2 which is a low score. For appliances that have a higher score like the TV and fridge reconstruction seems to work as intended.
 
 The low score indicates that the method in it self is struggling to identify the appliance, and the data error is therefore not the primary problem.  
 

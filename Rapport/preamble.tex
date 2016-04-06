@@ -241,9 +241,28 @@
 \glstoctrue
 \setacronymstyle{long-short}
 
-\DeclareDocumentCommand{\df}{ m }{%
-   \textit{#1}}
+\newcommand{\GlsDef}[2]
+{%
+  \newglossaryentry{#1}%
+  {
+    name={\capitalisewords{#1}}, % As it appears in the glossaries page.
+    first={"#1"},         	 	 % First time appearance in text.
+    text={\textit{#1}},          % Standard appearance in text.
+    plural={\textit{#1s}},
+    description={#2}             % Description in glossaries page.
+  }
+}
 
+\DeclareDocumentCommand{\df}{m}{{\gls{#1}}}
+ 
+
+\DeclareDocumentCommand{\dfs}{m}{{\glspl{#1}}} 
+
+\DeclareDocumentCommand{\Dfs}{m}{{\Glspl{#1}}} 
+
+\DeclareDocumentCommand{\Df}{m}{{\Gls{#1}}}  
+
+   
 \DeclareDocumentCommand{\ab}{ m o }{%
    \IfNoValueTF{#2}%
    {}%

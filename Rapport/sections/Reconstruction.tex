@@ -1,6 +1,6 @@
 \chapter{Gap Reconstruction}
 \label{Sec:GapFill}
-One of the more common problems in citizen science projects are gaps in data. This can happen either if the network connection is unstable or the test equipment gets prematurely turn OFF, as discussed in Chapter \ref{Sec:DataQuality}. This can greatly degrade the data quality, and lead to errors in the application. One way of dealing with this problem is to use mathematical gap filling techniques to come with a qualified guess on how the data would look like in the gap. 
+One of the more common problems in citizen science projects are gaps in data. This can happen either if the network connection is unstable or the test equipment gets prematurely turn OFF, as discussed in Chapter~\ref{Sec:DataQuality}. This can greatly degrade the data quality, and lead to errors in the application. One way of dealing with this problem is to use mathematical gap filling techniques to come with a qualified guess on how the data would look like in the gap. 
 
 In order to use this methods we must assume that the missing data in the gap follows the same behaviour as the data on each side off the gap. If the signal is so stochastic that this is not the case is gap filling not recommended~\citep{RefWorks:10}. 
 
@@ -26,7 +26,7 @@ The \ab{SSA}[Spatio-Temporal filling] algorithm uses singular spectrum analysis 
 
 The reconstruction philosophy is that the gap has introduced noise in the signal, but a sum of only the most dominant sub-signals must be close to the original signal without noise. But in order to know how many sub-signals to include in this sum, we introduce an other artificial gap. While the sub-signals are being accumulated the mean square error of the artificial gap is observed. When this mean square error hits its minimum peek, it is assumed that the reconstruction is as good as possible~\cite{RefWorks:15}.
 
-This method is very popular for gap filling. It has shown to be very noise resistant since it finds the overall trends in the data. It does require quite a lot of data to be known post and prior to the gap since an artificial gap must be introduced. It is based on singular spectrum analysis which assumes that the signal consist of stationary processes. This is a similar constraint to the \ab{P-G} Algorithm in Section \ref{T:PGA}. The implementation of the algorithm developed for this master's thesis can be found in Appendix~\ref{APP:SSA}.
+This method is very popular for gap filling. It has shown to be very noise resistant since it finds the overall trends in the data. It does require quite a lot of data to be known post and prior to the gap since an artificial gap must be introduced. It is based on singular spectrum analysis which assumes that the signal consist of stationary processes. This is a similar constraint to the \ab{P-G} Algorithm in Section~\ref{T:PGA}. The implementation of the algorithm developed for this master's thesis can be found in Appendix~\ref{APP:SSA}.
 
 \subsection{Envelope Filling Algorithm}
 \label{T:EGA}
@@ -37,13 +37,13 @@ The methods do not make any assumptions about the signals stationariness or band
 \subsection{Empirical Mode Decomposition Filling Algorithm}
 The \ab{EMD}[empirical mode decomposition filling] algorithm uses empirical mode decomposition, to break the signal into \ab{IMF}[intrinsic mode functions]. The sum of all \ab{IMF}'s is the original signal. The \ab{IMF}'s is all more low frequent and simpler in structure than the original signal. The hypothesis is that it is easier fixing a gap in a simple signal than a complex one. 
 
-The envelope filling algorithm in Section \ref{T:EGA} is used to fix the gaps in the \ab{IMF}'s. The \ab{IMF}'s can now be accumulated to get the original fixed signal. Like the envelope filling algorithm does it not make any assumptions about the signals stationariness, bandwidth and can be used on none equally spaced time series. But making an empirical mode decomposition on a signal with a gap in is a non-trivial process and can introduce errors~\citep{RefWorks:16}. The implementation of the algorithm developed for this master's thesis can be found in Appendix~\ref{APP:EMD}.
+The envelope filling algorithm in Section~\ref{T:EGA} is used to fix the gaps in the \ab{IMF}'s. The \ab{IMF}'s can now be accumulated to get the original fixed signal. Like the envelope filling algorithm does it not make any assumptions about the signals stationariness, bandwidth and can be used on none equally spaced time series. But making an empirical mode decomposition on a signal with a gap in is a non-trivial process and can introduce errors~\citep{RefWorks:16}. The implementation of the algorithm developed for this master's thesis can be found in Appendix~\ref{APP:EMD}.
 
 \section{Gaps In SmartHG Dataset}
 The gaps in the SmartHG project dataset is caused by a lot of different sources such as bad network connection, unplugged measurement equipment or server breakdown. This makes the type of gaps different from case to case. Three aspects of a gap is important for the gap filling: The size of the gap, the data known before the gap, and the data known after the gap. 
 
 \subsection{Gap Size}
-In Figure \ref{fig:GapSize} is the quantity of different gaps shown. The different gap size is measured as samples missing, e.g. a gap size on 3 means that there is 3 samples missing in a row, between two received samples. Looking at the different gaps in the dataset we see that the normal gap is relatively small. Most of the gaps are between 1-5 samples as seen in Figure \ref{fig:GapSize}.
+In Figure~\ref{fig:GapSize} is the quantity of different gaps shown. The different gap size is measured as samples missing, e.g. a gap size on 3 means that there is 3 samples missing in a row, between two received samples. Looking at the different gaps in the dataset we see that the normal gap is relatively small. Most of the gaps are between 1-5 samples as seen in Figure~\ref{fig:GapSize}.
 
 \begin{figure}[H]
 \centering
@@ -63,7 +63,7 @@ In Figure \ref{fig:GapSize} is the quantity of different gaps shown. The differe
 
 The aim of data reconstruction is to recover the missing samples. The "gap size correction capability" is a metric telling how big gaps it is possible to correct. If an application has a \df{gap size correction capability} on 5 it means that is is capable of correcting gaps that have the gap size of 5 samples or smaller. 
 
-In Figure \ref{fig:GapCorrect} is shown how much of the missing signal that can be reconstructed with different \df{gap size correction capability}. It is shown that if a \df{gap size correction capability} of approximately 20 samples can be achieved, it is possible to recover $30\%$ of the missing data in the SmartHG dataset. Since the signal is partly stochastic, and it is not possible to recover the stochastic part, the complete signal can newer be reconstructed. The greater the gap, the greater influence does the stochastic part have on the signal. Smaller gaps can therefore be fixed with greater success. It is therefore unlikely that recovery of more than $30\%$ will be possible. 
+In Figure~\ref{fig:GapCorrect} is shown how much of the missing signal that can be reconstructed with different \df{gap size correction capability}. It is shown that if a \df{gap size correction capability} of approximately 20 samples can be achieved, it is possible to recover $30\%$ of the missing data in the SmartHG dataset. Since the signal is partly stochastic, and it is not possible to recover the stochastic part, the complete signal can newer be reconstructed. The greater the gap, the greater influence does the stochastic part have on the signal. Smaller gaps can therefore be fixed with greater success. It is therefore unlikely that recovery of more than $30\%$ will be possible. 
 
 \subsection{Post And Prior Knowledge}
 The reconstruction process works by looking at the samples available prior and post of the gap. Common for all reconstruction methods is that they assume that the signal in the gap must behaved in relation to the samples prior and post for the gap. Therefore is the samples prior and post for the gap called "knowledge", since it grants the knowledge used for reconstructing the gap. 
@@ -76,15 +76,15 @@ But in a signal with lots of gaps it can be interesting to see how much \df{know
 \label{fig:PAF}
 \end{figure}
 
-In the case of the SmartHG project dataset the data available prior and post to a gap varies greatly but is around the same max and min values for every gap size. The median samples available to fix a gap is around 6 samples as shown in Figure \ref{fig:PAF}. In the figure is shown that no matter the gap size is the expected \df{knowledge} about the same. This can be problematic since lager gaps offend needs more \df{knowledge} than smaller gaps. This further indicates that complete recovery of all gaps is impossible. 
+In the case of the SmartHG project dataset the data available prior and post to a gap varies greatly but is around the same max and min values for every gap size. The median samples available to fix a gap is around 6 samples as shown in Figure~\ref{fig:PAF}. In the figure is shown that no matter the gap size is the expected \df{knowledge} about the same. This can be problematic since lager gaps offend needs more \df{knowledge} than smaller gaps. This further indicates that complete recovery of all gaps is impossible. 
 
 \section{SmartHG Dataset Reconstruction}
-The data reconstruction algorithms mentioned in Section \ref{T:GapFilling} have been tied on the SmartHG dataset. First have 6 unique error free areas in the data been found and an artificial gap have been introduced in the 6 scenarios. 
+The data reconstruction algorithms mentioned in Section~\ref{T:GapFilling} have been tied on the SmartHG dataset. First have 6 unique error free areas in the data been found and an artificial gap have been introduced in the 6 scenarios. 
 The gaps have now been reconstructed and a comparison to the true value is made. 
 
 The 6 scenarios have been randomly chosen under the constraints that there where no missing data in them and they all are different in activity level from the other chosen scenarios. Both accumulative scenarios and non-accumulative scenarios have been chosen. 
 
-There are several ways of comparing the different algorithms. In this report three have been selected based on the likelihood of the importance in a learning algorithm, which is the target application for the data. The first is a simple sample by sample comparison, where it is seen how much each sample differs from the true value. The other is the frequency, where it is analysed how much the frequency response is different. The last is a method called jitter compression. In this method is the power of the jitter compared. More on this in Section \ref{T:jitterCom}.
+There are several ways of comparing the different algorithms. In this report three have been selected based on the likelihood of the importance in a learning algorithm, which is the target application for the data. The first is a simple sample by sample comparison, where it is seen how much each sample differs from the true value. The other is the frequency, where it is analysed how much the frequency response is different. The last is a method called jitter compression. In this method is the power of the jitter compared. More on this in Section~\ref{T:jitterCom}.
 
 \subsection{Sample Comparison}
 The sample by sample comparison is created by finding the mean square error of the samples compared to there true values.  
@@ -96,9 +96,9 @@ The sample by sample comparison is created by finding the mean square error of t
 \label{fig:RecNorm}
 \end{figure}
 
-In Figure \ref{fig:RecNorm} is the result shown for 3 different cases. The Known attribute indicates how much prior and post \df{knowledge} in samples is used to reconstruct the gap. On the x axis is shown the gap size. As expected does the prediction grow worse the greater the gap size. As a baseline is a linear predictor also added. The linear predictor makes a simple line between the two samples at each edge of the gap, and places all missing samples on the line. 
+In Figure~\ref{fig:RecNorm} is the result shown for 3 different cases. The Known attribute indicates how much prior and post \df{knowledge} in samples is used to reconstruct the gap. On the x axis is shown the gap size. As expected does the prediction grow worse the greater the gap size. As a baseline is a linear predictor also added. The linear predictor makes a simple line between the two samples at each edge of the gap, and places all missing samples on the line. 
 
-As seen in the figure the best reconstruction made by the \ab{P-G} algorithm, with relatively few samples as \df{knowledge}. The Wiener algorithm is also close to the linear base line. The logical statement is the more \df{knowledge} that are available the better should the prediction become. This does not seems to be the case, since a lot of the algorithms amperes to preform better at lower \df{knowledge}. This can be explained by the stochastic part of a signal. When the \df{knowledge} is small it is more likely that the information around the gap is relevant, the more \df{knowledge} grows the more likely is it the a stochastic event will bring false information to the model. This can be illustrated as in Figure \ref{fig:StocIls}.
+As seen in the figure the best reconstruction made by the \ab{P-G} algorithm, with relatively few samples as \df{knowledge}. The Wiener algorithm is also close to the linear base line. The logical statement is the more \df{knowledge} that are available the better should the prediction become. This does not seems to be the case, since a lot of the algorithms amperes to preform better at lower \df{knowledge}. This can be explained by the stochastic part of a signal. When the \df{knowledge} is small it is more likely that the information around the gap is relevant, the more \df{knowledge} grows the more likely is it the a stochastic event will bring false information to the model. This can be illustrated as in Figure~\ref{fig:StocIls}.
 
 \begin{figure}[H]
 	\begin{picture}(300,200)
@@ -115,9 +115,9 @@ As seen in the figure the best reconstruction made by the \ab{P-G} algorithm, wi
 \label{fig:StocIls}
 \end{figure}
 
-In the Figure \ref{fig:StocIls} is shown an original signal with a gap, indicated by the red area. The true value is illustrated by the full red line in the original signal. The two subsequent graphs is the reconstruction, the blue area is the known area and the dotted red line is the predicted values. When the known area is small there is not enough frequency information to make any grant changes, so the prediction will look more or less like a linear interpolation. This is compared to the true value not a bad guess. When there is more samples known it is possible to make more complex estimates of the signal. In the figure is shown that a \df{knowledge} of 15 will also the stochastic event to be part of the model. Taking this in to the model, changes the prediction to a less correct value, due to the frequency's added by the stochastic event. 
+In the Figure~\ref{fig:StocIls} is shown an original signal with a gap, indicated by the red area. The true value is illustrated by the full red line in the original signal. The two subsequent graphs is the reconstruction, the blue area is the known area and the dotted red line is the predicted values. When the known area is small there is not enough frequency information to make any grant changes, so the prediction will look more or less like a linear interpolation. This is compared to the true value not a bad guess. When there is more samples known it is possible to make more complex estimates of the signal. In the figure is shown that a \df{knowledge} of 15 will also the stochastic event to be part of the model. Taking this in to the model, changes the prediction to a less correct value, due to the frequency's added by the stochastic event. 
 
-Since the results shown in Figure \ref{fig:RecNorm} at higher \df{knowledge} shows that the reconstruction methods for the most part preforms worse than the linear base case, it can be concluded that the signal is quite stochastic, and not as periodic as one would hope. For many smart-meters it is possible to get both the instantaneous current power and accumulated power over time, as the samples. By looking at the accumulated power before and after a gap it is possible to gesture about the changes in power during the gap. This information can be used to further improve the gap filling. 
+Since the results shown in Figure~\ref{fig:RecNorm} at higher \df{knowledge} shows that the reconstruction methods for the most part preforms worse than the linear base case, it can be concluded that the signal is quite stochastic, and not as periodic as one would hope. For many smart-meters it is possible to get both the instantaneous current power and accumulated power over time, as the samples. By looking at the accumulated power before and after a gap it is possible to gesture about the changes in power during the gap. This information can be used to further improve the gap filling. 
 
 \newpage
 
@@ -131,14 +131,14 @@ An other metric to compare is how well the frequency response is preserved in th
 \label{fig:RecFeq}
 \end{figure}
 
-As shown in Figure \ref{fig:RecFeq} both the Wiener and the \ab{P-G} algorithm seems to preform well. Like for the sample comparison the most successful reconstruction seems to be at low \df{knowledge}. 
+As shown in Figure~\ref{fig:RecFeq} both the Wiener and the \ab{P-G} algorithm seems to preform well. Like for the sample comparison the most successful reconstruction seems to be at low \df{knowledge}. 
 
 \subsection{Jitter Comparison }
 \label{T:jitterCom}
 
 The jitter is a different metric as it tells how well we have modelled the noise of the signal. In a jitter analysis the signal is thought of as a slowly changing signal with a faster noise signal embedded in it.
 
-The slow signal is assumed to be found by taking a low pass filter over the signal to filter out the noise. The jitter analysis measures the power in the jitter from this signal as illustrated in Figure \ref{fig:JitPow}. 
+The slow signal is assumed to be found by taking a low pass filter over the signal to filter out the noise. The jitter analysis measures the power in the jitter from this signal as illustrated in Figure~\ref{fig:JitPow}. 
 
 \begin{figure}[H]
 \centering
@@ -156,7 +156,7 @@ It the estimated jitter power have been compared with the real jitter power for 
 \label{fig:RecJit}
 \end{figure}
 
-As seen in Figure \ref{fig:RecJit} does non of the methods model the noise very well. This is to be expected due to the nature of the selected methods. This is will probably not be a problem for the SmartHG data, since it is sampled at a very low sample rate, and noise therefore is not likely to be used as a parameter. For data there have been sampled with high frequency it have shown that the noise created by the different appliances can be used to detect them~\citep{RefWorks:17}. 
+As seen in Figure~\ref{fig:RecJit} does non of the methods model the noise very well. This is to be expected due to the nature of the selected methods. This is will probably not be a problem for the SmartHG data, since it is sampled at a very low sample rate, and noise therefore is not likely to be used as a parameter. For data there have been sampled with high frequency it have shown that the noise created by the different appliances can be used to detect them~\citep{RefWorks:17}. 
 
 \section{Chapter Summary}
 In the chapter the errors of the smartHG dataset is analysed. The dataset is a raw dataset, that have not undergone any cleaning prior to the process. It is shown that the most common errors in this types of data is single sample errors, and minor gaps of up to 5 missing samples.  
