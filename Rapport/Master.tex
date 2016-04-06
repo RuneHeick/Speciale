@@ -19,10 +19,27 @@
 \lipsum[7] %dummy text 
 \end{abstract}
 
-\printglossary[type=\acronymtype,title=Abbreviations]
+\renewcommand{\abstractname}{Resumé}
+\begin{abstract}
+\fxnote{Write an abstract}
+\lipsum[4] %dummy text 
+\end{abstract}
+
+\printglossary[type=\acronymtype,title=Abbreviations,nonumberlist]
 \newpage
-\listoffigures
-\listoftables
+
+{%
+\let\oldnumberline\numberline%
+\renewcommand{\numberline}{\figurename~\oldnumberline}%
+\listoffigures%
+}
+
+{%
+\let\oldnumberline\numberline%
+\renewcommand{\numberline}{\tablename~\oldnumberline}%
+\listoftables%
+}
+
 \newpage
 \tableofcontents
 
@@ -68,6 +85,11 @@
 	\raggedright
 	\bibliography{bibtex/literature}
 \endgroup
+
+\input{sections/Appendix}
+
+
+
 
 %----------------------------------------------------------------------------------------
 \end{document}

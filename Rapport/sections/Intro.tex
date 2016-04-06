@@ -15,7 +15,7 @@ There are many different kind of stakeholders in today's smart-grid. In order to
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/SMARTGRID.png}
-\caption{Conceptual model of smart-grid architecture. Source~\citep{RefWorks:41}}
+\caption[Conceptual model of smart-grid architecture.]{Conceptual model of smart-grid architecture. Source~\citep{RefWorks:41}}
 \label{fig:CMOSG}
 \end{figure}
  
@@ -50,15 +50,27 @@ In today's smart-grid are all \df{customers} equipped with smart-meters. The sma
 This report seek to investigate some of the common approaches used for \ab{NILM} today, in order to determine the capabilities of such approaches. It is assumed that such approaches are used in a modern smart-grid setting. In order to answer this broad question, the following questions must be investigated. 
 
 \begin{itemize}
-\item	What quality of data can be expected from the smart-meters?\\
+\item	\textbf{What quality of data can be expected from a smart-meters infrastructure?}\\
+In a smart grid is a lot of information collected from various points. For a system that needs the smart-meters data to be collected on a server, what quality can be expected? And where in the infrastructure that transports the information, over the Internet, is the quality being compromised? 
 	
-\item	How does errors and poor quality affect \ab{NILM} applications?\\
 	
-\item	What can we detect using  \ab{NILM} and where are the limits? \\
+\item	\textbf{How does sample errors and poor quality affect \ab{NILM} applications?}\\
+If the system contains errors, due to samples being lost in the network, how does this impact the \ab{NILM} applications?  Does the quality effect the performance of \ab{NILM} disaggregation? \\
 	
-\item	Can anything be done to improve the \ab{NILM} technology?
+\item	\textbf{What behaviours can be detected using \ab{NILM} and where are the limits?} \\
+How detailed is it possible to gesture about the behaviour of the appliances in a household? Where are the limits of susses? And what does these limits depend on?  \\
+	
+\item	\textbf{What can be done to improve the performance of \ab{NILM} technology?}
+Is it possible to clean data to improve quality and performance? What aspects is the bottlenecks for \ab{NILM} technology today, and how does one improve on this basis? \\
+
 \end{itemize}
-If these question is answered it creates a strong foundation for gesturing about the the capability of \ab{NILM}. The main motivation for this study is not to improve grid load predictions, but to get a better basis for validate different \ab{NILM} related business opportunities for \df{service providers}. 
+If these question is answered it creates a strong foundation for gesturing about the the capability of \ab{NILM}. The main motivation for this study is not to improve grid load predictions, but to get a better basis for validate different \ab{NILM} related business opportunities for \df{service providers}. \\
+
+\section{The Approach}
+In order to investigate the questions in the problem statement is real data needed. Research on the  popular methods and definitions in various areas of \ab{NILM}, Quality and Machine learning has been analysed. The result is used to create the basis of the experiments conducted in this master's thesis. 
 
 \subsection{The Data Approach}
-To investigate the questions in the problem statement is the SmartHG dataset used. The SmartHG dataset is a collection of smart-meter data collected from 25 residential households in Denmark. The data is not filtered or cleaned in any way prior usage. This means that the data closely resembles what would be collected in a smart-grid. Furthermore does the dataset contain information about the usage pattern of selected devices. This information can be used to compare inferred usage patterns to the actual. 
+As dataset is the SmartHG dataset used. The SmartHG dataset is a collection of smart-meter data collected from 25 residential households in Denmark. The data is not filtered or cleaned in any way prior usage. This means that the data closely resembles what would be collected in a smart-grid. Furthermore does the dataset contain information about the usage pattern of selected devices. This information can be used to compare inferred usage patterns to the actual. 
+
+\subsection{The Experiment Approach}
+Some of the experiments are conducted on real data, as it would be observed in a real deployment scenario. The behaviours observed in this types of experiment is used to design a series of experiments in controlled conditions, using artificial constructed datasets. These experiments serves the purpose of exposing the properties responsible for the observed behaviour. This improves the understanding of what properties creates wanted and unwanted behaviour. 

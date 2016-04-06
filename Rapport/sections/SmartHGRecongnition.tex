@@ -20,13 +20,13 @@ The \ab{ECO} dataset used in the last chapter, consists of 6 households and the 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/TotalPie.png}
-\caption{Frequency comparison of the reconstruction methods}
+\caption{Energy distribution in a household}
 \label{fig:SLC}
 \end{figure}
 
 The power distribution of three households is shown in figure \ref{fig:SLC}. This illustrates how much energy each appliance uses, in relation to the households total energy consumption. The "other" category shows the energy consumption not accounted for by the sub-meters.  
 
-Household 3,10 and 18 are some of the houses that have the smallest \df{other} category. They are therefore selected for further study, since they provide the most information about the house. 
+Household 3,10 and 18 are some of the houses that have the smallest \df{other} category. They are therefore selected for further study, since they provide the most information about the house. For the energy distribution in the other households in the SmartHG dataset see Appendix~\ref{APP:AllH}. 
 
 \section{Background Consumption Influence On Disaggregation}
 \label{sec:AppNoise}
@@ -165,6 +165,7 @@ In this example is the norm knowledge applied as a filter, that can filter the d
 The \df{Norm filter} is only recommended if the accuracy and F1 score of the disaggregation is low. It is undesirable to force the system to enforce the normal usage as the truth. This can filter away accentually events, that lay outside the norm. But for systems that have a low accuracy and F1 score can this approach help clean the signal. 
 
 \section{Model Complexity And Completeness Influence }
+\label{sec:MCACI}
 Some of the parameters that often differ in the environments where\ab{NILM} applications are deployed, is the number of appliances. As previously disused is not all appliances included in the statistical disaggregation models used by the \ab{FHMM} and Parson algorithms. These are the appliances creating the \df{background consumption}. The statistical disaggregation models often contain the information needed to do disaggregation on multiple appliances. The number of appliances included in the statistical disaggregation model is defined as the "complexity" of the model. The \df{complexity} tells only how many appliances a given model is trained to detect. As the \df{complexity} in a \ab{NILM} application is increasing the detection rate is deceasing~\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. The \df{complexity} tells nothing about the appliances creating the \df{background consumption}. 
 
 An other metric looks at the ratio between the \df{complexity} and the total number of appliances in the environment. This ratio is called the "completeness" of the model, since it indicate how many of the total appliances that are include in the model. The total number of appliances in the environment can be seen as the number of appliances creating the \df{background consumption} plus the \df{complexity}.

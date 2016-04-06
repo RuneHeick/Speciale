@@ -1,38 +1,20 @@
 \begin{table}[H]                             
 \centering                                   
-\begin{tabular}{c|c|c|c|c|}                 
-\cline{2-5}                                      
- & \multicolumn{2}{|c|}{FHMM} & \multicolumn{2}{c|}{Parson} \\                      
-\cline{2-5}                                        
- & F1 & Accuracy & F1 & Accuracy \\          
-\hline                                       
-\multicolumn{1}{|c|}{TV 1 }& 0.73 & 0.96 & 0.26 & 0.86 \\          
-\hline                                       
-\multicolumn{1}{|c|}{PC} & 0.74 & 0.96 & 0.30 & 0.91 \\            
-\hline                                       
-\multicolumn{1}{|c|}{TV 2} & 0.83 & 0.96 & 0.20 & 0.11 \\          
-\hline                                       
-\multicolumn{1}{|c|}{\textbf{Average House 3}} & \textbf{0.77} & \textbf{0.96} & \textbf{0.26} & \textbf{0.62} \\ 
-\hline                                       
-\multicolumn{1}{|c|}{TV 1} & 0.97 & 0.98 & 0.40 & 0.25 \\          
-\hline                                       
-\multicolumn{1}{|c|}{Stereo} & - & 1.00 & - & 1.00 \\              
-\hline                                       
-\multicolumn{1}{|c|}{PC} & - & 0.99 & - & 0.99 \\                  
-\hline                                       
-\multicolumn{1}{|c|}{TV 2} & - & 0.99 & - & 0.99 \\                
-\hline                                       
-\multicolumn{1}{|c|}{\textbf{Average House 10}} & \textbf{0.24} & \textbf{0.99} & \textbf{0.10} & \textbf{0.81} \\
-\hline                                       
-\multicolumn{1}{|c|}{TV 1} & 0.95 & 0.98 & 0.24 & 0.14 \\          
-\hline                                       
-\multicolumn{1}{|c|}{Lamp} & - & 0.99 & - & - \\                   
-\hline                                       
-\multicolumn{1}{|c|}{TV 2} & 0.73 & 0.58 & 0.73 & 0.58 \\          
-\hline                                       
-\multicolumn{1}{|c|}{\textbf{Average House 18}} & \textbf{0.56} & \textbf{0.85} & \textbf{0.32} & \textbf{0.24} \\
-\hline                                       
-\end{tabular}                                
+\begin{tabular}{cc|c|c|c|c|}
+\cline{3-6}
+                                                &        & \multicolumn{2}{c|}{FHMM} & \multicolumn{2}{c|}{Parson} \\ \cline{3-6} 
+                                                &        & F1        & Accuracy      & F1         & Accuracy       \\ \hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{House 3}}  & TV 1   & 0.73      & 0.96          & 0.26       & 0.86           \\ \cline{2-6} 
+\multicolumn{1}{|c|}{}                          & PC     & 0.74      & 0.96          & 0.30       & 0.91           \\ \cline{2-6} 
+\multicolumn{1}{|c|}{}                          & TV 2   & 0.83      & 0.96          & 0.20       & 0.11           \\ \hline
+\multicolumn{1}{|c|}{\multirow{4}{*}{House 10}} & TV 1   & 0.97      & 0.98          & 0.40       & 0.25           \\ \cline{2-6} 
+\multicolumn{1}{|c|}{}                          & Stereo & -         & 1.00          & -          & 1.00           \\ \cline{2-6} 
+\multicolumn{1}{|c|}{}                          & PC     & -         & 0.99          & -          & 0.99           \\ \cline{2-6} 
+\multicolumn{1}{|c|}{}                          & TV 2   & -         & 0.99          & -          & 0.99           \\ \hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{House 18}} & TV 1   & 0.95      & 0.98          & 0.24       & 0.14           \\ \cline{2-6} 
+\multicolumn{1}{|c|}{}                          & Lamp   & -         & 0.99          & -          & -              \\ \cline{2-6} 
+\multicolumn{1}{|c|}{}                          & TV 2   & 0.73      & 0.58          & 0.73       & 0.58           \\ \hline
+\end{tabular}                              
 \caption{Disaggregation of appliances on artificially constructed main meters }                     
 \label{table:Tab:SHGSIM}                     
 \end{table} 

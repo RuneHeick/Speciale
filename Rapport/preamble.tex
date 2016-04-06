@@ -255,3 +255,10 @@
    {}%
    {\newacronym{#1}{#1}{#2}}%
    \Gls{#1}}
+   
+\newcounter{AppendixCounter}
+\renewcommand{\theAppendixCounter}{\Alph{AppendixCounter}}
+
+\newcommand{\Appendix}[1]{\refstepcounter{AppendixCounter}\textbf{Appendix~\Alph{AppendixCounter}} \label{#1}}
+
+\usepackage{scrextend}
