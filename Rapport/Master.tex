@@ -27,7 +27,10 @@
 \lipsum[4] %dummy text 
 \end{abstract}
 
-\printglossary[nonumberlist] % type=\acronymtype,title=Abbreviations
+%\printglossary[nonumberlist] % type=\acronymtype,title=Abbreviations
+\printglossary[type=\acronymtype,title=Abbreviations,nonumberlist] % prints just the list of acronyms
+
+\printglossary[nonumberlist] % if no option is supplied the default glossary is printed.
 \newpage
 
 {%
