@@ -1,8 +1,8 @@
 \chapter{Appliance Recognition }
 \label{sec:AppRec}
-Appliance recognition and load disaggregation are some of the key aspects in \ab{NILM}[non-intrusive load monitoring]. The main purpose of the \ab{NILM} approach is to better understand the power usage in the home. This information is used by the electricity \df{operator} to better plan the energy production and distribution. It also have the potential to help the different households to more optimal power savings. This is done by informing the residents about the power consumption of individual appliances. It is shown that informing a household about its usages pattern can lead to significant savings \citep{RefWorks:33}. This makes the basis for load disaggregation, where appliance specific load is guessed based on the main meter load. This enables the user to know what uses the energy and when.
+Appliance recognition and load disaggregation are some of the key aspects in \ab{NILM}[non-intrusive load monitoring]. The main purpose of the \ab{NILM} approach is to better understand the power usage in the home. This information is used by the \df{operator} to better plan the energy production and distribution. It also have the potential to help the different households to more optimal power savings. This is done by informing the residents about the power consumption of individual appliances. It is shown that informing a household about its usages pattern can lead to significant savings \citep{RefWorks:33}. This makes the basis for load disaggregation, where appliance specific load is guessed based on the main meter load. This enables the user to know what uses the energy and when.
 
-One other aspect of \ab{NILM} is event detection. Sometime the actual consumption of an appliance is not as important as when it was used, and for how long \citep{RefWorks:23}. This is a simpler task than guessing the true consumption, and for some applications is a better approach. As an example is this kind of information sufficient if we want to track the activity of an elderly person in an assisted living situation~\citep{RefWorks:47}. 
+One other aspect of \ab{NILM} is event detection. Sometimes the actual consumption of an appliance is not as important as when it was used, and for how long \citep{RefWorks:23}. This is a simpler task than guessing the true consumption, and for some applications is a better approach. As an example is this kind of information sufficient if we want to track the activity of an elderly person in an assisted living situation~\citep{RefWorks:47}. 
 
 \section{NILM Concepts And Challenges} 
 The aim of \ab{NILM} is to partition the whole house consumption data in to appliance specific consumption. 
@@ -22,7 +22,7 @@ Type-II:&These are appliances with multiple states. The appliance in this catego
 Type-III:&These appliances are referred to as "Continuously Variable
 Devices". These devices have a variable power draw and is impossible to model as a finite state machine. This could be appliances like power drills, and dimmer lights. These are by far the hardest for the \ab{NILM} algorithms to detect. \\
 \\
-Type-IV:& These are a special kind of appliances that are always on and consume energy at a constant rate. Such devices could be smoke detectors and TV receivers.  \\
+Type-IV:& These are a special kind of appliances that are always ON and consume energy at a constant rate. Such devices could be smoke detectors and TV receivers.  \\
 \end{tabularx}
 
 Some of the different appliance types is illustrated in Figure~\ref{fig:ATO}. 
@@ -76,7 +76,7 @@ Many algorithms are based on clustering techniques and \ab{HMM}[hidden Markov mo
 \subsection{NILM Challenges} 
 There are many challenges in \ab{NILM}. One is the Type-III appliances. Due to their varying, and at times random, energy consumption it is hard to fit them to a behavioural model. This is made further harder by the low sample rate. Many great features of the appliances is hidden due to the low sample rate most data is collected with\citep{RefWorks:17}.
 
-A other problem is the "top consumer problem". In a household there are some appliances that require a lot of energy when they are on, such as stoves, air conditioners and refrigerators. These are often refereed to as the top consumers. Then there is the appliances that consumes very little energy like laptops, DVD players and routers. The \df{top consumers problem} is that the top consumers is so dominant that they make it hard to track the power signature of little consumers. This is why many researchers only focus on the top 10 consumers when during \ab{NILM} applications \citep{RefWorks:21}. 
+A other problem is the \df{top consumers problem}. In a household there are some appliances that require a lot of energy when they are on, such as stoves, air conditioners and refrigerators. These are often refereed to as the top consumers. Then there is the appliances that consumes very little energy like laptops, DVD players and routers. The \df{top consumers problem} is that the top consumers is so dominant that they make it hard to track the power signature of little consumers. This is why many researchers only focus on the top 10 consumers when during \ab{NILM} applications \citep{RefWorks:21}. 
 
 \section{Related Work} 
 \label{sec:RecRelatedwork}
@@ -86,7 +86,7 @@ To accommodate this problem the \ab{NILMTK}[NILM-Toolkit] was created. This is a
 
 Another framework to accomplish better comparison and sharing is the NILM-eval framework. This is based on Matlab and supports algorithms to be written in either Matlab or in python. The NILM-eval and the \ab{NILMTK} is created to solve the same problem, and is compatible with each other in the sense that the interface for algorithms are the same\citep{RefWorks:26}. 
 
-Deep neural networks have last years improved the area of computer vision and speech recognition remarkably. \ab{NILM} researchers are starting to look into if similar techniques can be used to improve data disaggregation. Neural networks have like \ab{HMM} the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural networks can outperform the classic \ab{HMM} approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on heavy consumers\citep{RefWorks:25}. Current research is looking that its potential in solving the heavy consumer problem, but no definite conclusions is yet to be reached. 
+Deep neural networks have last years improved the area of computer vision and speech recognition remarkably. \ab{NILM} researchers are starting to look into if similar techniques can be used to improve data disaggregation. Neural networks have like \ab{HMM} the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural networks can outperform the classic \ab{HMM} approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on top consumers\citep{RefWorks:25}. Current research is looking that its potential in solving the \df{top consumers problem}, but no definite conclusions is yet to be reached. 
 
 Many approaches is supervised, since this kind of approach is better at separating the appliances. But this require that you first build a database with information about all the appliances. To have this prior knowledge of the system seems unrealistic in an application setting, where it is most likely you do not know anything about the house. To combat this, various unsupervised methods have been developed. The focus in this kind of studies have been load separation for the sake of making power savings, or to inform the electric companies to help them create a more stable electric grid. There are several good algorithms for this today that support this purpose. For event detection and user habits analysis it is still most common to use the supervised approaches \citep{RefWorks:19}. This report will therefore focus on the supervised approaches. 
 
@@ -137,7 +137,7 @@ In this implementation there is normally used only two or three states, since mo
 \subsection{Parson}
 The Parson algorithem is a variant of the Kolter and Jaakkola algorithm\citep{RefWorks:22}. The algorithm is designed to be a semi-supervised learning algorithms. This means that the algorithm does not need to train on the data from the concrete house prior to deployment, but it still requires some prior knowledge. The idea is to have a database of general appliance models, that tells how specific appliances most likely will behave. This model will be able to detect the device, and do some unsupervised special training to better fit the concrete appliance. 
 
-The algorithm is based on a kind of HMM called "difference HMM" since they take the step difference in the aggregated data and use as the observed output $Y_t$. In a normal \ab{HMM} there is only emitted one output for each hidden state in a chain. In the Parson algorithm the model is changed to output two states from the hidden states $X_t$ and $Y$. This creates a model structure that can be graphically illustrated as in Figure~\ref{Fig:ParsonModel}\citep{RefWorks:28}. 
+The algorithm is based on a kind of HMM called "difference HMM" since they take the step difference in the aggregated data and use as the observed output $Y_t$. In a normal \ab{HMM} there is only emitted one output for each hidden state in a chain. In the Parson algorithm the model is changed to output two states from the hidden states $X_t$ and $Y_t$. This creates a model structure that can be graphically illustrated as in Figure~\ref{Fig:ParsonModel}\citep{RefWorks:28}. 
 
 \begin{figure}[H]
 \begin{picture}(0,140)
@@ -183,9 +183,9 @@ In the implementation validated in this report are all appliances modelled as Ty
 \subsection{Weiss}
 The algorithm proposed by Weiss called "AppliSense" is a other approach that do not use Markov models\citep{RefWorks:23}. The philosophy is that some appliances like lamps and kettles are purely resistive, where others like washing machines and air conditions are more inductive and some appliances like laptops are more capacitive. By measuring not only the power consumption, but also the amount of reactive power it is revealed if there is inductive or capacitive appliances.
 
-The algorithm is supervised since it requires a signature database to be created prior to usage. The signature database consists of how the changes will be in reactive and real power for a specific device when it is turned on and off. In their paper the authors show a method where this database can be created of a user, by using a smart-phone application and turning on and off appliances in the house, and inputting the information in the mobile application\citep{RefWorks:23}. In this paper the database is created by data collected from the sub-meters measuring only the devices.  
+The algorithm is supervised since it requires a signature database to be created prior to usage. The signature database consists of how the changes will be in reactive and real power for a specific device when it is turned ON and OFF. In their paper the authors show a method where this database can be created of a user, by using a smart-phone application and turning ON and OFF appliances in the house, and inputting the information in the mobile application\citep{RefWorks:23}. In this paper the database is created by data collected from the sub-meters measuring only the devices.  
 
-The algorithm looks for significant power changes in the data. If a change is found it is assumed to be an on or off event. The change is now compared to all the values in the database. If a close match is found it is assumed to be this device, if not it is a unknown device. This limits the approach to Type-I appliances, and the algorithm requires the reactive power to be measured. 
+The algorithm looks for significant power changes in the data. If a change is found it is assumed to be an ON or OFF event. The change is now compared to all the values in the database. If a close match is found it is assumed to be this device, if not it is a unknown device. This limits the approach to Type-I appliances, and the algorithm requires the reactive power to be measured. 
 
 \section{The ECO Dataset}
 The experiments in this chapter will be done on the \ab{ECO}[Electricity Consumption and Occupancy] dataset~\citep{RefWorks:26},~\citep{RefWorks:27}. The dataset consists of electricity consumption measured from six households that have been equipped with sub-meters on selected meters and the main meter. The data is collected in Switzerland in the period June 2012 to January 2012. 
@@ -199,16 +199,16 @@ The data is sampled with a resolution on 1 Hz on both the sub-meters and the mai
 \label{fig:EHD}
 \end{figure}
 
-In Figure~\ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses in the \ab{ECO} dataset. For house two, more than $75\%$ of the energy usages is accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who the the heavy consumers are and who the little consumers are.  
+In Figure~\ref{fig:EHD} is shown how different appliances are responsible for the energy consumption in the different houses in the \ab{ECO} dataset. For house two, more than $75\%$ of the energy usages is accounted for by the sub-meters. This makes house two a preferred candidate for experiments, since we know who the the top consumers are and who the little consumers are.  
 
 \section{Validation of Methods} 
 \label{sec:VOM}
 This section describes the experiments conducted using the three methods mentioned in Section~\ref{RecognitionMethods}. The experiments is validated using F1 and accuracy sensitivity and specificity metrics's. Since the focus is event detection a sample can fall in one of four categories. 
 
 \begin{tabularx}{\linewidth}{ r X }
-True Positive& This is when the guess says that there is an event, and there really is an event. Corresponding to the appliance is on. \\
+True Positive& This is when the guess says that there is an event, and there really is an event. Corresponding to the appliance is ON. \\
 \\
-True Negative&This is when the guess says that there is no event, and there really is no event. Corresponding to when an appliance is turned off. \\
+True Negative&This is when the guess says that there is no event, and there really is no event. Corresponding to when an appliance is turned OFF. \\
 \\
 False Positive& This is when the guess says that there is an event, but there really is no event. \\
 \\
@@ -227,9 +227,9 @@ The F1 and accuracy score is calculated as shown in Equation~\ref{EQ:F1} and Equ
 		accuracy = \frac{TP+TN}{TN+TP+FN+FP} \label{EQ:ACC}
 \end{gather}
 
-The F1 score is mainly focused on how well the system guesses the the events, and do not score the true negatives. The accuracy is slightly different in that it looks at how many correct guesses there are in relation to the total amount of guesses. For a \ab{NILM} application the accuracy score on its own is not a very representative metric since some appliances have way more off time than on time \citep{RefWorks:35}. To guess that a appliance is off is just as good at guessing that it is on for the accuracy score. Appliances that are mostly off can therefore get a high accuracy score even though it is hard to determine when they are on. Therefore is it necessary also to look at the F1-score. This score tells how accurate it can be guessed when a appliance is on. This is done by combining the recall, that tells how many true positive was guess correctly in relation to the total amount of positives, as described by Equation~\ref{EQ:recall}, and the precision that is the ratio of correct guessed positives events in relation to all positive guesses, as shown on Equation~\ref{EQ:prec}. 
+The F1 score is mainly focused on how well the system guesses the the events, and do not score the true negatives. The accuracy is slightly different in that it looks at how many correct guesses there are in relation to the total amount of guesses. For a \ab{NILM} application the accuracy score on its own is not a very representative metric since some appliances have way more OFF time than ON time \citep{RefWorks:35}. To guess that a appliance is OFF is just as good at guessing that it is ON for the accuracy score. Appliances that are mostly OFF can therefore get a high accuracy score even though it is hard to determine when they are ON. Therefore is it necessary also to look at the F1-score. This score tells how accurate it can be guessed when a appliance is ON. This is done by combining the recall, that tells how many true positive was guess correctly in relation to the total amount of positives, as described by Equation~\ref{EQ:recall}, and the precision that is the ratio of correct guessed positives events in relation to all positive guesses, as shown in Equation~\ref{EQ:prec}. 
 
-Five appliances have been selected from the \ab{ECO} dataset house 2. The appliances have been selected so there is some heavy and some little consumers. The appliances selected are: water kettle, fridge, TV, stereo and Laptop. All the methods will be traind using a training period of 15 days and validated on 75 days of data. 
+Five appliances have been selected from the \ab{ECO} dataset house 2. The appliances have been selected so there is some top and some little consumers. The appliances selected are: water kettle, fridge, TV, stereo and Laptop. All the methods will be traind using a training period of 15 days and validated on 75 days of data. 
 
 \subsection{Sample rate experiment}
 Common for the three methods is that they are designed for signals sampled at low sample rates in the sub 1 Hz rate. To determined the sensitivity, on the sample rate, is an experiment conducted where the dataset is downsampled to simulate different sampling rates. The downsampling is done by applying a mean filter, so the new sample will be the average values of the samples in a specific period. This method is selected since it is the assumed behaviour of a meter that transmits samples at low rates. 
@@ -243,7 +243,7 @@ The results shown in Figure~\ref{fig:DSE} illustrates the average score of the d
 \label{fig:DSE}
 \end{figure}
 
-Both the accuracy and F1 score is shown. It is shown that for the Weiss clustering algorithms the overall performance is decreasing for both scores. This indicates that it is both harder for it to determine when an appliance is on and when it is off. There is all most no change in the F1 score for the Parson and \ab{FHMM} algorithms that both builds on \ab{HMM}. Where the accuracy is decreasing for the parson as well. This tells that it finds the areas where the appliance is on just as well at high sample rate as for low. But to correctly guess the off periods is getting harder for the parson algorithm, where the \ab{FHMM} algorithm seems to be unaffected. 
+Both the accuracy and F1 score is shown. It is shown that for the Weiss clustering algorithms the overall performance is decreasing for both scores. This indicates that it is both harder for it to determine when an appliance is ON and when it is OFF. There is all most no change in the F1 score for the Parson and \ab{FHMM} algorithms that both builds on \ab{HMM}. Where the accuracy is decreasing for the parson as well. This tells that it finds the areas where the appliance is ON just as well at high sample rate as for low. But to correctly guess the OFF periods is getting harder for the parson algorithm, where the \ab{FHMM} algorithm seems to be unaffected. 
 
 It seems that for high sample rates does the Weiss algorithm preform superior to the others, where for lower is the Parson algorithm that preforms well. The \ab{FHMM} algorithm seems to preform worse that the others, but is more robust to changes in the sample rate. 
 
@@ -256,11 +256,11 @@ The results shown in Figure~\ref{fig:DSE} is the average for all appliances. The
 \label{fig:AccGS}
 \end{figure}
 
-Since the accuracy score tells how well all events are guessed it can be heavily dominated by the off events. Most of the appliances selected is mostly off appliances. Especially the water kettle is a good example as it is only used a few minutes each morning, and is off rest of the time. If it was assumed that this device was always off it would get a fairly high score since it is off most of the time.  
+Since the accuracy score tells how well all events are guessed it can be heavily dominated by the OFF events. Most of the appliances selected is mostly OFF appliances. Especially the water kettle is a good example, as it is only used a few minutes each morning, and is OFF rest of the time. If it was assumed that this device was always OFF it would get a fairly high score since it is OFF most of the time.  
 
 This is the reason why the score is fairly high for all the different appliances. It is also shown that the top algorithm is different form appliance to appliance. The fridge and the stereo is the only appliances that are greatly affected by the change in sample rate, the rest seems to be  relatively stable.
 
-Since the accuracy score is dominated by the off periods, the F1 score is also shown in Figure~\ref{fig:AppF1}. This once again indicates how the different appliances has different algorithms that best detect them.  
+Since the accuracy score is dominated by the OFF periods, the F1 score is also shown in Figure~\ref{fig:AppF1}. This once again indicates how the different appliances has different algorithms that best detect them.  
 
 
 \begin{figure}[H]

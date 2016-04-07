@@ -1,8 +1,7 @@
 \input{preamble}
-
 \makeglossaries
+
 %----------------------------------------------------------------------------------------
-\pagenumbering{roman}
 \input{sections/definitions}
 
 \begin{document}
@@ -11,78 +10,76 @@
 
 \includepdf{sections/forside}
 
-\newpage\null\thispagestyle{empty}\newpage
+%\newpage\null\thispagestyle{empty}\newpage
 %----------------------------------------------------------------------------------------
-%	ABSTRACT
+%	FRONTMATTER
 %----------------------------------------------------------------------------------------
-\setcounter{page}{1}
-\begin{abstract}
-\fxnote{Write an abstract}
-\lipsum[7] %dummy text 
-\end{abstract}
+\frontmatter
 
-\renewcommand{\abstractname}{Resumé}
-\begin{abstract}
-\fxnote{Write an abstract}
-\lipsum[4] %dummy text 
-\end{abstract}
+\input{sections/Abstract}
 
-%\printglossary[nonumberlist] % type=\acronymtype,title=Abbreviations
+% Glossary and Abbreviations
+%----------------------------------------------------------------------------------------
 \printglossary[type=\acronymtype,title=Abbreviations,nonumberlist] % prints just the list of acronyms
 
 \printglossary[nonumberlist] % if no option is supplied the default glossary is printed.
 \newpage
 
+% List of Figurs/Tables
+%----------------------------------------------------------------------------------------
 {%
 \let\oldnumberline\numberline%
 \renewcommand{\numberline}{\figurename~\oldnumberline}%
 \listoffigures%
 }
-
+\vspace{10mm}
 {%
 \let\oldnumberline\numberline%
 \renewcommand{\numberline}{\tablename~\oldnumberline}%
 \listoftables%
 }
 
+% TOC
+%----------------------------------------------------------------------------------------
 \newpage
 \tableofcontents
 
 %----------------------------------------------------------------------------------------
-%	ARTICLE CONTENTS
+%	MAINMATTER
 %----------------------------------------------------------------------------------------
+\mainmatter
 
 %2 pages
-\glsresetall
+\resetAcr
 \input{sections/Intro}
 
 % 6 pages
-\glsresetall 
+\resetAcr 
 \input{sections/DataQuality}
 
 % 8 pages
-\glsresetall
+\resetAcr
 \input{sections/Reconstruction} 
 
 % 19 pages
-\glsresetall
+\resetAcr
 \input{sections/Recognition} 
 
 % 14 pages
-\glsresetall
+\resetAcr
 \input{sections/SmartHGRecongnition}
 
 %4 pages
-\glsresetall
+\resetAcr
 \input{sections/NILMApp}
 
 % 3 pages
-\glsresetall
+\resetAcr
 \input{sections/Discussion}
 
 % 1 pages
-\glsresetall
-\chapter{Conclusion}
+\resetAcr
+\input{sections/Conclusion}
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------

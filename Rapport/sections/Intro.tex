@@ -1,6 +1,4 @@
 \chapter{Introduction}
-\pagenumbering{arabic}
-
 In the past electricity production and consumption was localised to small communities. The communities often had one electricity utility company supplying the required energy. As the energy demand increased beyond single production facilities, the solution was to add more production facilities that could support in peak hours. This approach is costly, since such support facilities must be kept in a standby state, ready to deliver additional energy at a moments notice~\citep{RefWorks:46}. As the electric grid expanded, it began to interconnect the communities. The distribution of energy in the grid also became a challenging task. Today's electricity grids are a more global grid that span many communities, and even countries. The consumer plays a passive part in the grid. It is the  operators of the electricity grid that must ensure that energy is delivered at the different consumers, at correct quantities, without overloading the grid. Furthermore must the impact errors and damages have on the grid be minimised~\citep{RefWorks:43}. 
 
 \section{Smart-grid}
@@ -31,7 +29,7 @@ Distribution:& The units responsible of electricity distribution to and from the
 Customer:& The consumers of electricity. They may also generate electricity and sell it to the grid. \\\\
 
 Operator:& The managers of the movement and production of electricity. They are the group that ensures that the energy is efficiently delivered where it is needed. \\\\
-Market:& The sale and purchase of electricity between the different instances of the grid. Not just the \df{customer} uses this instance. Utility company can also purchase power from another to keep up with demand at peek hours. \\\\
+Market:& The sale and purchase of electricity between the different instances of the grid. Not just the \df{customer} uses this instance. Utility company can also purchase power from each other to keep up with demand at peek hours. \\\\
 Service Provider:& The organisations providing services to the utility companies or the consumer. This could be home automation or information services.  \\
 \end{tabularx}
 
@@ -47,11 +45,11 @@ In today's smart-grid are all \df{customer}\textit{s} equipped with smart-meters
 
 \section{The Problem Statement}
 
-This report seek to investigate some of the common approaches used for \ab{NILM} today, in order to determine the capabilities of such approaches. It is assumed that such approaches are used in a modern smart-grid setting. In order to answer this broad question, the following questions must be investigated. 
+This master's thesis seek to investigate some of the common approaches used for \ab{NILM} today, in order to determine the capabilities of such approaches. It is assumed that the \ab{NILM} approaches are used in a modern smart-grid setting. In order to answer this broad question, the following questions must be investigated. 
 
 \begin{itemize}
-\item	\textbf{What quality of data can be expected from a smart-meters infrastructure?}\\
-In a smart grid is a lot of information collected from various points. For a system that needs the smart-meters data to be collected on a server, what quality can be expected? And where in the infrastructure that transports the information, over the Internet, is the quality being compromised? 
+\item	\textbf{What quality of data can be expected from a smart-meter infrastructure?}\\
+In a smart grid is a lot of information collected from various points. For a system that needs the smart-meters data to be collected on a server, what quality can be expected? And where in the infrastructure that collects and transports the information over the Internet, is the quality being compromised? \\
 	
 	
 \item	\textbf{How does sample errors and poor quality affect \ab{NILM} applications?}\\
@@ -60,14 +58,14 @@ If the system contains errors, due to samples being lost in the network, how doe
 \item	\textbf{What behaviours can be detected using \ab{NILM} and where are the limits?} \\
 How detailed is it possible to gesture about the behaviour of the appliances in a household? Where are the limits of susses? And what does these limits depend on?  \\
 	
-\item	\textbf{What can be done to improve the performance of \ab{NILM} technology?}
+\item	\textbf{What can be done to improve the performance of \ab{NILM} technology?}\\
 Is it possible to clean data to improve quality and performance? What aspects is the bottlenecks for \ab{NILM} technology today, and how does one improve on this basis? \\
 
 \end{itemize}
 If these question is answered it creates a strong foundation for gesturing about the the capability of \ab{NILM}. The main motivation for this study is not to improve grid load predictions, but to get a better basis for validate different \ab{NILM} related business opportunities for \dfs{service provider}. \\
 
 \section{The Approach}
-In order to investigate the questions in the problem statement is real data needed. Research on the  popular methods and definitions in various areas of \ab{NILM}, Quality and Machine learning has been analysed. The result is used to create the basis of the experiments conducted in this master's thesis. 
+In order to investigate the questions in the problem statement is real data needed. Research on the  popular methods and definitions in various areas of \ab{NILM}, quality and machine learning has been analysed. The result is used to create the basis of the experiments conducted in this master's thesis. 
 
 \subsection{The Data Approach}
 As dataset is the SmartHG dataset used. The SmartHG dataset is a collection of smart-meter data collected from 25 residential households in Denmark. The data is not filtered or cleaned in any way prior usage. This means that the data closely resembles what would be collected in a smart-grid. Furthermore does the dataset contain information about the usage pattern of selected devices. This information can be used to compare inferred usage patterns to the actual. 
