@@ -81,6 +81,10 @@ This could be due to \df{appliance interference}. This happens when appliances a
 
 \Df{appliance interference} has a profound effect on the Parson algorithm. The parson algorithm is designed to split up appliances based on appliance categories. This is achieved by utilizing a set of general models. Since a lot of the appliances are similar in their consumption changes from state to state are the model used by the Parson algorithm almost identical. This leads to the events being wrongly categorised. The usages of general models is one of the benefits of the Parson algorithm, since it makes the algorithm very portable between unknown domains. Unfortunately does this feature come whit the downside of increased sensibility to \df{appliance interference}. The influence of \df{appliance interference} is further studied in Section~\ref{sec:MCT}. 
 
+
+%Test af newline
+\newpage
+
 \subsection{Background Consumption Effect On Training And Validation }
 The experiments in the two previous Section~\ref{sec:NOISE} and Section~\ref{sec:NOISEFREE} suggest that \df{background consumption} has an impact on the performance of the system. But for a system based on machine learning techniques like the \ab{FHMM} and the Parson algorithms it raises the questions, is it to hard for the system to train the correct statistical disaggregation models in the signal with much \df{background consumption}? or are the \df{background consumption} just interfering with the disaggregation process? 
 
@@ -165,9 +169,9 @@ The \Df{norm filter} is only recommended if the accuracy and F1 score of the dis
 
 \section{Model Complexity And Completeness Influence }
 \label{sec:MCACI}
-Some of the parameters that often differ in the environments where \ab{NILM} applications are deployed, is the number of appliances. As previously disused is not all appliances included in the statistical disaggregation models used by the \ab{FHMM} and Parson algorithms. These are the appliances creating the \df{background consumption}. The statistical disaggregation models often contain the information needed to do disaggregation on multiple appliances. The number of appliances included in the statistical disaggregation model is defined as the \df{complexity} of the model. The \df{complexity} tells only how many appliances a given model is trained to detect. As the \df{complexity} in a \ab{NILM} application is increasing the detection rate is deceasing~\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. The \df{complexity} tells nothing about the appliances creating the \df{background consumption}. 
+Some of the parameters that often differ in the environments where \ab{NILM} applications are deployed, is the number of appliances. As previously disused is not all appliances included in the statistical disaggregation models used by the \ab{FHMM} and Parson algorithms. These are the appliances creating the \df{background consumption}. The statistical disaggregation models often contain the information needed to do disaggregation on multiple appliances. The number of appliances in the environment is defined as the \df{complexity} of the model. The \df{complexity} does not tells how many appliances there is in a given model. As the \df{complexity} in a \ab{NILM} application is increasing the detection rate is deceasing~\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. The \df{complexity} is the sum of appliances creating the \df{background consumption} and the appliances in the statistical disaggregation model. 
 
-An other metric looks at the ratio between the \df{complexity} and the total number of appliances in the environment. This ratio is called the \df{completeness} of the model, since it indicate how many of the total appliances that are include in the model. The total number of appliances in the environment can be seen as the number of appliances creating the \df{background consumption} plus the \df{complexity}.
+An other metric looks at the ratio between the number of appliances in the statistical disaggregation model and the \df{complexity}. This ratio is called the \df{completeness} of the model, since it indicate how many of the total appliances that are include in the model.
 
 
 \subsection{Test Set Creation}
@@ -185,21 +189,21 @@ If the \df{TV house dataset} was seen as a set of sub-meters as mathematically s
 	\label{EQ:SUBMS}
 \end{equation}
 
-Since there is no \df{background consumption}, can the main meter data be artificially created as the sum of sub-meters data as shown in Equation~\ref{EQ:SUMSUB}. Where $X$ is the vector of sub-meter measurements from the televisions. $M_{main}$ is a vector containing the artificial main meter consumption data. 
+Since there is no \df{background consumption}, can the main meter data be artificially created as the sum of sub-meter data as shown in Equation~\ref{EQ:SUMSUB}. Where $X$ is the vector of sub-meter measurements from the televisions. $M_{main}$ is a vector containing the artificial main meter consumption data. 
 
 \begin{equation}
 	M_{main} = \sum_{X \in \textbf{S}_{full}}X
 	\label{EQ:SUMSUB}
 \end{equation}
 
-Using this approach it is possible to create a set with a specific number of appliances. This can be achieved by taking a subset of the $\textbf{S}_{full}$ set with the cardinality of the desired number of appliances. The main meter can now be found for this subset, using the same principle as in Equation~\ref{EQ:SUMSUB}. Using the Equation~\ref{EQ:TVCARSET}, it is possible to find a set of all sets with a desired number of appliances $c$.
+Using this approach it is possible to create a set with a specific \df{complexity}. This can be achieved by taking a subset of the $\textbf{S}_{full}$ set with the cardinality of the desired number of appliances. The main meter can now be found for this subset, using the same principle as in Equation~\ref{EQ:SUMSUB}. Using the Equation~\ref{EQ:TVCARSET}, it is possible to find a set of all sets with a desired \df{complexity} $c$.
 
 \begin{equation}
 	\textbf{H}_c = \{ x | x \in \powerset{\textbf{S}_{full}}, \forall |x| = c   \}
 	\label{EQ:TVCARSET}
 \end{equation}
 
-This is done using a set comprehension that iterates over the power set of $\textbf{S}_{full}$ and picking out all sets that have a cardinality equal to the desired number of appliances $c$. $\textbf{H}_c$ is therefore a set of sets with a given number of appliances. This can be graphically shown as in Figure~\ref{fig:PSILLU}. 
+This is done using a set comprehension that iterates over the power set of $\textbf{S}_{full}$ and picking out all sets that have a cardinality equal to the desired \df{complexity} $c$. $\textbf{H}_c$ is therefore a set of sets with a given \df{complexity}. This can be graphically shown as in Figure~\ref{fig:PSILLU}. 
 
 \begin{figure}[H]
 \begin{picture}(0,200)
@@ -215,7 +219,7 @@ This is done using a set comprehension that iterates over the power set of $\tex
 \label{fig:PSILLU}
 \end{figure}
 
-Where the $\textbf{H}_7$ only contains the $\textbf{S}_{full}$ set. In the figure is illustrated the relative energy usage of each appliance in a dataset.   In this manner it is possible to artificially create one or more datasets with a desired number of appliances, equal to or less than the number of appliances in $\textbf{S}_{full}$. The amount of artificiality created houses for a desired number of appliances can be found by using the simple combinatorial equation shown in Equation~\ref{EQ:nCr}. Where $|\textbf{H}_c|$ is the cardinality of $\textbf{H}_c$. The number of desired appliances is $c$, and the size of the pool for which appliances can be selected from is given by the cardinality of $\textbf{S}_{full}$.
+Where the $\textbf{H}_7$ only contains the $\textbf{S}_{full}$ set. In the figure is illustrated the relative energy usage of each appliance in a dataset. In this manner is it possible to artificially create one or more datasets with a desired \df{complexity}, equal to or less than the number of appliances in $\textbf{S}_{full}$. The amount of artificiality created houses with a desired \df{complexity} can be found by using the simple combinatorial equation shown in Equation~\ref{EQ:nCr}. Where $|\textbf{H}_c|$ is the cardinality of $\textbf{H}_c$. The desired \df{complexity} is $c$, and the size of the pool for which appliances can be selected from is given by the cardinality of $\textbf{S}_{full}$.
 
 \begin{gather}
 		|\textbf{H}_c| = \frac{|\textbf{S}_{full}|!}{c! \times (|\textbf{S}_{full}| - c)!} \label{EQ:nCr} \\
@@ -228,12 +232,12 @@ As illustrated in Figure~\ref{fig:PSILLU} can an appliance appear in multiple se
 
 \input{tables/TvhouseTab}
 
-In the case of the \df{TV house dataset} can the cardinality of $\textbf{H}_c$ and $A_c$ values for the different number of appliances $c$, be seen in Table~\ref{Tab:TvHouse}. The cardinality of $\textbf{H}_c$ tells how many artificial houses can be constructed with the desired number of appliances $c$. The $A_c$ values tells how many artificial houses contains a specific TV.
+In the case of the \df{TV house dataset} can the cardinality of $\textbf{H}_c$ and $A_c$ values for the different number of appliances $c$, be seen in Table~\ref{Tab:TvHouse}. The cardinality of $\textbf{H}_c$ tells how many artificial houses that can be constructed with the desired \df{complexity} $c$. The $A_c$ values tells how many artificial houses contains a specific TV.
 
 
 \subsection{Model Complexity Test}
 \label{sec:MCT}
-To investigate the effect the \df{complexity} of the statistical disaggregation models have on the performance of a \ab{NILM} system, is disaggregation done on every artificial house that can be created from $\textbf{H}$. The experiment is conducted by training the models be able to disaggregate all the appliances in a given scenario. This creates an environment where there is no \df{background consumption} that can interfere.
+To investigate the effect the \df{complexity} of the statistical disaggregation models have on the performance of a \ab{NILM} system, is disaggregation done on every artificial house that can be created from $\textbf{H}$. The experiment is conducted by training the models to be able to disaggregate all the appliances in a given scenario. This creates an environment where there is no \df{background consumption} that can interfere.
 
 \begin{figure}[H]
 \centering
@@ -244,7 +248,7 @@ To investigate the effect the \df{complexity} of the statistical disaggregation 
 
 The test is performed on every combination, to ensure that there is not some combination that are more favourable than others. The results shown in Figure~\ref{fig:COMPT} are the average of the results from the many combinations as described in Section~\ref{sec:datasetCreation}. 
 
-For the most part it is fairly easy to correctly classify the TV's when the complexity is only one. As a general trend does the F1 and accuracy score of the TV's decrease as the complexity of the house increase. This is due to the \df{appliance interference}. The \df{appliance interference} effect is when there actually is an event, but the system classifies it to the wrong device.  An effect of this is most clearly seen on TV 2 signal. TV 2 is a very complex signal, and is therefore hard to track by the algorithm, as seen at the $\textbf{H}_1$ complexity that have an F1 score on almost zero. When the complexity is increased it looks like it is easier to detect the signal, and the F1 score is increasing. What is actually happening is \df{appliance interference} from the other TV's. Since all the appliances are TV's they have a lot of overlap in their usage. A lot of people watches TV at the same time of day e.g. between 18:00-22:00. This makes the algorithm encounter signal's that are similar in structure for the different TV's. It has a hard time deciding which appliance is responsible. Therefore can some events generated by the other TV's be assigned as TV 2. If by chance TV 2 actually was on when the events from the other TV's was wrongfully assigned, the F1 and accuracy score of TV 2 would improve. 
+For the most part it is fairly easy to correctly classify the TV's when the \df{complexity} is only one. As a general trend does the F1 and accuracy score of the TV's decrease as the \df{complexity} of the house increase. This is due to the \df{appliance interference}. The \df{appliance interference} effect is when there actually is an event, but the system classifies it to the wrong device.  An effect of this is most clearly seen on TV 2 signal. TV 2 is a very complex signal, and is therefore hard to track by the algorithm, as seen at the $\textbf{H}_1$ \df{complexity} that have an F1 score on almost zero. When the \df{complexity} is increased it looks like it is easier to detect the signal, and the F1 score is increasing. What is actually happening is \df{appliance interference} from the other TV's. Since all the appliances are TV's they have a lot of overlap in their usage. A lot of people watches TV at the same time of day e.g. between 18:00-22:00. This makes the algorithm encounter signal's that are similar in structure for the different TV's. It has a hard time deciding which appliance is responsible. Therefore can some events generated by the other TV's be assigned as TV 2. If by chance TV 2 actually was on when the events from the other TV's was wrongfully assigned, the F1 and accuracy score of TV 2 would improve. 
 
 For other appliances that are not as hard to classify as TV 2 will the \df{appliance interference} effect decrease the F1 and accuracy score as seen in the figure. 
 
@@ -257,7 +261,7 @@ To further investigate this was an experiment conducted on the \df{TV house data
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{billeder/ModelCompletness.png}
+\includegraphics[width=0.9\textwidth]{billeder/ModelCompletness.png}
 \caption{Completeness test of disaggregation of appliances in the TV house dataset }
 \label{fig:COD}
 \end{figure}
@@ -269,7 +273,7 @@ This indicates that 7 instances of the algorithms working in parallel, each disa
 The results indicate that the performance is more depended on the \df{complexity} of the model, rather than the \df{completeness}.
 
 \section{Chapter Summery}
-The findings in this chapter indicates that the \df{complexity} of a dataset has a profound impact on the detection performance. A simple way to decrease the performance in a house is to look at each phase in the house separately. This is one of the techniques used in the \ab{ECO} dataset to improve the performance in the system. This does require additional knowledge of which appliances that are connected to which phases. This knowledge can be analytically extracted from the dataset, or supplied by the household. 
+The findings in this chapter indicates that the \df{complexity} of a dataset has a profound impact on the detection performance. A simple way to increase the performance in a house is to look at each phase in the house separately. This is one of the techniques used in the \ab{ECO} dataset to improve the performance in the system. This does require additional knowledge of which appliances that are connected to which phases. This knowledge can be analytically extracted from the dataset, or supplied by the household. 
 
 It is also indicated that the methods based on the \ab{HMM} does not greatly improve by knowing the entire house model, in relation to only knowing a sub part. This can indicate that a system that focus on detecting each appliance individuality, potentially can detect the appliance as well as one that tires to see the house as a whole.   
 

@@ -137,7 +137,7 @@ In this implementation there is normally used only two or three states, since mo
 \subsection{Parson}
 The Parson algorithem is a variant of the Kolter and Jaakkola algorithm\citep{RefWorks:22}. The algorithm is designed to be a semi-supervised learning algorithms. This means that the algorithm does not need to train on the data from the concrete house prior to deployment, but it still requires some prior knowledge. The idea is to have a database of general appliance models, that tells how specific appliances most likely will behave. This model will be able to detect the device, and do some unsupervised special training to better fit the concrete appliance. 
 
-The algorithm is based on a kind of HMM called "difference HMM" since they take the step difference in the aggregated data and use as the observed output $Y_t$. In a normal \ab{HMM} there is only emitted one output for each hidden state in a chain. In the Parson algorithm the model is changed to output two states from the hidden states $X_t$ and $Y_t$. This creates a model structure that can be graphically illustrated as in Figure~\ref{Fig:ParsonModel}\citep{RefWorks:28}. 
+The algorithm is based on a kind of HMM called "difference HMM" since they take the step difference in the aggregated data and use as the observed output $Y_t$. In a normal \ab{HMM} there is only emitted one output for each hidden state in a chain. In the Parson algorithm the model is changed to output two states from the hidden states $X_t$ and $Y_t$. This creates a model structure that can be graphically illustrated as in Figure~\ref{Fig:ParsonModel}~\citep{RefWorks:28}. 
 
 \begin{figure}[H]
 \begin{picture}(0,140)
@@ -251,7 +251,7 @@ The results shown in Figure~\ref{fig:DSE} is the average for all appliances. The
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{billeder/App-AccuracyScore.png}
+\includegraphics[width=1\textwidth]{billeder/App-AccuracyScore.png}
 \caption{Appliances accuracy score}
 \label{fig:AccGS}
 \end{figure}
@@ -265,7 +265,7 @@ Since the accuracy score is dominated by the OFF periods, the F1 score is also s
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{billeder/App-F1Score.png}
+\includegraphics[width=1\textwidth]{billeder/App-F1Score.png}
 \caption{Appliances F1 score}
 \label{fig:AppF1}
 \end{figure}
@@ -345,6 +345,8 @@ In Figure~\ref{fig:ERWEISS} is the result from the reconstruction with the Weiss
 
 The low score indicates that the method in it self is struggling to identify the appliance, and the data error is therefore not the primary problem.  
 
+
+\newpage
 \section{Chapter Summary}
 In the chapter the effects of errors and gaps in the dataset is investigated. It is shown that a system that simply ignores that errors will perform worse than one that ties to do some compensation. The amount and type of compensation is shown to be very signal depended. In general is a simple linear interpolation enough when using algorithms that are designed for low frequency signals. 
 
