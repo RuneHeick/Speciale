@@ -4,7 +4,7 @@
 {%
 name={\acronymfont {\glsentryshort {NIST}}},%
 sort={NIST},%
-type={main},%
+type={acronym},%
 first={NIST},%
 firstplural={NISTs},%
 text={NIST},%
@@ -34,7 +34,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {UDP}}},%
 sort={UDP},%
-type={main},%
+type={acronym},%
 first={UDP},%
 firstplural={UDPs},%
 text={UDP},%
@@ -64,7 +64,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {P-G}}},%
 sort={P-G},%
-type={main},%
+type={acronym},%
 first={P-G},%
 firstplural={P-Gs},%
 text={P-G},%
@@ -94,7 +94,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {SSA}}},%
 sort={SSA},%
-type={main},%
+type={acronym},%
 first={SSA},%
 firstplural={SSAs},%
 text={SSA},%
@@ -124,7 +124,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {EMD}}},%
 sort={EMD},%
-type={main},%
+type={acronym},%
 first={EMD},%
 firstplural={EMDs},%
 text={EMD},%
@@ -154,7 +154,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {IMF}}},%
 sort={IMF},%
-type={main},%
+type={acronym},%
 first={IMF},%
 firstplural={IMFs},%
 text={IMF},%
@@ -184,7 +184,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {NILM}}},%
 sort={NILM},%
-type={main},%
+type={acronym},%
 first={NILM},%
 firstplural={NILMs},%
 text={NILM},%
@@ -214,7 +214,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {HMM}}},%
 sort={HMM},%
-type={main},%
+type={acronym},%
 first={HMM},%
 firstplural={HMMs},%
 text={HMM},%
@@ -244,7 +244,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {NILMTK}}},%
 sort={NILMTK},%
-type={main},%
+type={acronym},%
 first={NILMTK},%
 firstplural={NILMTKs},%
 text={NILMTK},%
@@ -274,7 +274,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {FHMM}}},%
 sort={FHMM},%
-type={main},%
+type={acronym},%
 first={FHMM},%
 firstplural={FHMMs},%
 text={FHMM},%
@@ -304,7 +304,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {ECO}}},%
 sort={ECO},%
-type={main},%
+type={acronym},%
 first={ECO},%
 firstplural={ECOs},%
 text={ECO},%
@@ -334,7 +334,7 @@ parent={},%
 {%
 name={\acronymfont {\glsentryshort {NILL}}},%
 sort={NILL},%
-type={main},%
+type={acronym},%
 first={NILL},%
 firstplural={NILLs},%
 text={NILL},%

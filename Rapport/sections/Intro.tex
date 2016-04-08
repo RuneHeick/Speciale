@@ -20,20 +20,22 @@ There are many different kind of stakeholders in today's smart-grid. In order to
 Figure~\ref{fig:CMOSG} illustrates the seven domains. The seven domains each have a set of functions that is characteristic for the domain~\citep{RefWorks:41}.  
  
 \begin{tabularx}{\linewidth}{ r X }
-Generation:& The \df{generator} role is the generators of electricity. This is typically coal, oil or nuclear power plants or large-scale hydro generators. This can also include energy storage facilities that stores energy for later distribution. \\\\
+Generation:& The \glsreset{generator}\df{generator} role is the generators of electricity. This is typically coal, oil or nuclear power plants or large-scale hydro generators. This can also include energy storage facilities that stores energy for later distribution. \\\\
 
-Transmission:& \df{transmission} and transformers that hold the purpose of transporting the electricity over large distances. \\\\
+Transmission:& \glsreset{transmission}\df{transmission} and transformers that hold the purpose of transporting the electricity over large distances. \\\\
 
-Distribution:& The \df{distribution} role are the units responsible of electricity distribution to and from the customers. \\\\
+Distribution:& The \glsreset{distribution}\df{distribution} role are the units responsible of electricity distribution to and from the customers. \\\\
 
-Customer:& The \df{customer} role is the consumers of electricity. They may also generate electricity and sell it to the grid. \\\\
+Customer:& The \glsreset{customer}\df{customer} role is the consumers of electricity. They may also generate electricity and sell it to the grid. \\\\
 
-Operator:& The \df{operator} role is managers of the movement and production of electricity. They are the group that ensures that the energy is efficiently delivered where it is needed. \\\\
-Market:& The \df{markets} is the instance responsible for sale and purchase of electricity between the different instances of the grid. Not just the \df{customer} uses this instance. Utility company can also purchase power from each other to keep up with demand at peek hours. \\\\
-Service Provider:& The \df{service provider} role are the organisations providing services to the utility companies or the \df{customer}. This could be home automation or information services.  \\
+Operator:& The \glsreset{operator}\df{operator} role is managers of the movement and production of electricity. They are the group that ensures that the energy is efficiently delivered where it is needed. \\\\
+
+Market:& The \glsreset{markets}\df{markets} is the instance responsible for sale and purchase of electricity between the different instances of the grid. Not just the \df{customer} uses this instance. Utility company can also purchase power from each other to keep up with demand at peek hours. \\\\
+\end{tabularx}
+\begin{tabularx}{\linewidth}{ r X }
+Service Provider:& The \glsreset{service provider}\df{service provider} role are the organisations providing services to the utility companies or the \df{customer}. This could be home automation or information services.  \\
 \end{tabularx}
 
-\newpage
 \section{Non-Intrusive Load Monitoring}
 The \df{operator} have the responsibility of controlling the flow of energy on the smart-grid. This requires the knowledge of the current consumption and a prediction about the future power requirement. This prediction is generality based on statistical data collected in the grid. If the prediction of the future power requirements can be improved, it is possible to create a better and more efficient power distribution. To accomplish this is a method known as \ab{NILM} developed.
 
@@ -62,13 +64,21 @@ How detailed is it possible to gesture about the behaviour of the appliances in 
 Is it possible to clean data to improve quality and performance? What aspects is the bottlenecks for \ab{NILM} technology today, and how does one improve on this basis? \\
 
 \end{itemize}
-If these question is answered it creates a strong foundation for gesturing about the the capability of \ab{NILM}. The main motivation for this study is not to improve grid load predictions, but to get a better basis for validate different \ab{NILM} related business opportunities for \dfs{service provider}. \\
+If these question is answered it creates a strong foundation for gesturing about the the capability of \ab{NILM}. The main motivation for this study is not to improve grid load predictions, but to get a better basis for validate different \ab{NILM} related business opportunities for \dfs{service provider}.
 
 \section{The Approach}
 In order to investigate the questions in the problem statement is real data needed. Research on the  popular methods and definitions in various areas of \ab{NILM}, quality and machine learning has been analysed. The result is used to create the basis of the experiments conducted in this master's thesis. 
 
 \subsection{The Data Approach}
 As dataset is the SmartHG dataset used. The SmartHG dataset is a collection of smart-meter data collected from 25 residential households in Denmark. The data is not filtered or cleaned in any way prior usage. This means that the data closely resembles what would be collected in a smart-grid. Furthermore does the dataset contain information about the usage pattern of selected devices. This information can be used to compare inferred usage patterns to the actual. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/DataCollection.png}
+\caption{Data collection process.}
+\label{fig:DCP}
+\end{figure}
+The data is collected from the houses main meter and sub-meters, by attaching a ZigBee module to the meters. The modules transmits the values from the meter to a ZigBee gateway. The gateway transmits the data over the Internet to a database service in the university. This process is illustrated in Figure~\ref{fig:DCP}.
 
 \subsection{The Experiment Approach}
 Some of the experiments are conducted on real data, as it would be observed in a real deployment scenario. The behaviours observed in this types of experiment is used to design a series of experiments in controlled conditions, using artificial constructed datasets. These experiments serves the purpose of exposing the properties responsible for the observed behaviour. This improves the understanding of what properties creates wanted and unwanted behaviour. 

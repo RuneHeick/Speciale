@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt,fleqn,dvipsnames,twoside,openany]{memoir} 	% Openright aabner kapitler paa hoejresider (openany begge)
+\documentclass[a4paper,11pt,fleqn,dvipsnames,twoside,openright]{memoir} 	% Openright aabner kapitler paa hoejresider (openany begge)
 
 %%%% PACKAGES %%%%
 
@@ -41,7 +41,7 @@
 \usepackage[danish]{varioref}				% Muliggoer bl.a. krydshenvisninger med sidetal (\vref)
 \usepackage[square,sort,numbers,comma]{natbib}							% Udvidelse med naturvidenskabelige citationsmodeller
 %\usepackage{xr}							% Referencer til eksternt dokument med \externaldocument{<NAVN>}
-\usepackage[acronym]{glossaries}					% Terminologi- eller symbolliste (se mere i Daleifs Latex-bog)
+\usepackage[acronyms]{glossaries}					% Terminologi- eller symbolliste (se mere i Daleifs Latex-bog)
 
 % ¤¤ Misc. ¤¤ %
 \usepackage{lipsum}							% Dummy text \lipsum[..]
@@ -242,7 +242,7 @@
 \setacronymstyle{long-short}
 
 
-\newcommand{\GlsDef}[2]
+\DeclareDocumentCommand{\GlsDef}{m m}
 {%
   \newglossaryentry{#1}%
   {

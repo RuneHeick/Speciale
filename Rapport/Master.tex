@@ -1,9 +1,8 @@
 \input{preamble}
 \makeglossaries
-
-%----------------------------------------------------------------------------------------
 \input{sections/definitions}
 
+%----------------------------------------------------------------------------------------
 \begin{document}
 \setlength{\abovedisplayskip}{1cm}
 \setlength{\belowdisplayskip}{.8cm}
@@ -15,6 +14,7 @@
 %	FRONTMATTER
 %----------------------------------------------------------------------------------------
 \frontmatter
+\openany
 
 \input{sections/Abstract}
 
@@ -22,7 +22,8 @@
 %----------------------------------------------------------------------------------------
 \printglossary[type=\acronymtype,title=Abbreviations,nonumberlist] % prints just the list of acronyms
 
-\printglossary%[nonumberlist] % if no option is supplied the default glossary is printed.
+
+\printglossary[nonumberlist] % if no option is supplied the default glossary is printed.
 \newpage
 
 % List of Figurs/Tables
@@ -48,6 +49,7 @@
 %	MAINMATTER
 %----------------------------------------------------------------------------------------
 \mainmatter
+\openright
 \glsresetall
 
 %2 pages
