@@ -9,21 +9,21 @@
 
 \includepdf{sections/forside}
 
-%\newpage\null\thispagestyle{empty}\newpage
 %----------------------------------------------------------------------------------------
 %	FRONTMATTER
 %----------------------------------------------------------------------------------------
 \frontmatter
-\openany
+\openright
 
 \input{sections/Abstract}
 
+\openany
 % Glossary and Abbreviations
 %----------------------------------------------------------------------------------------
-\printglossary[type=\acronymtype,title=Abbreviations,nonumberlist] % prints just the list of acronyms
-
-
-\printglossary[nonumberlist] % if no option is supplied the default glossary is printed.
+\chapter{Glossary}
+\printglossary[type=\acronymtype,title=Abbreviations,nonumberlist]
+\vspace{10mm}
+\printglossary[nonumberlist,title=Definitions] % if no option is supplied the default glossary is printed.
 \newpage
 
 % List of Figurs/Tables
@@ -86,6 +86,7 @@
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
+\openany
 \begingroup
 	\raggedright
 	\bibliography{bibtex/literature}

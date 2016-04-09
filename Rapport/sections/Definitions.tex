@@ -1,45 +1,45 @@
 %defs
 
 
-\GlsDef{customer}{is a programmable machine \lipsum[2]}
+\GlsDef{customer}{is the role of a consumer of electricity in a smart grid. An example of a customer  is the residential household. This type of consumer can in periods produce small amounts of energy. This could be from solar cells or other green technologies.}
 
-\GlsDef{activity}{is a programmable machine}
+\GlsDef{activity}{is a term that describes a change in the signal. The greater the change from previous values, the greater the activity.}
 
-\GlsDef{other category}{is a programmable machine}
+\GlsDef{other category}{is a category that contains the consumption of all appliances not equipped with a sub-meter. }
 
-\GlsDef{sample availability}{is a programmable machine}
+\GlsDef{sample availability}{is a term describing the amounts of samples received in comparison to the total amount of samples that could have been received. This can be in a specific time period or in the total time.}
 
-\GlsDef{gap size correction capability}{is a programmable machine}
+\GlsDef{gap size correction capability}{is a metric telling how big gaps it is possible to correct. If an application has a "gap size correction capability" on 5 it means that is is capable of correcting gaps that have the gap size of 5 samples or smaller.}
 
-\GlsDef{knowledge}{is a programmable machine}
+\GlsDef{knowledge}{is samples prior and post for a gap, since it grants the "knowledge" used for reconstructing the gap.}
 
-\GlsDef{operator}{is a programmable machine}
+\GlsDef{operator}{is the role of the instances responsible of operating and regulating a smart grid.}
 
-\GlsDef{background consumption}{is a programmable machine}
+\GlsDef{background consumption}{is the consumption created by appliances that are not part of the household disaggregation model.}
 
-\GlsDef{complexity}{is a programmable machine}
+\GlsDef{complexity}{or complexity of an environment, describes how many appliances that are in the environment. This is the amount of appliances accounted for by the household disaggregation model plus the appliances creating the "background consumption".}
 
-\GlsDef{completeness}{is a programmable machine}
+\GlsDef{completeness}{is the ratio between the number of appliances in the household disaggregation model and the "complexity". This also indicates how many appliances in the house is creating "background consumption".}
 
-\GlsDef{TV house dataset}{is a programmable machine}
+\GlsDef{TV house dataset}{is a artificial dataset created by taking the TVs from the SmartHG dataset, and combining to one new dataset.}
 
-\GlsDef{norm filter}{is a programmable machine}
+\GlsDef{norm filter}{is a filter enforcing the normal behaviour of a system. This filters out events that are unrealistic given some normal behaviour.}
 
-\GlsDef{markets}{is a programmable machine}
+\GlsDef{markets}{is a role in the smart grid given to the instance responsible for selling and purchases of electricity.}
 
-\GlsDef{service provider}{is a programmable machine}
+\GlsDef{service provider}{is a role in the smart grid given to the instance delivering services to the other domains in the smart grid. This could be the sale of statistical analysis to the "operator" or the "customers".}
 
-\GlsDef{top consumers problem}{is a programmable machine}
+\GlsDef{top consumers problem}{is a problem describing how the top consumers in a house dominates the small consumption profiles.}
 
-\GlsDef{appliance interference}{is a programmable machine}
+\GlsDef{appliance interference}{is a problem where one appliance signal looks like a other appliance signal. This makes the appliances interferer with each others disaggregation models.}
 
-\GlsDef{purge and merge process}{is a programmable machine}
+\GlsDef{purge and merge process}{is a process used in the "norm filter" where first unwanted events is purged from the signal, and afterwards is events close to each other merged. This is a iterative process where the purge and merge conditions changes in each iteration. }
 
-\GlsDef{data broker}{is a programmable machine}
+\GlsDef{data broker}{is a instance responsible for collecting and selling information/data.}
 
-\GlsDef{generator}{is a hest}
+\GlsDef{generator}{is a domain role in the smart grid. the "generator" role is the generators of electricity. This is typically coal, oil or nuclear power plants or large-scale hydro generators. This can also include energy storage facilities that stores energy for later distribution. }
 
-\GlsDef{distribution}{is a programmable machine}
+\GlsDef{distribution}{is a domain role in the smart grid. The distribution role are the units responsible of electricity distribution to and from the "customers".}
 
-\GlsDef{transmission}{is a programmable machine}
+\GlsDef{transmission}{is a domain role in the smart grid. The Transmission is the unites that hold the purpose of transporting the electricity over large distances.}
 
