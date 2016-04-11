@@ -1,6 +1,6 @@
 \chapter{Discussion}
 
-\Ab{NILM} is an area of research that is gaining a lot of attention due to the more complex smart grid structures. Some of the challenges in the smart grid are that there is not just one \df{generator} of electricity, and a series of \dfs{customer}. There can be multiple of both, and some households contains solar panels, or other energy producing technologies that makes them bout produce and consume energy at different times. This creates challenges for some of the \ab{NILM} applications, as it can camouflage the true power consumption of the houses. The same problem can be created by battery devices, which can mask an appliance power demand. Some of these problems can be observed by monitoring the data quality.
+\Ab{NILM} is an area of research that is gaining a lot of attention due to the more complex smart grid structures. Some of the challenges in the smart grid is that there are not just one \df{generator} of electricity, and a series of \dfs{customer}. There can be multiple of both, and some households contains solar panels, or other energy producing technologies that makes them bout produce and consume energy at different times. This creates challenges for some of the \ab{NILM} applications, as it can camouflage the true power consumption of the houses. The same problem can be created by battery devices, which can mask an appliance power demand. Some of these problems can be observed by monitoring the data quality.
 
 \section{Creating High Quality Measurements}
 When monitoring the the data quality as in Chapter~\ref{Sec:DataQuality} a range of problems when collecting consumption data can be detected. When observing the collection of SmartHG data there were two error groups that reviled itself. The one was equipment failure. Both failure for a specific meter, or the server was detected. The second is the houses that exhibit masking behaviour. By looking at the information collected by the sub-meters and comparing it with the main meter data it is possible to detect the masking behaviour created by devices such as solar cells or backup batteries. This will often make it look like the house uses less energy, than recorded by the sub-meters. 
@@ -34,7 +34,7 @@ When validating only by looking at the F1 and accuracy scores the results seems 
 \put(400,40){Accuracy $= 0.5487$}
 
 \end{picture}
-\caption{TV event detection}
+\caption{TV event detection.}
 \label{fig:TVEVENT}
 \end{figure}
 
@@ -54,7 +54,7 @@ Another approach is to use \ab{NILL}[non-intrusive load leveling] to mask the ap
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{billeder/NILLILU.png}
-\caption[NILL illustration.]{NILL illustration. Inspired by~\citep{RefWorks:36}}
+\caption[NILL illustration.]{NILL illustration. Inspired by~\citep{RefWorks:36}.}
 \label{fig:NILL}
 \end{figure}
 

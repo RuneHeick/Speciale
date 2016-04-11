@@ -10,13 +10,13 @@ When data is the central role of the system, the quality of the data is very imp
 
 This indicate that data quality is something that is very depended on the intended application, and is therefore hard to generalize. 
 
-Quality of data is a subject that is gaining more and more attention due to the fact that the quantity of data available is larger than ever before. This forces researchers to choose between datasets. A notion of quality in the dataset can help them choose. The heavy growth in available data is a result of projects that are moving data gathering from controlled labs, to the public. Many of these projects are citizen science projects. In citizen science projects are the citizens responsible for collecting the data, and not the researchers~\cite{RefWorks:2}. This enables researchers to gather enormous amount of data, but they are no longer in control of the conditions the data are collected in. This introduces errors and other quality decreasing factors. 
+Quality of data is a subject that is gaining more and more attention due to the fact that the quantity of data available is larger than ever before. This forces researchers to choose between datasets. A notion of quality in the dataset can help them choose. The heavy growth in available data is a result of projects moving data gathering from controlled labs, to the public. Many of these projects are citizen science projects. In citizen science projects are the citizens responsible for collecting the data, and not the researchers~\cite{RefWorks:2}. This enables researchers to gather enormous amount of data. But the researchers are no longer in control of the environment the data are collected in. This introduces errors and other quality decreasing factors. 
 
 \Ab{NILM} is a topic that have been in focus in the past years. This is due to the rise of the smart-meters that makes it possible to measure at faster intervals, and collect the data on online services form real environments. But the smart-meter architecture is designed after billing and regulation purposes, and not load monitoring. The network architecture is therefore often based on the unreliable \ab{UDP}[user datagram protocol], since it is more important to get the current information fast, than get all information. This courses some of the measurements to be lost in transition, which can degrade the completeness quality of the signal. The missing data can be a problem for load monitoring, since many methods of load disaggregation are based on learning techniques. The quality of the signal can also help identify if the collected data is suitable as a training set. 
 
 
 \section{Quality Criteria}
-It is not uncommon that different areas of research has its own quality criteria. This is due to the fact that quality is a very domain specific subject. One of the areas that have been dealing with citizen data for many years are the Geographic information area that are used for maps, weather prediction and climate research. They have come up with several ways of describing quality in spatial data~\cite{RefWorks:7}. Method for defining quality in time series data have also been developed~\cite{RefWorks:6}. To better define quality criteria in the smart-meter data inspiration from related work is used.
+It is not uncommon that different areas of research has its own quality criteria. This is due to the fact that quality is a very domain specific subject. One of the areas that have been dealing with citizen data for many years are the Geographic information area that are used for maps, weather prediction and climate research. They have come up with several ways of describing quality in spatial data~\cite{RefWorks:7}. Method for defining quality in time series data have also been developed~\cite{RefWorks:6}. To better define quality criteria in the smart-meter data, inspiration from related work is used.
 
 \subsection{Related Work}
 Data quality is an area that recently have become a hot topic, due to the large quantity of data. Many researchers strive to make tools that better can analyse data quality in different areas. In the area of spatial data is a \emph{"Quality and Workflow tool"} being developed by the University of Wageningen~\citep{RefWorks:8}. The objective is to help researchers select the best suited data for a given data driven project. It does this by looking at different quality criteria, given by the user or found in standards for spatial data. 
@@ -32,7 +32,7 @@ One of the things all the methods have in common is trying to look at the comple
 \newpage
 
 \section{Quality In SmartHG Citizen Data}
-As a part of the SmartHG project 25 households have been equipped with meters on selected appliances and the main meter. The data collected from this experiment is prone with errors due to malfunctioning test equipment or unexpected interference from the resident which have resulted in offline measurement equipment for periods of time. Examples on unexpected interference could be if the resident is unplugging the measurement equipment, or turning OFF the power socket that supply's it. Unstable network does further degrade the signal, since the measurement equipment uses a lossy network. 
+As a part of the SmartHG project 25 households have been equipped with meters on selected appliances and the main meter. The data collected from this experiment is prone with errors due to malfunctioning test equipment or unexpected interference from the resident which have resulted in offline measurement equipment for periods of time. Examples on unexpected interference could be if the resident is unplugging the measurement equipment, or is turning OFF the power socket that supply's it. Unstable network does further degrade the signal, since the measurement equipment uses a lossy network. 
 
 \subsection{Completeness And Activity}
 The SmartHG data is intended for appliance recognition, and the quality must be assessed with this in mind. The completeness and the \df{activity} in the data is therefore important. 
@@ -40,7 +40,7 @@ The SmartHG data is intended for appliance recognition, and the quality must be 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/Test.png}
-\caption{12 hour overview of house 10}
+\caption{12 hour overview of house 10.}
 \label{fig:12HRes}
 \end{figure}
 
@@ -61,11 +61,11 @@ First the \df{sample availability} quality of the data is assessed. The \df{samp
 \put(325,130){$T_{n+1}$}
 
 \end{picture}
-\caption{Illustration of availability analysis}
+\caption{Illustration of availability analysis.}
 \label{Fig:IOAA}
 \end{figure}
 
-To calculate the amount of samples expected to be in a specific period of time $N_{max}^{(m,T_n)}$ does the sample phase $\phi_{start}^{(m,T_n)}$ for the given period need to be known. In Figure~\ref{Fig:IOAA} is an illustration of a signal, the black dots are the samples and the red dots are the ones that are missing. The sample phase is the time from the beginning of the period $T_n$ and to the first expected sample. This is needed since for a timeslot $T_n$ of a length of $T_P$ the maximum expected sample amount can vary with 1. This is shown in Figure~\ref{Fig:IOAA} where the period $T_n$ has a potential of having 11 samples, whereas period $T_{n+1}$ only can have 10.
+To calculate the amount of samples expected to be in a specific period of time $N_{max}^{(m,T_n)}$ does the sample phase $\phi_{start}^{(m,T_n)}$ for the given period need to be known. In Figure~\ref{Fig:IOAA} is an illustration of a signal, the black dots are the samples and the red dots are the ones that are missing. The sample phase is the time from the beginning of the period $T_n$ to the first expected sample. This is needed since for a timeslot $T_n$ of a length of $T_P$ can the maximum expected sample amount vary with 1. This is shown in Figure~\ref{Fig:IOAA} where the period $T_n$ has a potential of having 11 samples, whereas period $T_{n+1}$ only can have 10.
 
 \begin{gather}
 		N_{max}^{(m,T_n)} = \floor{ \frac{(T_{P}-\phi_{start}^{(m,T_n)})}{T_s^{(m)}}} + 1 \label{EQ:NMAX} \\
@@ -90,7 +90,7 @@ This is shown in Equation~\ref{EQ:HQV} where $\mathbf{M}$ is a set of meters in 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/QualityBig.png}
-\caption{Quality of houses in SmartHG project}
+\caption{Quality of houses in SmartHG project.}
 \label{fig:SmartHGQuality}
 \end{figure} 
 
@@ -112,7 +112,7 @@ Where $\epsilon$ describes a threshold to filter out changes caused by noise. Th
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/ActivityBig.png}
-\caption{Activity of houses in SmartHG project}
+\caption{Activity of houses in SmartHG project.}
 \label{fig:ActivityMap}
 \end{figure}
 
@@ -120,12 +120,12 @@ The \df{activity} shown in Figure~\ref{fig:ActivityMap} is the average of the \d
 
 \subsection{Main Meter In Relation To Sub-meter Consumption}
 \label{sec:MMIRTSM}
-As disused in the \ab{NILMTK} project~\citep{RefWorks:21} is the relation between the energy consumption measured by the main meter and the consumption measured by the sub-meters an important quality metric. This can give two important indications about the dataset. The first indicator is how much knowledge about a house we have. A house where only a small fraction of the energy consumption is accounted for can give problems when applying \ab{NILM} algorithms. This is due to a lot of unknown consumption from other appliances. This is further discussed in Section~\ref{sec:MCACI}. The other is more appliance specific. If an appliance is not responsible for a significant part of the total consumption odds are that it is almost never ON, or that it usages so little energy that it is hard to detect. Both can have a significant impact on \ab{NILM} algorithms. This will be further discussed in Chapter~\ref{sec:AppRec} and Chapter~\ref{sec:EnvInf}.  
+As disused in the \ab{NILMTK} project~\citep{RefWorks:21} is the relation between the energy consumption measured by the main meter and the consumption measured by the sub-meters an important quality metric. This can give two important indications about the dataset. The first indicator is how much knowledge about a house we have. A house where only a small fraction of the energy consumption is accounted for can give problems when applying \ab{NILM} algorithms. This is due to a lot of unknown consumption from other appliances. This is further discussed in Section~\ref{sec:MCACI}. The other is more appliance specific. If an appliance is not responsible for a significant part of the total consumption odds are that it is almost never ON, or that it uses so little energy that it is hard to detect. Both can have a significant impact on \ab{NILM} algorithms. This will be further discussed in Chapter~\ref{sec:AppRec} and Chapter~\ref{sec:EnvInf}.  
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/SHGHouseUsagesV2.png}
-\caption{Usage of SmartHG houses}
+\caption{Usage of SmartHG houses.}
 \label{fig:USAGEofSHG}
 \end{figure}
 

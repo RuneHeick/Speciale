@@ -1,17 +1,17 @@
 \chapter{Environment Influence } 
 \label{sec:EnvInf}
-Not just the sample rate and error rate are determining factors when designing a \ab{NILM} application. The environment which the application is deployed and trained in is critical for the performance of the system. The "environment" is the parameters describing the static conditions of the household which the algorithms are deployed in. An example of an environment parameter can be number of known devices, number of unknown devices or number of simultaneously active devices.
+Not just the sample rate and error rate are determining factors when designing a \ab{NILM} application. The environment which the application is deployed and trained in is critical for the performance of the system. The environment contains the parameters describing the static conditions of the household which the algorithms are deployed in. An example of an environment parameter can be number of known devices, number of unknown devices or number of simultaneously active devices.
 
 In order to investigate some of the environment parameters effect on a \ab{NILM} application the SmartHG dataset is used. In the chapter is appliance disaggregation conducted on the SmartHG dataset, using the \ab{FHMM} and Parson algorithms. The Weiss algorithm uses the power factor information, which is not available in the SmartHG dataset. The disaggregation process consists of a training phase and a validation phase. 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/REAL.png}
-\caption{Disaggregation phases}
+\caption{Disaggregation phases.}
 \label{fig:IDF}
 \end{figure}
 
-All experiments conducted in the chapter will start with a training phase of 15 days. During this period the sub-meter and main meter data will be used to by the \ab{FHMM} and Parson algorithms to learn statistical disaggregation models. After this initial training phase will the algorithms be tasked with the job of disaggregating the main meter signal in a 45 day validation period. The algorithms will only have access to the data supplied by the main meter, and the statistical disaggregation models found in the initial training phase. The sub-meter data in the validation phase be used to validate the results of the disaggregation. The basis setup is illustrated in Figure~\ref{fig:IDF} where the green color symbolises data from main meter, and blue symbolises data from sub-meter. 
+All experiments conducted in the chapter will start with a training phase of 15 days. During this period the sub-meter and main meter data will be used to by the \ab{FHMM} and Parson algorithms to learn statistical disaggregation models. After this initial training phase will the algorithms be tasked with the job of disaggregating the main meter signal in a 45 day validation period. The algorithms will only have access to the data supplied by the main meter, and the statistical disaggregation models found in the initial training phase. The sub-meter data in the validation phase will be used to validate the results of the disaggregation. The basis setup is illustrated in Figure~\ref{fig:IDF} where the green color symbolises data from main meter, and blue symbolises data from sub-meters. 
 
 
 \section{Challenges In The SmartHG Dataset} 
@@ -20,7 +20,7 @@ The \ab{ECO} dataset used in the last chapter, consists of 6 households and the 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/TotalPie.png}
-\caption{Energy distribution in a household}
+\caption{Energy distribution in a household.}
 \label{fig:SLC}
 \end{figure}
 
@@ -53,7 +53,7 @@ As previously stated is the \df{background consumption} high for this dataset. T
 \put(215,0){Time}
 
 \end{picture}
-\caption{FHMM disaggregation snippet}
+\caption{FHMM disaggregation snippet.}
 \label{fig:RMD}
 \end{figure}
 
@@ -66,7 +66,7 @@ The assumption that the \df{background consumption} is what troubles the disaggr
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/SimIllu.png}
-\caption{Artificially constructed main meter}
+\caption{Artificially constructed main meter.}
 \label{fig:SIL}
 \end{figure}
 
@@ -74,7 +74,7 @@ In order to test this hypothesis is a main meter signal artificially constructed
 
 \input{tables/SimTab}  
 
-The F1 and accuracy score are both improve, as shown in Table~\ref{table:Tab:SHGSIM}. Even though the artificial house only contains three or four appliances, and all are accounted for by the statistical disaggregation model created by the \ab{FHMM} and Parson algorithms, there are still some of the appliances that are hard to find. This is due to the appliances power usage pattern in OFF/standby mode combined with the rare usage of the devices. When the standby pattern of a device is complex and the appliance is only rarely used, the model will try to fit to the standby pattern and not the usage pattern. This happens if the overall best consumption disaggregation results is achieved by fitting to the small energy fluctuations in the OFF state. This is often the case for appliances that are rarely used in the training period. The downside to this is that it will be incapable of detecting change between the ON/OFF states.
+The F1 and accuracy score are both improve, as shown in Table~\ref{table:Tab:SHGSIM}. Even though the artificial house only contains three or four appliances, and all are accounted for by the statistical disaggregation model created by the \ab{FHMM} and Parson algorithms, there are still some of the appliances that are hard to find. This is due to the appliances power usage pattern in OFF/standby mode combined with the rare usage of the devices. When the standby pattern of a device is complex and the appliance is only rarely used, the model will try to fit to the standby pattern and not the usage pattern. This happens if the overall best consumption disaggregation results is achieved by fitting to the small energy fluctuations in the standby state. This is often the case for appliances that are rarely used in the training period. The downside to this is that it will be incapable of detecting change between the ON/OFF states.
 
 One other aspect to note is that even though the F1 scores are higher, only a few is higher than 0.9. 
 This could be due to \df{appliance interference}. This happens when appliances are similar. When a house contains two or more appliances that are similar it gets harder for the algorithm to tell if it is the one or the other. This is could be what happened for TV 1 and TV 2 in house~3. The algorithms will wrongfully assign some of the events belonging to TV 1, to TV 2 and vice versa. This happens because the power draw signature are similar.  This can be a problem if the goal is to determine exactly which appliance there is responsible for the power consumption.
@@ -91,7 +91,7 @@ The experiments in the two previous Section~\ref{sec:NOISE} and Section~\ref{sec
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/REALSIM.png}
-\caption{Illustration of dataset creation by combining real and constructed data}
+\caption{Illustration of dataset creation by combining real and constructed data.}
 \label{fig:REALSIMILU}
 \end{figure}
 
@@ -109,7 +109,7 @@ In order to validate this hypothesis was a similar experiment conducted, where t
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{billeder/SIMREAL.png}
-\caption{Illustration of dataset creation by combining constructed and real data}
+\caption{Illustration of dataset creation by combining constructed and real data.}
 \label{fig:SHGSIMREAL}
 \end{figure}
 
@@ -141,7 +141,7 @@ In Figure~\ref{fig:Norm1} is the disaggregation of TV 1 from house 10 shown for 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/AppNormFilterH10_1.png}
-\caption{Disaggregation of TV 1 from house 10}
+\caption{Disaggregation of TV 1 from house 10.}
 \label{fig:Norm1}
 \end{figure}
 
@@ -157,7 +157,7 @@ The downside of this approach is that it assumes that the devices is used in a c
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/AppNormFilterH10_2.png}
-\caption{Purged and merged signal from TV 1}
+\caption{Purged and merged signal from TV 1.}
 \label{fig:Norm2}
 \end{figure}
 
@@ -169,7 +169,7 @@ The \Df{norm filter} is only recommended if the accuracy and F1 score of the dis
 
 \section{Model Complexity And Completeness Influence}
 \label{sec:MCACI}
-Some of the parameters that often differ in the environments where \ab{NILM} applications are deployed, is the number of appliances. As previously disused is not all appliances included in the statistical disaggregation models used by the \ab{FHMM} and Parson algorithms. These are the appliances creating the \df{background consumption}. The statistical disaggregation models often contain the information needed to do disaggregation on multiple appliances. The number of appliances in the environment is defined as the \df{complexity} of the model. The \df{complexity} does not tells how many appliances there is in a given model. As the \df{complexity} in a \ab{NILM} application is increasing the detection rate is decreasing~\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. The \df{complexity} is the sum of appliances creating the \df{background consumption} and the appliances in the statistical disaggregation model. 
+Some of the parameters that often differ in the environments where \ab{NILM} applications are deployed, is the number of appliances. As previously disused is not all appliances included in the statistical disaggregation models used by the \ab{FHMM} and Parson algorithms. These are the appliances creating the \df{background consumption}. The statistical disaggregation models often contain the information needed to do disaggregation on multiple appliances. The number of appliances in the environment is defined as the \df{complexity} of the environment. The \df{complexity} does not tells how many appliances there is in a given model. As the \df{complexity} in a \ab{NILM} application is increasing the detection rate is decreasing~\citep{RefWorks:34}. This is one of the major problems and is why many researchers only focus on a small subset of appliances that have a fairly unique consumption signature. The \df{complexity} is the sum of appliances creating the \df{background consumption} and the appliances in the statistical disaggregation model. 
 
 Another metric looks at the ratio between the number of appliances in the statistical disaggregation model and the \df{complexity}. This ratio is called the \df{completeness} of the model, since it indicate how many of the total appliances that are include in the model.
 
@@ -215,7 +215,7 @@ This is done using a set comprehension that iterates over the power set of $\tex
 \put(375,10){$\textbf{H}_7$}
 
 \end{picture}
-\caption{$\textbf{H}_c$ sets from the TV house dataset}
+\caption{$\textbf{H}_c$ sets from the TV house dataset.}
 \label{fig:PSILLU}
 \end{figure}
 
@@ -242,7 +242,7 @@ To investigate the effect the \df{complexity} of the statistical disaggregation 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/ModelSize.png}
-\caption{Average score at different complexity }
+\caption{Average score at different complexity.}
 \label{fig:COMPT}
 \end{figure}
 
@@ -262,7 +262,7 @@ To further investigate this was an experiment conducted on the \df{TV house data
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{billeder/ModelCompletness.png}
-\caption{Completeness test of disaggregation of appliances in the TV house dataset }
+\caption{Completeness test of disaggregation of appliances in the TV house dataset.}
 \label{fig:COD}
 \end{figure}
 

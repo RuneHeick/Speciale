@@ -47,13 +47,13 @@ In \ab{NILM} the features can be sub categorised in steady state, transient stat
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{billeder/featureOverview.png}
-\caption[Feature types.]{Feature types. Source \citep{RefWorks:17}}
+\caption[Feature types.]{Feature types. Source \citep{RefWorks:17}.}
 \label{fig:FTR}
 \end{figure}
 
 Steady state features is features that can be extracted when the signal is in the stable state. Features that are often extracted in this state is "Power Change" which is the jump in power or reactive power usage. Time and frequency analysis is often used on the voltage and power signals of the meters. It is shown that analysing the harmonics in signals is a powerful way of making appliance detection \citep{RefWorks:29}.The trajectory between voltage and power usage is a good feature. This can be used to detect the reactive power of a signal, which is a give-away for inductive loads. Some researchers have shown that different appliances makes different noise profiles on the main line. Unfortunately does this kind of recognition require an extremely high sampling rate in the kHz or MHz area~ \citep{RefWorks:30}. 
 
-The transient state of an appliance is a short state that comes when an appliance switches between steady states. In this state there often is appliance semi-unique waveforms in the current and voltage domain. The noise generated on the mainline in this state is also a good indication of the appliances type. 
+The transient state of an appliance is a short state that comes when an appliance switches between steady states. In this state there often is appliance semi-unique waveforms in the current and voltage domain. The noise generated on the mainline in the transition is also a good indication of the appliances type. 
 
 There also exists a series of non-traditional features that is used in special types of algorithms. One of them is based on matching the power usage profile to geometrical figures, and using the series of figures to recognize an appliance \citep{RefWorks:17}.  
 
@@ -71,10 +71,10 @@ This is illustrated in Equation~\ref{EQ:OMP} were a set of appliances $M$ that c
 
 Due to this, most researchers use pattern recognition techniques instead. These have the benefits of being more scalable, and be usable even if only parts of the device database is known. The basic concept is to create a statistical model that can be used to classify the appliances. There are generality two approaches to pattern recognition: supervised and non-supervised. In supervised training it is assumed that the ground truth of your system is known. For a \ab{NILM} application this means that the true consumption of the appliances needs to be available for the training process. This means that sub-meters must be placed to measure the appliances individually, which often is costly and time consuming. In non-supervised methods only the main meter readings are available, and no information about the appliances are known. This type of algorithms will usually try to cluster the readings in distinct groups cosponsoring to a guess of what appliances that correspond to the reading. For this kind of training it is easy to collect a big training set, but it requires the groups to be manually labelled afterwards.  
   
-Many algorithms are based on clustering techniques and \ab{HMM}[hidden Markov models]~\citep{RefWorks:28}, \citep{RefWorks:26}, \citep{RefWorks:23}, \citep{RefWorks:17}, \citep{RefWorks:24}. \Ab{HMM} have proven very effective when classifying Type-I and Type-II appliances. This is due to its ability to model state changes as an imported part of the classification. It is shown that using clustering techniques can greatly improve the classification, and reduce the training time. Artificial neural networks are also showing great promise, and is a topic that is currently in focus by many researchers. More on this can be found in Section~\ref{sec:RecRelatedwork}. 
+Many algorithms are based on clustering techniques and \ab{HMM}[hidden Markov models]~\citep{RefWorks:17}, \citep{RefWorks:23}, \citep{RefWorks:28}, \citep{RefWorks:26}, \citep{RefWorks:24}. \Ab{HMM} have proven very effective when classifying Type-I and Type-II appliances. This is due to its ability to model state changes as an imported part of the classification. It is shown that using clustering techniques can greatly improve the classification, and reduce the training time. Artificial neural networks are also showing great promise, and is a topic that is currently in focus by many researchers. More on this can be found in Section~\ref{sec:RecRelatedwork}. 
 
 \subsection{NILM Challenges} 
-There are many challenges in \ab{NILM}. One is the Type-III appliances. Due to their varying, and at times random, energy consumption it is hard to fit them to a behavioural model. This is made further harder by the low sample rate. Many great features of the appliances is hidden due to the low sample rate most data is collected with\citep{RefWorks:17}.
+There are many challenges in \ab{NILM}. One is the Type-III appliances. Due to their varying, and at times random, energy consumption it is hard to fit them to a behavioural model. This is made further harder by the low sample rate. Many great features of the appliances is hidden due to the low sample rate most data is collected with \citep{RefWorks:17}.
 
 Another problem is the \df{top consumers problem}. In a household there are some appliances that require a lot of energy when they are on, such as stoves, air conditioners and refrigerators. These are often referred to as the top consumers. Then there is the appliances that consumes very little energy like laptops, DVD players and routers. The \df{top consumers problem} is that the top consumers is so dominant that they make it hard to track the power signature of little consumers. This is why many researchers only focus on the top 10 consumers when during \ab{NILM} applications \citep{RefWorks:21}. 
 
@@ -82,23 +82,23 @@ Another problem is the \df{top consumers problem}. In a household there are some
 \label{sec:RecRelatedwork}
 
 There are several interesting problems and approaches being researched in the \ab{NILM} community in the moment. One is the lag of a good bases of comparison, both to compare the performance and the training time of a solution. It was a common practise that each researcher uses his own dataset, or an artificial lab setting to validate the results. This made it hard to compare the algorithm to others, and raised questions about the correctness of the findings. \\
-To accommodate this problem the \ab{NILMTK}[NILM-Toolkit] was created. This is a collection of python libraries, that create a framework to evaluate \ab{NILM} solutions. It supports a wide range of known datasets that can be used to train or validate an algorithm. It also comes with two benchmark algorithms to be used to compare a new algorithm against. The \ab{NILMTK} will help researchers to easily share and compare algorithms in the future\citep{RefWorks:21}. 
+To accommodate this problem the \ab{NILMTK}[NILM-Toolkit] was created. This is a collection of python libraries, that create a framework to evaluate \ab{NILM} solutions. It supports a wide range of known datasets that can be used to train or validate an algorithm. It also comes with two benchmark algorithms to be used to compare a new algorithm against. The \ab{NILMTK} will help researchers to easily share and compare algorithms in the future \citep{RefWorks:21}. 
 
-Another framework to accomplish better comparison and sharing is the NILM-eval framework. This is based on Matlab and supports algorithms to be written in either Matlab or in python. The NILM-eval and the \ab{NILMTK} is created to solve the same problem, and is compatible with each other in the sense that the interface for algorithms are the same\citep{RefWorks:26}. 
+Another framework to accomplish better comparison and sharing is the NILM-eval framework. This is based on Matlab and supports algorithms to be written in either Matlab or in python. The NILM-eval and the \ab{NILMTK} is created to solve the same problem, and is compatible with each other in the sense that the interface for algorithms are the same \citep{RefWorks:26}. 
 
-Deep neural networks have last years improved the area of computer vision and speech recognition remarkably. \ab{NILM} researchers are starting to look into if similar techniques can be used to improve data disaggregation. Neural networks have like \ab{HMM} the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural networks can outperform the classic \ab{HMM} approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on top consumers\citep{RefWorks:25}. Current research is looking at its potential in solving the \df{top consumers problem}, but no definite conclusions is yet to be reached. 
+Deep neural networks have last years improved the area of computer vision and speech recognition remarkably. Researchers are starting to look into if similar techniques can be used to improve appliance disaggregation. Neural networks have like \ab{HMM} the ability to model state changes. Furthermore they are capable of automatically finding important features in the data. Preliminary tests shows that a deep neural networks can outperform the classic \ab{HMM} approaches. The downside with the deep neural network is that it takes weeks to train, and there are thousands of parameters there can be changed. This makes the task of finding the global minimum hard, and the method is very prone to be stuck in a local minimum. The method is currently being used on top consumers~\citep{RefWorks:25}. Current research is looking at its potential in solving the \df{top consumers problem}, but no definite conclusions is yet to be reached. 
 
-Many approaches is supervised, since this kind of approach is better at separating the appliances. But this require that you first build a database with information about all the appliances. To have this prior knowledge of the system seems unrealistic in an application setting, where it is most likely you do not know anything about the house. To combat this, various unsupervised methods have been developed. The focus in this kind of studies have been load separation for the sake of making power savings, or to inform the electric companies to help them create a more stable electric grid. There are several good algorithms for this today that support this purpose. For event detection and user habits analysis it is still most common to use the supervised approaches \citep{RefWorks:19}. This report will therefore focus on the supervised approaches. 
+Many approaches is supervised, since this kind of approach is better at separating the appliances. But this require that you first build a database with information about all the appliances. To have this prior knowledge of the system seems unrealistic in an application setting, where it is most likely you do not know anything about the house. To combat this, various unsupervised methods have been developed. The focus in this kind of studies have been load separation for the sake of making power savings, or to inform the electric companies to help them create a more stable electric grid. There are several good algorithms for this today that support this purpose. For event detection and user habits analysis it is still most common to use the supervised approaches~\citep{RefWorks:19}. This report will therefore focus on the supervised approaches. 
 
 \newpage
 			
 
 \section{Recognition Methods}
 \label{RecognitionMethods}
-Methods based on \ab{HMM} are currently the most popular method for \ab{NILM}. Three method is selected to be validated in this paper. The methods are selected since they are often referenced in the literature, and is often used as benchmark algorithms. All of the algorithms are based on \ab{HMM} or clustering in different configurations. The following subsections will briefly introduce the algorithms. 
+Methods based on \ab{HMM} are very popular method for \ab{NILM}. Three method is selected to be validated in this paper. The methods are selected since they are often referenced in the literature, and is often used as benchmark algorithms. All of the algorithms are based on \ab{HMM} or clustering in different configurations. The following subsections will briefly introduce the algorithms. 
 
 \subsection{Factorial Hidden Markov Models}
-The \ab{HMM} has proven to be one of the most used tools to create probabilistic models based on time series data. This is done by seeing the system as a series of observable states $Y_t$, and a series of hidden states $S_t$ \citep{RefWorks:20}. It is assumed that there exists a probabilistic relation between the observations $Y_t$ and a sequence of hidden states $S_t$. This is implemented as a first order model, which implies that the current hidden state $S_t$ is only depended on the previously state $S_{t-1}$ and the current observed state $Y_t$.
+The \ab{HMM} has proven to be one of the most used tools to create probabilistic models based on time series data. This is done by seeing the system as a series of observable states $Y_t$, and a series of hidden states $S_t$ \citep{RefWorks:20}. It is assumed that there exists a probabilistic relation between the observations $Y_t$ and a sequence of hidden states $S_t$. This is implemented as a first order model, which implies that the current hidden state $S_t$ is only depended on the previously state $S_{t-1}$ and the current observed state $Y_t$. In \ab{NILM} can the observed state $Y_t$ be seen as the observed consumption as seen from the main meter. Where the hidden state $S_t$ can be the unknown consumption of an appliance. 
 
 \begin{equation}
 	P(\{ S_t, Y_t \} ) = P(S_1)P(Y_1 | S_1) \prod_{t=2}^T P(S_t|S_{t-1})P(Y_t|S_t)
@@ -119,7 +119,7 @@ This can also be shown graphically in Figure~\ref{fig:FHMM}. It is illustrated h
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{billeder/FHMM.png}
-\caption[Factorial hidden Markov model illustration.]{Factorial hidden Markov model illustration. Source \citep{RefWorks:20}}
+\caption[Factorial hidden Markov model illustration.]{Factorial hidden Markov model illustration. Source \citep{RefWorks:20}.}
 \label{fig:FHMM}
 \end{figure}
 
@@ -137,7 +137,7 @@ In this implementation there is normally used only two or three states, since mo
 \subsection{Parson}
 The Parson algorithem is a variant of the Kolter and Jaakkola algorithm\citep{RefWorks:22}. The algorithm is designed to be a semi-supervised learning algorithms. This means that the algorithm does not need to train on the data from the concrete house prior to deployment, but it still requires some prior knowledge. The idea is to have a database of general appliance models that tells how specific appliances most likely will behave. This model will be able to detect the device, and do some unsupervised special training to better fit the concrete appliance. 
 
-The algorithm is based on a kind of HMM called "difference HMM" since they take the step difference in the aggregated data and use as the observed output $Y_t$. In a normal \ab{HMM} there is only emitted one output for each hidden state in a chain. In the Parson algorithm the model is changed to output two states from the hidden states $X_t$ and $Y_t$. This creates a model structure that can be graphically illustrated as in Figure~\ref{Fig:ParsonModel}~\citep{RefWorks:28}. 
+The algorithm is based on a kind of HMM called "difference HMM" since they take the step difference in the data and use as the observed output $Y_t$. In a normal \ab{HMM} there is only emitted one output for each hidden state in a chain. In the Parson algorithm the model is changed to output two states from the hidden states $X_t$ and $Y_t$. This creates a model structure that can be graphically illustrated as in Figure~\ref{Fig:ParsonModel}~\citep{RefWorks:28}. 
 
 \begin{figure}[H]
 \begin{picture}(0,140)
@@ -147,7 +147,7 @@ The algorithm is based on a kind of HMM called "difference HMM" since they take 
 \put(215,115){$S_3$}
 \put(326,115){$S_T$}
 \end{picture}
-\caption[Parson hidden Markov model structure.]{Parson hidden Markov model structure. Source \citep{RefWorks:28}}
+\caption[Parson hidden Markov model structure.]{Parson hidden Markov model structure. Source \citep{RefWorks:28}.}
 \label{Fig:ParsonModel}
 \end{figure}
 
@@ -190,12 +190,12 @@ The algorithm looks for significant power changes in the data. If a change is fo
 \section{The ECO Dataset}
 The experiments in this chapter will be done on the \ab{ECO}[Electricity Consumption and Occupancy] dataset~\citep{RefWorks:26},~\citep{RefWorks:27}. The dataset consists of electricity consumption measured from six households that have been equipped with sub-meters on selected meters and the main meter. The data is collected in Switzerland in the period June 2012 to January 2012. 
 
-The data is sampled with a resolution on 1 Hz on both the sub-meters and the main meter. The main meter data contains information about real and reactive power, where on the sub-meter only real power is measured. 
+The data is sampled with a resolution on 1 Hz on both the sub-meters and the main meter. The main meter data contains information about real and reactive power. On the sub-meter only real power is measured. 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/ECOHouses.png}
-\caption[House energy distribution.]{House energy distribution. Source \citep{RefWorks:26}}
+\caption[House energy distribution.]{House energy distribution. Source \citep{RefWorks:26}.}
 \label{fig:EHD}
 \end{figure}
 
@@ -227,11 +227,11 @@ The F1 and accuracy score is calculated as shown in Equation~\ref{EQ:F1} and Equ
 		accuracy = \frac{TP+TN}{TN+TP+FN+FP} \label{EQ:ACC}
 \end{gather}
 
-The F1 score is mainly focused on how well the system guesses the the events, and do not score the true negatives. The accuracy is slightly different in that it looks at how many correct guesses there are in relation to the total amount of guesses. For a \ab{NILM} application the accuracy score on its own is not a very representative metric since some appliances have way more OFF time than ON time \citep{RefWorks:35}. To guess that an appliance is OFF is just as good at guessing that it is ON for the accuracy score. Appliances that are mostly OFF can therefore get a high accuracy score even though it is hard to determine when they are ON. Therefore is it necessary also to look at the F1-score. This score tells how accurate it can be guessed when an appliance is ON. This is done by combining the recall, that tells how many true positive was guess correctly in relation to the total amount of positives, as described by Equation~\ref{EQ:recall}, and the precision that is the ratio of correct guessed positives events in relation to all positive guesses, as shown in Equation~\ref{EQ:prec}. 
+The F1 score is mainly focused on how well the system guesses the ON events, and do not score the true negatives. The accuracy is slightly different in that it looks at how many correct guesses there are in relation to the total amount of guesses. For a \ab{NILM} application the accuracy score on its own is not a very representative metric since some appliances have way more OFF time than ON time \citep{RefWorks:35}. To guess that an appliance is OFF is just as good at guessing that it is ON for the accuracy score. Appliances that are mostly OFF can therefore get a high accuracy score even though it is hard to determine when they are ON. Therefore is it necessary also to look at the F1-score. This score tells how accurate it can be guessed when an appliance is ON. This is done by combining the recall, that tells how many true positive was guess correctly in relation to the total amount of positives, as described by Equation~\ref{EQ:recall}, and the precision that is the ratio of correct guessed positives events in relation to all positive guesses, as shown in Equation~\ref{EQ:prec}. 
 
 Five appliances have been selected from the \ab{ECO} dataset house 2. The appliances have been selected so there is some top and some little consumers. The appliances selected are: water kettle, fridge, TV, stereo and Laptop. All the methods will be traind using a training period of 15 days and validated on 75 days of data. 
 
-\subsection{Sample rate experiment}
+\subsection{Sample Rate Experiment}
 Common for the three methods is that they are designed for signals sampled at low sample rates in the sub 1 Hz rate. To determine the sensitivity, on the sample rate, is an experiment conducted where the dataset is downsampled to simulate different sampling rates. The downsampling is done by applying a mean filter, so the new sample will be the average values of the samples in a specific period. This method is selected since it is the assumed behaviour of a meter that transmits samples at low rates. 
 
 The results shown in Figure~\ref{fig:DSE} illustrates the average score of the different algorithms when recognising the five appliances discussed in Section~\ref{sec:VOM}. 
@@ -252,7 +252,7 @@ The results shown in Figure~\ref{fig:DSE} is the average for all appliances. The
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/App-AccuracyScore.png}
-\caption{Appliances accuracy score}
+\caption{Appliances accuracy score.}
 \label{fig:AccGS}
 \end{figure}
 
@@ -266,7 +266,7 @@ Since the accuracy score is dominated by the OFF periods, the F1 score is also s
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/App-F1Score.png}
-\caption{Appliances F1 score}
+\caption{Appliances F1 score.}
 \label{fig:AppF1}
 \end{figure}
 
@@ -279,7 +279,7 @@ As discussed in Chapter~\ref{Sec:DataQuality} is the data collected often filled
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/AlgoErrorRate.png}
-\caption{Algorithm validation at different error rate}
+\caption{Algorithm validation at different error rate.}
 \label{fig:ErrorEx}
 \end{figure}
 
@@ -298,7 +298,7 @@ In Chapter~\ref{Sec:GapFill} six methods of gap filling was evaluated. It turned
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/EcoRecError.png}
-\caption{Average recognition after recovery of the 3 methods}
+\caption{Average recognition after recovery of the 3 methods.}
 \label{fig:GER}
 \end{figure}
 
@@ -314,7 +314,7 @@ To ensure that it is not one recognition method that courses the bad performance
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/Rec-FHMM.png}
-\caption{Recovery in FHMM algorithm}
+\caption{Recovery in FHMM algorithm.}
 \label{fig:ERFHMM}
 \end{figure}
 
@@ -325,7 +325,7 @@ In Figure~\ref{fig:ERFHMM} is the result from the reconstruction with the \ab{FH
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/Rec-Parson.png}
-\caption{Recovery in Parson algorithm}
+\caption{Recovery in Parson algorithm.}
 \label{fig:ERPARSON}
 \end{figure}
 
@@ -337,7 +337,7 @@ The parson algorithm looks at jumps in the power, and uses a moving window mean 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{billeder/Rec-Weiss.png}
-\caption{Recovery in Weiss algorithm}
+\caption{Recovery in Weiss algorithm.}
 \label{fig:ERWEISS}
 \end{figure}
 
@@ -350,6 +350,6 @@ The low score indicates that the method in itself is struggling to identify the 
 \section{Chapter Summary}
 In the chapter the effects of errors and gaps in the dataset is investigated. It is shown that a system that simply ignores that errors will perform worse than one that ties to do some compensation. The amount and type of compensation is shown to be very signal depended. In general is a simple linear interpolation enough when using algorithms that are designed for low frequency signals. 
 
-The resolution of the samples seems to have an effect of the performance. The algorithms in focus are designed to low frequency signals, even so it is shown that the small variations created in higher resolution can improve the performance. This is working with the assumption that the instantaneous power consumption received from the smart meter is an average of the power consumption since the last sample. 
+The resolution of the samples seems to have an effect of the performance. The algorithms in focus are designed to low frequency signals. Even so, it is shown that the small variations created in higher resolution can improve the performance. This is working with the assumption that the instantaneous power consumption received from the smart meter is an average of the power consumption since the last sample. 
 
 There is also indications of that some appliances is more easily detected by some algorithms, and other appliances by other algorithms. This indicates that it is very likely that a greater performance can be achieved by mixing algorithms depended on the appliances.
